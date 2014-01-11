@@ -1,0 +1,39 @@
+# Processing options
+--verbose
+--formatted
+--lineend=linux
+--ignore-exclude-errors-x
+--exclude=data
+--exclude=lib
+--exclude=saves
+--exclude=swig
+--exclude=HactEngine.*
+--suffix=~
+
+# Bracket style
+--style=attach --break-closing-brackets --add-brackets
+
+# Indentation
+--convert-tabs --indent=spaces=4
+--indent-namespaces --indent-classes
+--indent-switches --indent-cases
+--min-conditional-indent=0
+--indent-col1-comments
+--indent-preprocessor --indent-preproc-cond
+--indent-labels
+--fill-empty-lines
+
+# Padding
+--pad-oper
+--pad-header --unpad-paren
+--break-blocks
+
+# SWIG can't handle this, try again if SWIG starts supporting C++11
+#--close-templates
+
+# Pointer and reference alignment
+--align-pointer=type --align-reference=name
+
+# Line length
+--max-code-length=120
+
