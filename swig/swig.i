@@ -5,43 +5,43 @@
 
 // Includes
 %{
-    #include "../act.h"
-    #include "../actmanager.h"
-    #include "../audio.h"
-    #include "../audiomanager.h"
-    #include "../camera.h"
-    #include "../chronotime.h"
-    #include "../collisionarea.h"
-    #include "../collisionshape.h"
-    #include "../collisionvector.h"
-    #include "../cursor.h"
-    #include "../debug.h"
-    #include "../dialog.h"
-    #include "../dialogline.h"
-    #include "../editorwindow.h"
-    #include "../entity.h"
-    #include "../gameengine.h"
-    #include "../gamestate.h"
-    #include "../gamestatemanager.h"
-    #include "../hierarchyobject.h"
-    #include "../input.h"
-    #include "../interface.h"
-    #include "../interfaceelement.h"
-    #include "../interfacebutton.h"
-    #include "../qtquickmanager.h"
-    #include "../qtquickwrapper.h"
-    #include "../scriptingengine.h"
-    #include "../scriptingwrapper.h"
-    #include "../shadervariable.h"
-    #include "../shape.h"
-    #include "../sprite.h"
-    #include "../spritesheet.h"
-    #include "../text.h"
-    #include "../texture.h"
-    #include "../trigger.h"
-    #include "../util.h"
-    #include "../xmlelement.h"
-    #include "../xmlutils.h"
+    #include "../../act.h"
+    #include "../../actmanager.h"
+    #include "../../audio.h"
+    #include "../../audiomanager.h"
+    #include "../../camera.h"
+    #include "../../chronotime.h"
+    #include "../../collisionarea.h"
+    #include "../../collisionshape.h"
+    #include "../../collisionvector.h"
+    #include "../../cursor.h"
+    #include "../../debug.h"
+    #include "../../dialog.h"
+    #include "../../dialogline.h"
+    #include "../../editorwindow.h"
+    #include "../../entity.h"
+    #include "../../gameengine.h"
+    #include "../../gamestate.h"
+    #include "../../gamestatemanager.h"
+    #include "../../hierarchyobject.h"
+    #include "../../input.h"
+    #include "../../interface.h"
+    #include "../../interfaceelement.h"
+    #include "../../interfacebutton.h"
+    #include "../../qtquickmanager.h"
+    #include "../../qtquickwrapper.h"
+    #include "../../scriptingengine.h"
+    #include "../../scriptingwrapper.h"
+    #include "../../shadervariable.h"
+    #include "../../shape.h"
+    #include "../../sprite.h"
+    #include "../../spritesheet.h"
+    #include "../../text.h"
+    #include "../../texture.h"
+    #include "../../trigger.h"
+    #include "../../util.h"
+    #include "../../xmlelement.h"
+    #include "../../xmlutils.h"
 %}
 
 
@@ -85,96 +85,96 @@ namespace std {
 
 
 // HierarchyObject
-%include "../hierarchyobject.h"
+%include "../../hierarchyobject.h"
 //%template(EditorWindowHierarchyObject) HierarchyObject<EditorWindow>;
 %template(EntityHierarchyObject)       HierarchyObject<Entity>;
 %template(TransformHierarchyObject)    HierarchyObject<Transform>;
 
 
 // Act and ActManager
-%include "../act.h"
-%include "../actmanager.h"
+%include "../../act.h"
+%include "../../actmanager.h"
 
 // Audio and AudioManager
-%include "../audio.h"
-%include "../audiomanager.h"
+%include "../../audio.h"
+%include "../../audiomanager.h"
 
 // Camera
-%include "../camera.h"
+%include "../../camera.h"
 
 // ChronoTime
-%include "../chronotime.h"
+%include "../../chronotime.h"
 
 // CollisionArea and the classes it needs
-%include "../collisionvector.h"
-%include "../collisionshape.h"
-%include "../collisionarea.h"
+%include "../../collisionvector.h"
+%include "../../collisionshape.h"
+%include "../../collisionarea.h"
 
 // Cursor
-%include "../cursor.h"
+%include "../../cursor.h"
 
 // Debug
-%include "../debug.h"
+%include "../../debug.h"
 
 // Dialog and DialogLine
-%include "../dialog.h"
-//%include "../dialogline.h"
+%include "../../dialog.h"
+//%include "../../dialogline.h"
 
 // EditorWindow and EditorWindowManager
-%include "../editorwindow.h"
+%include "../../editorwindow.h"
 
 // Entity
-%include "../entity.h"
+%include "../../entity.h"
 
 // GameEngine
-%include "../gameengine.h"
+%include "../../gameengine.h"
 
 // GameState and GameStateManager
-%include "../gamestate.h"
-%include "../gamestatemanager.h"
+%include "../../gamestate.h"
+%include "../../gamestatemanager.h"
 
 // Input
-%include "../input.h"
+%include "../../input.h"
 
 // Interface and the classes it needs
-%include "../interface.h"
-%include "../interfaceelement.h"
-%include "../interfacebutton.h"
+%include "../../interface.h"
+%include "../../interfaceelement.h"
+%include "../../interfacebutton.h"
 
 // QtQuickManager and QtQuickWrapper
-%include "../qtquickmanager.h"
-%include "../qtquickwrapper.h"
+%include "../../qtquickmanager.h"
+%include "../../qtquickwrapper.h"
 
 // ScriptingEngine
-%include "../scriptingengine.h"
+%include "../../scriptingengine.h"
 
 // ScriptingWrapper
-%include "../scriptingwrapper.h"
+%include "../../scriptingwrapper.h"
 
 // ShaderVariable
-%include "../shadervariable.h"
+%include "../../shadervariable.h"
 
 // Shape
-%include "../shape.h"
+%include "../../shape.h"
 
 // Sprite and SpriteSheet
-%include "../sprite.h"
-%include "../spritesheet.h"
+%include "../../sprite.h"
+%include "../../spritesheet.h"
 
 // Text
-//%include "../text.h"
+//%include "../../text.h"
 
 // Texture
-%include "../texture.h"
+%include "../../texture.h"
 
 // Trigger
-%include "../trigger.h"
+%include "../../trigger.h"
 
 // Util
-%include "../util.h"
+%include "../../util.h"
 
 // XmlElement and XmlUtils
-%include "../xmlelement.h"
-%include "../xmlutils.h"
+%include "../../xmlelement.h"
+%include "../../xmlutils.h"
 
 #endif // defined SWIG
