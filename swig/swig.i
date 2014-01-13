@@ -9,7 +9,6 @@
     #include "../../actmanager.h"
     #include "../../audio.h"
     #include "../../audiomanager.h"
-    #include "../../camera.h"
     #include "../../chronotime.h"
     #include "../../collisionarea.h"
     #include "../../collisionshape.h"
@@ -98,9 +97,6 @@ namespace std {
 // Audio and AudioManager
 %include "../../audio.h"
 %include "../../audiomanager.h"
-
-// Camera
-%include "../../camera.h"
 
 // ChronoTime
 %include "../../chronotime.h"
