@@ -32,7 +32,7 @@
     //#include "../../propertyfloat.h"
     //#include "../../propertyinteger.h"
     #include "../../propertymatrix.h"
-    //#include "../../propertystring.h"
+    #include "../../propertystring.h"
     #include "../../propertyvector.h"
     #include "../../qtquickmanager.h"
     #include "../../qtquickwrapper.h"
@@ -150,7 +150,7 @@ namespace std {
 //%include "../../propertyfloat.h"
 //%include "../../propertyinteger.h"
 %include "../../propertymatrix.h"
-//%include "../../propertystring.h"
+%include "../../propertystring.h"
 %include "../../propertyvector.h"
 
 // QtQuickManager and QtQuickWrapper
