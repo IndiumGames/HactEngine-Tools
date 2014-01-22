@@ -4,9 +4,8 @@
 --lineend=linux
 --ignore-exclude-errors-x
 --exclude=data
---exclude=lib
 --exclude=saves
---exclude=swig
+--exclude=tools
 --exclude=HactEngine.*
 --suffix=~
 
@@ -16,7 +15,7 @@
 # Indentation
 --convert-tabs --indent=spaces=4
 --indent-namespaces --indent-classes
---indent-switches --indent-cases
+--indent-switches
 --min-conditional-indent=0
 --indent-col1-comments
 --indent-preprocessor --indent-preproc-cond
@@ -36,4 +35,3 @@
 
 # Line length
 --max-code-length=120
-
