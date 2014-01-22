@@ -27,6 +27,13 @@
     #include "../../interface.h"
     #include "../../interfaceelement.h"
     #include "../../interfacebutton.h"
+    #include "../../property.h"
+    //#include "../../propertyboolean.h"
+    //#include "../../propertyfloat.h"
+    //#include "../../propertyinteger.h"
+    #include "../../propertymatrix.h"
+    //#include "../../propertystring.h"
+    #include "../../propertyvector.h"
     #include "../../qtquickmanager.h"
     #include "../../qtquickwrapper.h"
     #include "../../scriptingengine.h"
@@ -136,6 +143,15 @@ namespace std {
 %include "../../interface.h"
 %include "../../interfaceelement.h"
 %include "../../interfacebutton.h"
+
+// Property and derived classes
+%include "../../property.h"
+//%include "../../propertyboolean.h"
+//%include "../../propertyfloat.h"
+//%include "../../propertyinteger.h"
+%include "../../propertymatrix.h"
+//%include "../../propertystring.h"
+%include "../../propertyvector.h"
 
 // QtQuickManager and QtQuickWrapper
 %include "../../qtquickmanager.h"
