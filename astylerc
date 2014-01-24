@@ -25,7 +25,6 @@
 # Padding
 --pad-oper
 --pad-header --unpad-paren
---break-blocks
 
 # SWIG can't handle this, try again if SWIG starts supporting C++11
 #--close-templates
