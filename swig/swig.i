@@ -28,6 +28,7 @@
     #include "../../interface.h"
     #include "../../interfaceelement.h"
     #include "../../interfacebutton.h"
+    #include "../../logger.h"
     #include "../../qtquickmanager.h"
     #include "../../qtquickwrapper.h"
     #include "../../scriptingengine.h"
@@ -38,6 +39,7 @@
     #include "../../spritesheet.h"
     #include "../../text.h"
     #include "../../texture.h"
+    #include "../../threadsafequeue.h"
     #include "../../trigger.h"
     #include "../../util.h"
     #include "../../xmlelement.h"
@@ -140,6 +142,10 @@ namespace std {
 %include "../../interface.h"
 %include "../../interfaceelement.h"
 %include "../../interfacebutton.h"
+
+// Logger and ThreadSafeQueue
+%include "../../logger.h"
+%include "../../threadsafequeue.h"
 
 // QtQuickManager and QtQuickWrapper
 %include "../../qtquickmanager.h"
