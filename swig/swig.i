@@ -9,7 +9,6 @@
     #include "../../actmanager.h"
     #include "../../audio.h"
     #include "../../audiomanager.h"
-    #include "../../camera.h"
     #include "../../chronotime.h"
     #include "../../collisionarea.h"
     #include "../../collisionshape.h"
@@ -30,6 +29,13 @@
     #include "../../interfacebutton.h"
     #include "../../logger.h"
     #include "../../logqueue.h"
+    #include "../../property.h"
+    #include "../../propertyboolean.h"
+    #include "../../propertyfloat.h"
+    #include "../../propertyinteger.h"
+    #include "../../propertymatrix.h"
+    #include "../../propertystring.h"
+    #include "../../propertyvector.h"
     #include "../../qtquickmanager.h"
     #include "../../qtquickwrapper.h"
     #include "../../scriptingengine.h"
@@ -101,9 +107,6 @@ namespace std {
 %include "../../audio.h"
 %include "../../audiomanager.h"
 
-// Camera
-%include "../../camera.h"
-
 // ChronoTime
 %include "../../chronotime.h"
 
@@ -146,6 +149,15 @@ namespace std {
 // Logger and LogQueue
 %include "../../logger.h"
 %include "../../logqueue.h"
+
+// Property and derived classes
+%include "../../property.h"
+%include "../../propertyboolean.h"
+%include "../../propertyfloat.h"
+%include "../../propertyinteger.h"
+%include "../../propertymatrix.h"
+%include "../../propertystring.h"
+%include "../../propertyvector.h"
 
 // QtQuickManager and QtQuickWrapper
 %include "../../qtquickmanager.h"
