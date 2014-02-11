@@ -40,6 +40,7 @@
     #include "../../propertyvector.h"
     #include "../../qtquickmanager.h"
     #include "../../qtquickwrapper.h"
+    #include "../../resourcemanager.h"
     #include "../../scriptingengine.h"
     #include "../../scriptingwrapper.h"
     #include "../../shadervariable.h"
@@ -166,6 +167,9 @@ namespace std {
 // QtQuickManager and QtQuickWrapper
 %include "../../qtquickmanager.h"
 %include "../../qtquickwrapper.h"
+
+// ResourceManager
+%include "../../resourcemanager.h"
 
 // ScriptingEngine
 %include "../../scriptingengine.h"
