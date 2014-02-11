@@ -28,6 +28,8 @@
     #include "../../interfaceelement.h"
     #include "../../interfacebutton.h"
     #include "../../logger.h"
+    #include "../../loglistener.h"
+    #include "../../logmessage.h"
     #include "../../logqueue.h"
     #include "../../property.h"
     #include "../../propertyboolean.h"
@@ -146,8 +148,10 @@ namespace std {
 %include "../../interfaceelement.h"
 %include "../../interfacebutton.h"
 
-// Logger and LogQueue
+// Logging
 %include "../../logger.h"
+%include "../../loglistener.h"
+%include "../../logmessage.h"
 %include "../../logqueue.h"
 
 // Property and derived classes
