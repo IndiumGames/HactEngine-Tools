@@ -31,6 +31,7 @@
     #include "../../loglistener.h"
     #include "../../logmessage.h"
     #include "../../logqueue.h"
+    #include "../../mesh.h"
     #include "../../property.h"
     #include "../../propertyboolean.h"
     #include "../../propertyfloat.h"
@@ -44,7 +45,6 @@
     #include "../../scriptingengine.h"
     #include "../../scriptingwrapper.h"
     #include "../../shadervariable.h"
-    #include "../../shape.h"
     #include "../../sprite.h"
     #include "../../spritesheet.h"
     #include "../../text.h"
@@ -155,6 +155,9 @@ namespace std {
 %include "../../logmessage.h"
 %include "../../logqueue.h"
 
+// Mesh
+%include "../../mesh.h"
+
 // Property and derived classes
 %include "../../property.h"
 %include "../../propertyboolean.h"
@@ -179,9 +182,6 @@ namespace std {
 
 // ShaderVariable
 %include "../../shadervariable.h"
-
-// Shape
-%include "../../shape.h"
 
 // Sprite and SpriteSheet
 %include "../../sprite.h"
