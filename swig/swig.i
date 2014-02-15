@@ -14,8 +14,6 @@
     #include "../../collisionshape.h"
     #include "../../collisionvector.h"
     #include "../../debug.h"
-    #include "../../dialog.h"
-    #include "../../dialogline.h"
     #include "../../editorwindow.h"
     #include "../../entity.h"
     #include "../../gameengine.h"
@@ -41,8 +39,6 @@
     #include "../../scriptingengine.h"
     #include "../../scriptingwrapper.h"
     #include "../../shadervariable.h"
-    #include "../../sprite.h"
-    #include "../../spritesheet.h"
     #include "../../text.h"
     #include "../../texture.h"
     #include "../../util.h"
@@ -113,10 +109,6 @@ namespace std {
 // Debug
 %include "../../debug.h"
 
-// Dialog and DialogLine
-%include "../../dialog.h"
-//%include "../../dialogline.h"
-
 // EditorWindow and EditorWindowManager
 %include "../../editorwindow.h"
 
@@ -166,10 +158,6 @@ namespace std {
 
 // ShaderVariable
 %include "../../shadervariable.h"
-
-// Sprite and SpriteSheet
-%include "../../sprite.h"
-%include "../../spritesheet.h"
 
 // Text
 //%include "../../text.h"
