@@ -49,7 +49,6 @@
     #include "../../spritesheet.h"
     #include "../../text.h"
     #include "../../texture.h"
-    #include "../../trigger.h"
     #include "../../util.h"
     #include "../../xmlelement.h"
     #include "../../xmlutils.h"
@@ -192,9 +191,6 @@ namespace std {
 
 // Texture
 %include "../../texture.h"
-
-// Trigger
-%include "../../trigger.h"
 
 // Util
 %include "../../util.h"
