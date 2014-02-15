@@ -13,7 +13,6 @@
     #include "../../collisionarea.h"
     #include "../../collisionshape.h"
     #include "../../collisionvector.h"
-    #include "../../cursor.h"
     #include "../../debug.h"
     #include "../../dialog.h"
     #include "../../dialogline.h"
@@ -24,9 +23,6 @@
     #include "../../gamestatemanager.h"
     #include "../../hierarchyobject.h"
     #include "../../input.h"
-    #include "../../interface.h"
-    #include "../../interfaceelement.h"
-    #include "../../interfacebutton.h"
     #include "../../logger.h"
     #include "../../loglistener.h"
     #include "../../logmessage.h"
@@ -87,10 +83,7 @@ namespace std {
     %template(DoubleVector)  vector<double>;
     %template(StringVector)  vector<string>;
     
-    %template(InterfaceElementPointerVector) vector<InterfaceElement*>;
-    %template(InterfaceButtonPointerVector)  vector<InterfaceButton*>;
     %template(EntityPointerVector)           vector<Entity*>;
-    //%template(HierarchyObjectPointerVector)  vector<HierarchyObject*>;
 };
 
 
@@ -117,9 +110,6 @@ namespace std {
 %include "../../collisionshape.h"
 %include "../../collisionarea.h"
 
-// Cursor
-%include "../../cursor.h"
-
 // Debug
 %include "../../debug.h"
 
@@ -142,11 +132,6 @@ namespace std {
 
 // Input
 %include "../../input.h"
-
-// Interface and the classes it needs
-%include "../../interface.h"
-%include "../../interfaceelement.h"
-%include "../../interfacebutton.h"
 
 // Logging
 %include "../../logger.h"
