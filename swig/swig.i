@@ -17,8 +17,6 @@
     #include "../../editorwindow.h"
     #include "../../entity.h"
     #include "../../gameengine.h"
-    #include "../../gamestate.h"
-    #include "../../gamestatemanager.h"
     #include "../../hierarchyobject.h"
     #include "../../input.h"
     #include "../../logger.h"
@@ -117,10 +115,6 @@ namespace std {
 
 // GameEngine
 %include "../../gameengine.h"
-
-// GameState and GameStateManager
-%include "../../gamestate.h"
-%include "../../gamestatemanager.h"
 
 // Input
 %include "../../input.h"
