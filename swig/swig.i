@@ -5,8 +5,6 @@
 
 // Includes
 %{
-    #include "../../act.h"
-    #include "../../actmanager.h"
     #include "../../audio.h"
     #include "../../audiomanager.h"
     #include "../../chronotime.h"
@@ -87,10 +85,6 @@ namespace std {
 %template(EntityHierarchyObject)       HierarchyObject<Entity>;
 %template(TransformHierarchyObject)    HierarchyObject<Transform>;
 
-
-// Act and ActManager
-%include "../../act.h"
-%include "../../actmanager.h"
 
 // Audio and AudioManager
 %include "../../audio.h"
