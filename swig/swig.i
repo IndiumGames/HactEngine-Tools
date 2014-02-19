@@ -34,7 +34,7 @@
     #include "../../resourcemanager.h"
     #include "../../scriptingengine.h"
     #include "../../scriptingwrapper.h"
-    #include "../../shadervariable.h"
+    #include "../../shaderprogram.h"
     #include "../../text.h"
     #include "../../texture.h"
     #include "../../util.h"
@@ -144,8 +144,8 @@ namespace std {
 // ScriptingWrapper
 %include "../../scriptingwrapper.h"
 
-// ShaderVariable
-%include "../../shadervariable.h"
+// ShaderProgram
+%include "../../shaderprogram.h"
 
 // Text
 //%include "../../text.h"
