@@ -17,6 +17,7 @@
 --indent-namespaces --indent-classes
 --indent-switches
 --min-conditional-indent=0
+--max-instatement-indent=60
 --indent-col1-comments
 --indent-preprocessor --indent-preproc-cond
 --indent-labels
