@@ -32,6 +32,7 @@
     #include "../../qtquickmanager.h"
     #include "../../qtquickwrapper.h"
     #include "../../resourcemanager.h"
+    #include "../../resourceutil.h"
     #include "../../scriptingengine.h"
     #include "../../scriptingwrapper.h"
     #include "../../shaderprogram.h"
@@ -135,8 +136,9 @@ namespace std {
 %include "../../qtquickmanager.h"
 %include "../../qtquickwrapper.h"
 
-// ResourceManager
+// ResourceManager and ResourceUtil
 %include "../../resourcemanager.h"
+%include "../../resourceutil.h"
 
 // ScriptingEngine
 %include "../../scriptingengine.h"
