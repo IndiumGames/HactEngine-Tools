@@ -5,40 +5,39 @@
 
 // Includes
 %{
-    #include "../../act.h"
-    #include "../../actmanager.h"
     #include "../../audio.h"
     #include "../../audiomanager.h"
-    #include "../../camera.h"
     #include "../../chronotime.h"
     #include "../../collisionarea.h"
     #include "../../collisionshape.h"
     #include "../../collisionvector.h"
-    #include "../../cursor.h"
     #include "../../debug.h"
-    #include "../../dialog.h"
-    #include "../../dialogline.h"
     #include "../../editorwindow.h"
     #include "../../entity.h"
     #include "../../gameengine.h"
-    #include "../../gamestate.h"
-    #include "../../gamestatemanager.h"
     #include "../../hierarchyobject.h"
     #include "../../input.h"
-    #include "../../interface.h"
-    #include "../../interfaceelement.h"
-    #include "../../interfacebutton.h"
+    #include "../../logger.h"
+    #include "../../loglistener.h"
+    #include "../../logmessage.h"
+    #include "../../logqueue.h"
+    #include "../../mesh.h"
+    #include "../../property.h"
+    #include "../../propertyboolean.h"
+    #include "../../propertyfloat.h"
+    #include "../../propertyinteger.h"
+    #include "../../propertymatrix.h"
+    #include "../../propertystring.h"
+    #include "../../propertyvector.h"
     #include "../../qtquickmanager.h"
     #include "../../qtquickwrapper.h"
+    #include "../../resourcemanager.h"
+    #include "../../resourceutil.h"
     #include "../../scriptingengine.h"
     #include "../../scriptingwrapper.h"
-    #include "../../shadervariable.h"
-    #include "../../shape.h"
-    #include "../../sprite.h"
-    #include "../../spritesheet.h"
+    #include "../../shaderprogram.h"
     #include "../../text.h"
     #include "../../texture.h"
-    #include "../../trigger.h"
     #include "../../util.h"
     #include "../../xmlelement.h"
     #include "../../xmlutils.h"
@@ -72,15 +71,13 @@
 
 // Instantiate different types of vectors
 namespace std {
-    %template(IntVector)     vector<int>;
+    %template(Int32Vector)   vector<int32_t>;
+    %template(Int64Vector)   vector<int64_t>;
     %template(FloatVector)   vector<float>;
     %template(DoubleVector)  vector<double>;
     %template(StringVector)  vector<string>;
     
-    %template(InterfaceElementPointerVector) vector<InterfaceElement*>;
-    %template(InterfaceButtonPointerVector)  vector<InterfaceButton*>;
     %template(EntityPointerVector)           vector<Entity*>;
-    //%template(HierarchyObjectPointerVector)  vector<HierarchyObject*>;
 };
 
 
@@ -88,19 +85,12 @@ namespace std {
 %include "../../hierarchyobject.h"
 //%template(EditorWindowHierarchyObject) HierarchyObject<EditorWindow>;
 %template(EntityHierarchyObject)       HierarchyObject<Entity>;
-%template(TransformHierarchyObject)    HierarchyObject<Transform>;
+//%template(TransformHierarchyObject)    HierarchyObject<Transform>;
 
-
-// Act and ActManager
-%include "../../act.h"
-%include "../../actmanager.h"
 
 // Audio and AudioManager
 %include "../../audio.h"
 %include "../../audiomanager.h"
-
-// Camera
-%include "../../camera.h"
 
 // ChronoTime
 %include "../../chronotime.h"
@@ -110,15 +100,8 @@ namespace std {
 %include "../../collisionshape.h"
 %include "../../collisionarea.h"
 
-// Cursor
-%include "../../cursor.h"
-
 // Debug
 %include "../../debug.h"
-
-// Dialog and DialogLine
-%include "../../dialog.h"
-//%include "../../dialogline.h"
 
 // EditorWindow and EditorWindowManager
 %include "../../editorwindow.h"
@@ -129,21 +112,34 @@ namespace std {
 // GameEngine
 %include "../../gameengine.h"
 
-// GameState and GameStateManager
-%include "../../gamestate.h"
-%include "../../gamestatemanager.h"
-
 // Input
 %include "../../input.h"
 
-// Interface and the classes it needs
-%include "../../interface.h"
-%include "../../interfaceelement.h"
-%include "../../interfacebutton.h"
+// Logging
+%include "../../logger.h"
+%include "../../loglistener.h"
+%include "../../logmessage.h"
+%include "../../logqueue.h"
+
+// Mesh
+%include "../../mesh.h"
+
+// Property and derived classes
+%include "../../property.h"
+%include "../../propertyboolean.h"
+%include "../../propertyfloat.h"
+%include "../../propertyinteger.h"
+%include "../../propertymatrix.h"
+%include "../../propertystring.h"
+%include "../../propertyvector.h"
 
 // QtQuickManager and QtQuickWrapper
 %include "../../qtquickmanager.h"
 %include "../../qtquickwrapper.h"
+
+// ResourceManager and ResourceUtil
+%include "../../resourcemanager.h"
+%include "../../resourceutil.h"
 
 // ScriptingEngine
 %include "../../scriptingengine.h"
@@ -151,24 +147,14 @@ namespace std {
 // ScriptingWrapper
 %include "../../scriptingwrapper.h"
 
-// ShaderVariable
-%include "../../shadervariable.h"
-
-// Shape
-%include "../../shape.h"
-
-// Sprite and SpriteSheet
-%include "../../sprite.h"
-%include "../../spritesheet.h"
+// ShaderProgram
+%include "../../shaderprogram.h"
 
 // Text
 //%include "../../text.h"
 
 // Texture
 %include "../../texture.h"
-
-// Trigger
-%include "../../trigger.h"
 
 // Util
 %include "../../util.h"
