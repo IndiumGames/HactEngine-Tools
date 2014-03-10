@@ -72,12 +72,17 @@
 // Instantiate different types of vectors
 namespace std {
     %template(Int32Vector)   vector<int32_t>;
+    %template(UInt32Vector)  vector<uint32_t>;
     %template(Int64Vector)   vector<int64_t>;
+    %template(UInt64Vector)  vector<uint64_t>;
     %template(FloatVector)   vector<float>;
     %template(DoubleVector)  vector<double>;
     %template(StringVector)  vector<string>;
     
-    %template(EntityPointerVector)           vector<Entity*>;
+    %template(EntityPointerVector) vector<Entity*>;
+    
+    %template(PropertyPointerVector) vector<Property*>;
+    %template(ShaderProgramPointerVector) vector<ShaderProgram*>;
 };
 
 
@@ -85,7 +90,6 @@ namespace std {
 %include "../../hierarchyobject.h"
 //%template(EditorWindowHierarchyObject) HierarchyObject<EditorWindow>;
 %template(EntityHierarchyObject)       HierarchyObject<Entity>;
-//%template(TransformHierarchyObject)    HierarchyObject<Transform>;
 
 
 // Audio and AudioManager
