@@ -80,10 +80,6 @@ namespace std {
 };
 
 
-// OpenGL typedefs, defines and functions
-%include "opengl_swig.h"
-
-
 // HierarchyObject
 %include "../../hierarchyobject.h"
 //%template(EditorWindowHierarchyObject) HierarchyObject<EditorWindow>;
