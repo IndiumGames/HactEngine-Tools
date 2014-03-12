@@ -1,4 +1,5 @@
 #if defined SWIG
+
 // Module name
 %module Hact
 
