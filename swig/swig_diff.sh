@@ -31,7 +31,7 @@ if [ ! -f swig_wrap.cxx ]; then
 fi
 
 # Compare 'swig_wrap.temp' and 'swig_wrap.cxx'
-if [ ! diff -q swig_wrap.temp swig_wrap.cxx > /dev/null ]; then
+if ! diff -q swig_wrap.temp swig_wrap.cxx > /dev/null; then
     # The files are different, replace 'swig_wrap.cxx' with 'swig_wrap.temp'
     rm swig_wrap.cxx
     mv swig_wrap.temp swig_wrap.cxx
