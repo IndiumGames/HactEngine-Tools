@@ -62,7 +62,8 @@
 }
 
 // Vector support
-%include <std_vector.i>
+//%include <std_vector.i>
+%include "std_vector_improved.i"
 
 // Instantiate different types of vectors
 namespace std {
