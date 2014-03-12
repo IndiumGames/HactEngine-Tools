@@ -2,55 +2,51 @@
 // Module name
 %module Hact
 
-
-// Includes
 %{
-    #include "../../audio.h"
-    #include "../../audiomanager.h"
-    #include "../../chronotime.h"
-    #include "../../collisionarea.h"
-    #include "../../collisionshape.h"
-    #include "../../collisionvector.h"
-    #include "../../debug.h"
-    #include "../../editorwindow.h"
-    #include "../../entity.h"
-    #include "../../gameengine.h"
-    #include "../../hierarchyobject.h"
-    #include "../../input.h"
-    #include "../../logger.h"
-    #include "../../loglistener.h"
-    #include "../../logmessage.h"
-    #include "../../logqueue.h"
-    #include "../../mesh.h"
-    #include "../../property.h"
-    #include "../../propertyboolean.h"
-    #include "../../propertyfloat.h"
-    #include "../../propertyinteger.h"
-    #include "../../propertymatrix.h"
-    #include "../../propertystring.h"
-    #include "../../propertyvector.h"
-    #include "../../qtquickmanager.h"
-    #include "../../qtquickwrapper.h"
-    #include "../../resourcemanager.h"
-    #include "../../resourceutil.h"
-    #include "../../scriptingengine.h"
-    #include "../../shaderprogram.h"
-    #include "../../text.h"
-    #include "../../texture.h"
-    #include "../../util.h"
-    #include "../../xmlelement.h"
-    #include "../../xmlutils.h"
+// Includes
+#include "../../audio.h"
+#include "../../audiomanager.h"
+#include "../../chronotime.h"
+#include "../../collisionarea.h"
+#include "../../collisionshape.h"
+#include "../../collisionvector.h"
+#include "../../debug.h"
+#include "../../editorwindow.h"
+#include "../../entity.h"
+#include "../../gameengine.h"
+#include "../../hierarchyobject.h"
+#include "../../input.h"
+#include "../../logger.h"
+#include "../../loglistener.h"
+#include "../../logmessage.h"
+#include "../../logqueue.h"
+#include "../../mesh.h"
+#include "../../property.h"
+#include "../../propertyboolean.h"
+#include "../../propertyfloat.h"
+#include "../../propertyinteger.h"
+#include "../../propertymatrix.h"
+#include "../../propertystring.h"
+#include "../../propertyvector.h"
+#include "../../qtquickmanager.h"
+#include "../../qtquickwrapper.h"
+#include "../../resourcemanager.h"
+#include "../../resourceutil.h"
+#include "../../scriptingengine.h"
+#include "../../shaderprogram.h"
+#include "../../text.h"
+#include "../../texture.h"
+#include "../../util.h"
+#include "../../xmlelement.h"
+#include "../../xmlutils.h"
 %}
-
 
 
 // Cross platform integer types
 %include <stdint.i>
 
-
 // String support
 %include <std_string.i>
-
 
 // Exception support
 %include <std_except.i>
@@ -63,7 +59,6 @@
         SWIG_exception(SWIG_RuntimeError, e.what());
     }
 }
-
 
 // Vector support
 %include <std_vector.i>
@@ -83,6 +78,10 @@ namespace std {
     %template(PropertyPointerVector) vector<Property*>;
     %template(ShaderProgramPointerVector) vector<ShaderProgram*>;
 };
+
+
+// OpenGL typedefs, defines and functions
+%include "opengl_swig.h"
 
 
 // HierarchyObject
