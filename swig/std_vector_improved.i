@@ -7,7 +7,6 @@
 %{
 #include <vector>
 //#include <iterator>
-#include <iostream>
 %}
 %include <std_except.i> // the general exceptions
 /*
