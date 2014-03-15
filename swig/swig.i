@@ -8,9 +8,6 @@
 #include "../../audio.h"
 #include "../../audiomanager.h"
 #include "../../chronotime.h"
-#include "../../collisionarea.h"
-#include "../../collisionshape.h"
-#include "../../collisionvector.h"
 #include "../../debug.h"
 #include "../../editorwindow.h"
 #include "../../entity.h"
@@ -94,11 +91,6 @@ namespace std {
 
 // ChronoTime
 %include "../../chronotime.h"
-
-// CollisionArea and the classes it needs
-%include "../../collisionvector.h"
-%include "../../collisionshape.h"
-%include "../../collisionarea.h"
 
 // Debug
 %include "../../debug.h"
