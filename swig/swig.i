@@ -33,6 +33,7 @@
 #include "../../src/scriptingengine.h"
 #include "../../src/shaderprogram.h"
 #include "../../src/text.h"
+#include "../../src/thread.h"
 #include "../../src/texture.h"
 #include "../../src/util.h"
 #include "../../src/xmlelement.h"
@@ -138,6 +139,9 @@ namespace std {
 
 // ShaderProgram
 %include "../../src/shaderprogram.h"
+
+// Thread
+%include "../../src/thread.h"
 
 // Text
 //%include "../../src/text.h"
