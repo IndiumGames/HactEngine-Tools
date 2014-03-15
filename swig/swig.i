@@ -5,38 +5,38 @@
 
 %{
 // Includes
-#include "../../audio.h"
-#include "../../audiomanager.h"
-#include "../../chronotime.h"
-#include "../../debug.h"
-#include "../../editorwindow.h"
-#include "../../entity.h"
-#include "../../gameengine.h"
-#include "../../hierarchyobject.h"
-#include "../../input.h"
-#include "../../logger.h"
-#include "../../loglistener.h"
-#include "../../logmessage.h"
-#include "../../logqueue.h"
-#include "../../mesh.h"
-#include "../../property.h"
-#include "../../propertyboolean.h"
-#include "../../propertyfloat.h"
-#include "../../propertyinteger.h"
-#include "../../propertymatrix.h"
-#include "../../propertystring.h"
-#include "../../propertyvector.h"
-#include "../../qtquickmanager.h"
-#include "../../qtquickwrapper.h"
-#include "../../resourcemanager.h"
-#include "../../resourceutil.h"
-#include "../../scriptingengine.h"
-#include "../../shaderprogram.h"
-#include "../../text.h"
-#include "../../texture.h"
-#include "../../util.h"
-#include "../../xmlelement.h"
-#include "../../xmlutils.h"
+#include "../../src/audio.h"
+#include "../../src/audiomanager.h"
+#include "../../src/chronotime.h"
+#include "../../src/debug.h"
+#include "../../src/editorwindow.h"
+#include "../../src/entity.h"
+#include "../../src/gameengine.h"
+#include "../../src/hierarchyobject.h"
+#include "../../src/input.h"
+#include "../../src/logger.h"
+#include "../../src/loglistener.h"
+#include "../../src/logmessage.h"
+#include "../../src/logqueue.h"
+#include "../../src/mesh.h"
+#include "../../src/property.h"
+#include "../../src/propertyboolean.h"
+#include "../../src/propertyfloat.h"
+#include "../../src/propertyinteger.h"
+#include "../../src/propertymatrix.h"
+#include "../../src/propertystring.h"
+#include "../../src/propertyvector.h"
+#include "../../src/qtquickmanager.h"
+#include "../../src/qtquickwrapper.h"
+#include "../../src/resourcemanager.h"
+#include "../../src/resourceutil.h"
+#include "../../src/scriptingengine.h"
+#include "../../src/shaderprogram.h"
+#include "../../src/text.h"
+#include "../../src/texture.h"
+#include "../../src/util.h"
+#include "../../src/xmlelement.h"
+#include "../../src/xmlutils.h"
 %}
 
 
@@ -80,76 +80,76 @@ namespace std {
 
 
 // HierarchyObject
-%include "../../hierarchyobject.h"
+%include "../../src/hierarchyobject.h"
 //%template(EditorWindowHierarchyObject) HierarchyObject<EditorWindow>;
-%template(EntityHierarchyObject)       HierarchyObject<Entity>;
+%template(EntityHierarchyObject)         HierarchyObject<Entity>;
 
 
 // Audio and AudioManager
-%include "../../audio.h"
-%include "../../audiomanager.h"
+%include "../../src/audio.h"
+%include "../../src/audiomanager.h"
 
 // ChronoTime
-%include "../../chronotime.h"
+%include "../../src/chronotime.h"
 
 // Debug
-%include "../../debug.h"
+%include "../../src/debug.h"
 
-// EditorWindow and EditorWindowManager
-%include "../../editorwindow.h"
+// EditorWindow
+%include "../../src/editorwindow.h"
 
 // Entity
-%include "../../entity.h"
+%include "../../src/entity.h"
 
 // GameEngine
-%include "../../gameengine.h"
+%include "../../src/gameengine.h"
 
 // Input
-%include "../../input.h"
+%include "../../src/input.h"
 
 // Logging
-%include "../../logger.h"
-%include "../../loglistener.h"
-%include "../../logmessage.h"
-%include "../../logqueue.h"
+%include "../../src/logger.h"
+%include "../../src/loglistener.h"
+%include "../../src/logmessage.h"
+%include "../../src/logqueue.h"
 
 // Mesh
-%include "../../mesh.h"
+%include "../../src/mesh.h"
 
 // Property and derived classes
-%include "../../property.h"
-%include "../../propertyboolean.h"
-%include "../../propertyfloat.h"
-%include "../../propertyinteger.h"
-%include "../../propertymatrix.h"
-%include "../../propertystring.h"
-%include "../../propertyvector.h"
+%include "../../src/property.h"
+%include "../../src/propertyboolean.h"
+%include "../../src/propertyfloat.h"
+%include "../../src/propertyinteger.h"
+%include "../../src/propertymatrix.h"
+%include "../../src/propertystring.h"
+%include "../../src/propertyvector.h"
 
 // QtQuickManager and QtQuickWrapper
-%include "../../qtquickmanager.h"
-%include "../../qtquickwrapper.h"
+%include "../../src/qtquickmanager.h"
+%include "../../src/qtquickwrapper.h"
 
 // ResourceManager and ResourceUtil
-%include "../../resourcemanager.h"
-%include "../../resourceutil.h"
+%include "../../src/resourcemanager.h"
+%include "../../src/resourceutil.h"
 
 // ScriptingEngine
-%include "../../scriptingengine.h"
+%include "../../src/scriptingengine.h"
 
 // ShaderProgram
-%include "../../shaderprogram.h"
+%include "../../src/shaderprogram.h"
 
 // Text
-//%include "../../text.h"
+//%include "../../src/text.h"
 
 // Texture
-%include "../../texture.h"
+%include "../../src/texture.h"
 
 // Util
-%include "../../util.h"
+%include "../../src/util.h"
 
 // XmlElement and XmlUtils
-%include "../../xmlelement.h"
-%include "../../xmlutils.h"
+%include "../../src/xmlelement.h"
+%include "../../src/xmlutils.h"
 
 #endif // defined SWIG
