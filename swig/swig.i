@@ -50,6 +50,7 @@
 // Exception support
 %include <std_except.i>
 %include <exception.i>
+/*
 %exception {
     try {
         $action
@@ -58,7 +59,7 @@
         SWIG_exception(SWIG_RuntimeError, e.what());
     }
 }
-
+*/
 // Vector support
 //%include <std_vector.i>
 %include "std_vector_improved.i"
