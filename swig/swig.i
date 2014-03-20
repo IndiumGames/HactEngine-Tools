@@ -128,9 +128,8 @@ namespace std {
 %include "../../src/qtquickmanager.h"
 %include "../../src/qtquickwrapper.h"
 
-// ResourceManager and ResourceUtil
+// ResourceManager
 %include "../../src/resourcemanager.h"
-%include "../../src/resourceutil.h"
 
 // ScriptingEngine
 %include "../../src/scriptingengine.h"
