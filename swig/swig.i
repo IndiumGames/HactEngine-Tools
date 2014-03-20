@@ -44,13 +44,12 @@
 // Cross platform integer types
 %include <stdint.i>
 
-// String support
+// std::string support
 %include <std_string.i>
 
 // Exception support
 %include <std_except.i>
 %include <exception.i>
-/*
 %exception {
     try {
         $action
@@ -59,12 +58,10 @@
         SWIG_exception(SWIG_RuntimeError, e.what());
     }
 }
-*/
-// Vector support
+
+// std::vector support
 //%include <std_vector.i>
 %include "std_vector_improved.i"
-
-// Instantiate different types of vectors
 namespace std {
     %template(Int32Vector)   vector<int32_t>;
     %template(UInt32Vector)  vector<uint32_t>;
