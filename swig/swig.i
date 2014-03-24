@@ -80,8 +80,9 @@ namespace std {
 
 // HierarchyObject
 %include "../../src/hierarchyobject.h"
-//%template(EditorWindowHierarchyObject) HierarchyObject<EditorWindow>;
-%template(EntityHierarchyObject)         HierarchyObject<Entity>;
+//%template(EditorWindowHierarchyObject)  HierarchyObject<EditorWindow>;
+%template(EntityHierarchyObject)        HierarchyObject<Entity>;
+%template(XmlElementHierarchyObject)    HierarchyObject<XmlElement>;
 
 
 // Audio and AudioManager
