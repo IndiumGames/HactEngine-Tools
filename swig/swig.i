@@ -148,6 +148,7 @@ namespace std {
 
 // Util
 %include "../../src/util.h"
+%template(ConvertFloat) Util::Convert::Convert<float>;
 
 // XmlElement and XmlUtils
 %include "../../src/xmlelement.h"
