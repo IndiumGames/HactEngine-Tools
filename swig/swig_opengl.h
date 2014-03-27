@@ -17,7 +17,7 @@ typedef int             GLsizei;    /* 4-byte signed */
 typedef float           GLfloat;    /* single precision float */
 typedef float           GLclampf;   /* single precision float in [0,1] */
 typedef double          GLdouble;   /* double precision float */
-typedef double          GLclampd;   /* double precision float in [0,1] */
+//ANDROID//typedef double          GLclampd;   /* double precision float in [0,1] */
 
 
 
@@ -630,53 +630,53 @@ typedef double          GLclampd;   /* double precision float in [0,1] */
  * Miscellaneous
  */
 
-void glClearIndex(GLfloat c) {}
+//ANDROID//void glClearIndex(GLfloat c) {}
 
 void glClearColor(GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha) {}
 
 void glClear(GLbitfield mask) {}
 
-void glIndexMask(GLuint mask) {}
+//ANDROID//void glIndexMask(GLuint mask) {}
 
 void glColorMask(GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha) {}
 
-void glAlphaFunc(GLenum func, GLclampf ref) {}
+//ANDROID//void glAlphaFunc(GLenum func, GLclampf ref) {}
 
 void glBlendFunc(GLenum sfactor, GLenum dfactor) {}
 
-void glLogicOp(GLenum opcode) {}
+//ANDROID//void glLogicOp(GLenum opcode) {}
 
 void glCullFace(GLenum mode) {}
 
 void glFrontFace(GLenum mode) {}
 
-void glPointSize(GLfloat size) {}
+//ANDROID//void glPointSize(GLfloat size) {}
 
 void glLineWidth(GLfloat width) {}
 
-void glLineStipple(GLint factor, GLushort pattern) {}
+//ANDROID//void glLineStipple(GLint factor, GLushort pattern) {}
 
-void glPolygonMode(GLenum face, GLenum mode) {}
+//ANDROID//void glPolygonMode(GLenum face, GLenum mode) {}
 
 void glPolygonOffset(GLfloat factor, GLfloat units) {}
 
-void glPolygonStipple(const GLubyte* mask) {}
+//ANDROID//void glPolygonStipple(const GLubyte* mask) {}
 
-void glGetPolygonStipple(GLubyte* mask) {}
+//ANDROID//void glGetPolygonStipple(GLubyte* mask) {}
 
-void glEdgeFlag(GLboolean flag) {}
+//ANDROID//void glEdgeFlag(GLboolean flag) {}
 
-void glEdgeFlagv(const GLboolean* flag) {}
+//ANDROID//void glEdgeFlagv(const GLboolean* flag) {}
 
 void glScissor(GLint x, GLint y, GLsizei width, GLsizei height) {}
 
-void glClipPlane(GLenum plane, const GLdouble* equation) {}
+//ANDROID//void glClipPlane(GLenum plane, const GLdouble* equation) {}
 
-void glGetClipPlane(GLenum plane, GLdouble* equation) {}
+//ANDROID//void glGetClipPlane(GLenum plane, GLdouble* equation) {}
 
-void glDrawBuffer(GLenum mode) {}
+//ANDROID//void glDrawBuffer(GLenum mode) {}
 
-void glReadBuffer(GLenum mode) {}
+//ANDROID//void glReadBuffer(GLenum mode) {}
 
 void glEnable(GLenum cap) {}
 
@@ -685,31 +685,31 @@ void glDisable(GLenum cap) {}
 GLboolean glIsEnabled(GLenum cap) {}
 
 
-void glEnableClientState(GLenum cap) {}    /* 1.1 */
+//ANDROID//void glEnableClientState(GLenum cap) {}    /* 1.1 */
 
-void glDisableClientState(GLenum cap) {}    /* 1.1 */
+//ANDROID//void glDisableClientState(GLenum cap) {}    /* 1.1 */
 
 
 void glGetBooleanv(GLenum pname, GLboolean* params) {}
 
-void glGetDoublev(GLenum pname, GLdouble* params) {}
+//ANDROID//void glGetDoublev(GLenum pname, GLdouble* params) {}
 
 void glGetFloatv(GLenum pname, GLfloat* params) {}
 
 void glGetIntegerv(GLenum pname, GLint* params) {}
 
 
-void glPushAttrib(GLbitfield mask) {}
+//ANDROID//void glPushAttrib(GLbitfield mask) {}
 
-void glPopAttrib(void) {}
-
-
-void glPushClientAttrib(GLbitfield mask) {}    /* 1.1 */
-
-void glPopClientAttrib(void) {}    /* 1.1 */
+//ANDROID//void glPopAttrib(void) {}
 
 
-GLint glRenderMode(GLenum mode) {}
+//ANDROID//void glPushClientAttrib(GLbitfield mask) {}    /* 1.1 */
+
+//ANDROID//void glPopClientAttrib(void) {}    /* 1.1 */
+
+
+//ANDROID//GLint glRenderMode(GLenum mode) {}
 
 GLenum glGetError(void) {}
 
@@ -726,389 +726,363 @@ void glHint(GLenum target, GLenum mode) {}
  * Depth Buffer
  */
 
-void glClearDepth(GLclampd depth) {}
+//ANDROID//void glClearDepth(GLclampd depth) {}
 
 void glDepthFunc(GLenum func) {}
 
 void glDepthMask(GLboolean flag) {}
 
-void glDepthRange(GLclampd near_val, GLclampd far_val) {}
+//ANDROID//void glDepthRange(GLclampd near_val, GLclampd far_val) {}
 
 
 /*
  * Accumulation Buffer
  */
 
-void glClearAccum(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha) {}
+//ANDROID//void glClearAccum(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha) {}
 
-void glAccum(GLenum op, GLfloat value) {}
+//ANDROID//void glAccum(GLenum op, GLfloat value) {}
 
 
 /*
  * Transformation
  */
 
-void glMatrixMode(GLenum mode) {}
+//ANDROID//void glMatrixMode(GLenum mode) {}
 
-void glOrtho(GLdouble left, GLdouble right,
-             GLdouble bottom, GLdouble top,
-             GLdouble near_val, GLdouble far_val) {}
+//ANDROID//void glOrtho(GLdouble left, GLdouble right,
+//ANDROID//             GLdouble bottom, GLdouble top,
+//ANDROID//             GLdouble near_val, GLdouble far_val) {}
 
-void glFrustum(GLdouble left, GLdouble right,
-               GLdouble bottom, GLdouble top,
-               GLdouble near_val, GLdouble far_val) {}
+//ANDROID//void glFrustum(GLdouble left, GLdouble right,
+//ANDROID//               GLdouble bottom, GLdouble top,
+//ANDROID//               GLdouble near_val, GLdouble far_val) {}
 
-void glViewport(GLint x, GLint y,
-                GLsizei width, GLsizei height) {}
+void glViewport(GLint x, GLint y, GLsizei width, GLsizei height) {}
 
-void glPushMatrix(void) {}
+//ANDROID//void glPushMatrix(void) {}
 
-void glPopMatrix(void) {}
+//ANDROID//void glPopMatrix(void) {}
 
-void glLoadIdentity(void) {}
+//ANDROID//void glLoadIdentity(void) {}
 
-void glLoadMatrixd(const GLdouble* m) {}
-void glLoadMatrixf(const GLfloat* m) {}
+//ANDROID//void glLoadMatrixd(const GLdouble* m) {}
+//ANDROID//void glLoadMatrixf(const GLfloat* m) {}
 
-void glMultMatrixd(const GLdouble* m) {}
-void glMultMatrixf(const GLfloat* m) {}
+//ANDROID//void glMultMatrixd(const GLdouble* m) {}
+//ANDROID//void glMultMatrixf(const GLfloat* m) {}
 
-void glRotated(GLdouble angle,
-               GLdouble x, GLdouble y, GLdouble z) {}
-void glRotatef(GLfloat angle,
-               GLfloat x, GLfloat y, GLfloat z) {}
+//ANDROID//void glRotated(GLdouble angle, GLdouble x, GLdouble y, GLdouble z) {}
+//ANDROID//void glRotatef(GLfloat angle, GLfloat x, GLfloat y, GLfloat z) {}
 
-void glScaled(GLdouble x, GLdouble y, GLdouble z) {}
-void glScalef(GLfloat x, GLfloat y, GLfloat z) {}
+//ANDROID//void glScaled(GLdouble x, GLdouble y, GLdouble z) {}
+//ANDROID//void glScalef(GLfloat x, GLfloat y, GLfloat z) {}
 
-void glTranslated(GLdouble x, GLdouble y, GLdouble z) {}
-void glTranslatef(GLfloat x, GLfloat y, GLfloat z) {}
+//ANDROID//void glTranslated(GLdouble x, GLdouble y, GLdouble z) {}
+//ANDROID//void glTranslatef(GLfloat x, GLfloat y, GLfloat z) {}
 
 
 /*
  * Display Lists
  */
 
-GLboolean glIsList(GLuint list) {}
+//ANDROID//GLboolean glIsList(GLuint list) {}
 
-void glDeleteLists(GLuint list, GLsizei range) {}
+//ANDROID//void glDeleteLists(GLuint list, GLsizei range) {}
 
-GLuint glGenLists(GLsizei range) {}
+//ANDROID//GLuint glGenLists(GLsizei range) {}
 
-void glNewList(GLuint list, GLenum mode) {}
+//ANDROID//void glNewList(GLuint list, GLenum mode) {}
 
-void glEndList(void) {}
+//ANDROID//void glEndList(void) {}
 
-void glCallList(GLuint list) {}
+//ANDROID//void glCallList(GLuint list) {}
 
-void glCallLists(GLsizei n, GLenum type,
-                 const GLvoid* lists) {}
+//ANDROID//void glCallLists(GLsizei n, GLenum type, const GLvoid* lists) {}
 
-void glListBase(GLuint base) {}
+//ANDROID//void glListBase(GLuint base) {}
 
 
 /*
  * Drawing Functions
  */
 
-void glBegin(GLenum mode) {}
+//ANDROID//void glBegin(GLenum mode) {}
 
-void glEnd(void) {}
-
-
-void glVertex2d(GLdouble x, GLdouble y) {}
-void glVertex2f(GLfloat x, GLfloat y) {}
-void glVertex2i(GLint x, GLint y) {}
-void glVertex2s(GLshort x, GLshort y) {}
-
-void glVertex3d(GLdouble x, GLdouble y, GLdouble z) {}
-void glVertex3f(GLfloat x, GLfloat y, GLfloat z) {}
-void glVertex3i(GLint x, GLint y, GLint z) {}
-void glVertex3s(GLshort x, GLshort y, GLshort z) {}
-
-void glVertex4d(GLdouble x, GLdouble y, GLdouble z, GLdouble w) {}
-void glVertex4f(GLfloat x, GLfloat y, GLfloat z, GLfloat w) {}
-void glVertex4i(GLint x, GLint y, GLint z, GLint w) {}
-void glVertex4s(GLshort x, GLshort y, GLshort z, GLshort w) {}
-
-void glVertex2dv(const GLdouble* v) {}
-void glVertex2fv(const GLfloat* v) {}
-void glVertex2iv(const GLint* v) {}
-void glVertex2sv(const GLshort* v) {}
-
-void glVertex3dv(const GLdouble* v) {}
-void glVertex3fv(const GLfloat* v) {}
-void glVertex3iv(const GLint* v) {}
-void glVertex3sv(const GLshort* v) {}
-
-void glVertex4dv(const GLdouble* v) {}
-void glVertex4fv(const GLfloat* v) {}
-void glVertex4iv(const GLint* v) {}
-void glVertex4sv(const GLshort* v) {}
+//ANDROID//void glEnd(void) {}
 
 
-void glNormal3b(GLbyte nx, GLbyte ny, GLbyte nz) {}
-void glNormal3d(GLdouble nx, GLdouble ny, GLdouble nz) {}
-void glNormal3f(GLfloat nx, GLfloat ny, GLfloat nz) {}
-void glNormal3i(GLint nx, GLint ny, GLint nz) {}
-void glNormal3s(GLshort nx, GLshort ny, GLshort nz) {}
+//ANDROID//void glVertex2d(GLdouble x, GLdouble y) {}
+//ANDROID//void glVertex2f(GLfloat x, GLfloat y) {}
+//ANDROID//void glVertex2i(GLint x, GLint y) {}
+//ANDROID//void glVertex2s(GLshort x, GLshort y) {}
 
-void glNormal3bv(const GLbyte* v) {}
-void glNormal3dv(const GLdouble* v) {}
-void glNormal3fv(const GLfloat* v) {}
-void glNormal3iv(const GLint* v) {}
-void glNormal3sv(const GLshort* v) {}
+//ANDROID//void glVertex3d(GLdouble x, GLdouble y, GLdouble z) {}
+//ANDROID//void glVertex3f(GLfloat x, GLfloat y, GLfloat z) {}
+//ANDROID//void glVertex3i(GLint x, GLint y, GLint z) {}
+//ANDROID//void glVertex3s(GLshort x, GLshort y, GLshort z) {}
 
+//ANDROID//void glVertex4d(GLdouble x, GLdouble y, GLdouble z, GLdouble w) {}
+//ANDROID//void glVertex4f(GLfloat x, GLfloat y, GLfloat z, GLfloat w) {}
+//ANDROID//void glVertex4i(GLint x, GLint y, GLint z, GLint w) {}
+//ANDROID//void glVertex4s(GLshort x, GLshort y, GLshort z, GLshort w) {}
 
-void glIndexd(GLdouble c) {}
-void glIndexf(GLfloat c) {}
-void glIndexi(GLint c) {}
-void glIndexs(GLshort c) {}
-void glIndexub(GLubyte c) {}    /* 1.1 */
+//ANDROID//void glVertex2dv(const GLdouble* v) {}
+//ANDROID//void glVertex2fv(const GLfloat* v) {}
+//ANDROID//void glVertex2iv(const GLint* v) {}
+//ANDROID//void glVertex2sv(const GLshort* v) {}
 
-void glIndexdv(const GLdouble* c) {}
-void glIndexfv(const GLfloat* c) {}
-void glIndexiv(const GLint* c) {}
-void glIndexsv(const GLshort* c) {}
-void glIndexubv(const GLubyte* c) {}    /* 1.1 */
+//ANDROID//void glVertex3dv(const GLdouble* v) {}
+//ANDROID//void glVertex3fv(const GLfloat* v) {}
+//ANDROID//void glVertex3iv(const GLint* v) {}
+//ANDROID//void glVertex3sv(const GLshort* v) {}
 
-void glColor3b(GLbyte red, GLbyte green, GLbyte blue) {}
-void glColor3d(GLdouble red, GLdouble green, GLdouble blue) {}
-void glColor3f(GLfloat red, GLfloat green, GLfloat blue) {}
-void glColor3i(GLint red, GLint green, GLint blue) {}
-void glColor3s(GLshort red, GLshort green, GLshort blue) {}
-void glColor3ub(GLubyte red, GLubyte green, GLubyte blue) {}
-void glColor3ui(GLuint red, GLuint green, GLuint blue) {}
-void glColor3us(GLushort red, GLushort green, GLushort blue) {}
-
-void glColor4b(GLbyte red, GLbyte green,
-               GLbyte blue, GLbyte alpha) {}
-void glColor4d(GLdouble red, GLdouble green,
-               GLdouble blue, GLdouble alpha) {}
-void glColor4f(GLfloat red, GLfloat green,
-               GLfloat blue, GLfloat alpha) {}
-void glColor4i(GLint red, GLint green,
-               GLint blue, GLint alpha) {}
-void glColor4s(GLshort red, GLshort green,
-               GLshort blue, GLshort alpha) {}
-void glColor4ub(GLubyte red, GLubyte green,
-                GLubyte blue, GLubyte alpha) {}
-void glColor4ui(GLuint red, GLuint green,
-                GLuint blue, GLuint alpha) {}
-void glColor4us(GLushort red, GLushort green,
-                GLushort blue, GLushort alpha) {}
+//ANDROID//void glVertex4dv(const GLdouble* v) {}
+//ANDROID//void glVertex4fv(const GLfloat* v) {}
+//ANDROID//void glVertex4iv(const GLint* v) {}
+//ANDROID//void glVertex4sv(const GLshort* v) {}
 
 
-void glColor3bv(const GLbyte* v) {}
-void glColor3dv(const GLdouble* v) {}
-void glColor3fv(const GLfloat* v) {}
-void glColor3iv(const GLint* v) {}
-void glColor3sv(const GLshort* v) {}
-void glColor3ubv(const GLubyte* v) {}
-void glColor3uiv(const GLuint* v) {}
-void glColor3usv(const GLushort* v) {}
+//ANDROID//void glNormal3b(GLbyte nx, GLbyte ny, GLbyte nz) {}
+//ANDROID//void glNormal3d(GLdouble nx, GLdouble ny, GLdouble nz) {}
+//ANDROID//void glNormal3f(GLfloat nx, GLfloat ny, GLfloat nz) {}
+//ANDROID//void glNormal3i(GLint nx, GLint ny, GLint nz) {}
+//ANDROID//void glNormal3s(GLshort nx, GLshort ny, GLshort nz) {}
 
-void glColor4bv(const GLbyte* v) {}
-void glColor4dv(const GLdouble* v) {}
-void glColor4fv(const GLfloat* v) {}
-void glColor4iv(const GLint* v) {}
-void glColor4sv(const GLshort* v) {}
-void glColor4ubv(const GLubyte* v) {}
-void glColor4uiv(const GLuint* v) {}
-void glColor4usv(const GLushort* v) {}
+//ANDROID//void glNormal3bv(const GLbyte* v) {}
+//ANDROID//void glNormal3dv(const GLdouble* v) {}
+//ANDROID//void glNormal3fv(const GLfloat* v) {}
+//ANDROID//void glNormal3iv(const GLint* v) {}
+//ANDROID//void glNormal3sv(const GLshort* v) {}
 
 
-void glTexCoord1d(GLdouble s) {}
-void glTexCoord1f(GLfloat s) {}
-void glTexCoord1i(GLint s) {}
-void glTexCoord1s(GLshort s) {}
+//ANDROID//void glIndexd(GLdouble c) {}
+//ANDROID//void glIndexf(GLfloat c) {}
+//ANDROID//void glIndexi(GLint c) {}
+//ANDROID//void glIndexs(GLshort c) {}
+//ANDROID//void glIndexub(GLubyte c) {}    /* 1.1 */
 
-void glTexCoord2d(GLdouble s, GLdouble t) {}
-void glTexCoord2f(GLfloat s, GLfloat t) {}
-void glTexCoord2i(GLint s, GLint t) {}
-void glTexCoord2s(GLshort s, GLshort t) {}
+//ANDROID//void glIndexdv(const GLdouble* c) {}
+//ANDROID//void glIndexfv(const GLfloat* c) {}
+//ANDROID//void glIndexiv(const GLint* c) {}
+//ANDROID//void glIndexsv(const GLshort* c) {}
+//ANDROID//void glIndexubv(const GLubyte* c) {}    /* 1.1 */
 
-void glTexCoord3d(GLdouble s, GLdouble t, GLdouble r) {}
-void glTexCoord3f(GLfloat s, GLfloat t, GLfloat r) {}
-void glTexCoord3i(GLint s, GLint t, GLint r) {}
-void glTexCoord3s(GLshort s, GLshort t, GLshort r) {}
+//ANDROID//void glColor3b(GLbyte red, GLbyte green, GLbyte blue) {}
+//ANDROID//void glColor3d(GLdouble red, GLdouble green, GLdouble blue) {}
+//ANDROID//void glColor3f(GLfloat red, GLfloat green, GLfloat blue) {}
+//ANDROID//void glColor3i(GLint red, GLint green, GLint blue) {}
+//ANDROID//void glColor3s(GLshort red, GLshort green, GLshort blue) {}
+//ANDROID//void glColor3ub(GLubyte red, GLubyte green, GLubyte blue) {}
+//ANDROID//void glColor3ui(GLuint red, GLuint green, GLuint blue) {}
+//ANDROID//void glColor3us(GLushort red, GLushort green, GLushort blue) {}
 
-void glTexCoord4d(GLdouble s, GLdouble t, GLdouble r, GLdouble q) {}
-void glTexCoord4f(GLfloat s, GLfloat t, GLfloat r, GLfloat q) {}
-void glTexCoord4i(GLint s, GLint t, GLint r, GLint q) {}
-void glTexCoord4s(GLshort s, GLshort t, GLshort r, GLshort q) {}
-
-void glTexCoord1dv(const GLdouble* v) {}
-void glTexCoord1fv(const GLfloat* v) {}
-void glTexCoord1iv(const GLint* v) {}
-void glTexCoord1sv(const GLshort* v) {}
-
-void glTexCoord2dv(const GLdouble* v) {}
-void glTexCoord2fv(const GLfloat* v) {}
-void glTexCoord2iv(const GLint* v) {}
-void glTexCoord2sv(const GLshort* v) {}
-
-void glTexCoord3dv(const GLdouble* v) {}
-void glTexCoord3fv(const GLfloat* v) {}
-void glTexCoord3iv(const GLint* v) {}
-void glTexCoord3sv(const GLshort* v) {}
-
-void glTexCoord4dv(const GLdouble* v) {}
-void glTexCoord4fv(const GLfloat* v) {}
-void glTexCoord4iv(const GLint* v) {}
-void glTexCoord4sv(const GLshort* v) {}
+//ANDROID//void glColor4b(GLbyte red, GLbyte green, GLbyte blue, GLbyte alpha) {}
+//ANDROID//void glColor4d(GLdouble red, GLdouble green, GLdouble blue, GLdouble alpha) {}
+//ANDROID//void glColor4f(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha) {}
+//ANDROID//void glColor4i(GLint red, GLint green, GLint blue, GLint alpha) {}
+//ANDROID//void glColor4s(GLshort red, GLshort green, GLshort blue, GLshort alpha) {}
+//ANDROID//void glColor4ub(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha) {}
+//ANDROID//void glColor4ui(GLuint red, GLuint green, GLuint blue, GLuint alpha) {}
+//ANDROID//void glColor4us(GLushort red, GLushort green, GLushort blue, GLushort alpha) {}
 
 
-void glRasterPos2d(GLdouble x, GLdouble y) {}
-void glRasterPos2f(GLfloat x, GLfloat y) {}
-void glRasterPos2i(GLint x, GLint y) {}
-void glRasterPos2s(GLshort x, GLshort y) {}
+//ANDROID//void glColor3bv(const GLbyte* v) {}
+//ANDROID//void glColor3dv(const GLdouble* v) {}
+//ANDROID//void glColor3fv(const GLfloat* v) {}
+//ANDROID//void glColor3iv(const GLint* v) {}
+//ANDROID//void glColor3sv(const GLshort* v) {}
+//ANDROID//void glColor3ubv(const GLubyte* v) {}
+//ANDROID//void glColor3uiv(const GLuint* v) {}
+//ANDROID//void glColor3usv(const GLushort* v) {}
 
-void glRasterPos3d(GLdouble x, GLdouble y, GLdouble z) {}
-void glRasterPos3f(GLfloat x, GLfloat y, GLfloat z) {}
-void glRasterPos3i(GLint x, GLint y, GLint z) {}
-void glRasterPos3s(GLshort x, GLshort y, GLshort z) {}
-
-void glRasterPos4d(GLdouble x, GLdouble y, GLdouble z, GLdouble w) {}
-void glRasterPos4f(GLfloat x, GLfloat y, GLfloat z, GLfloat w) {}
-void glRasterPos4i(GLint x, GLint y, GLint z, GLint w) {}
-void glRasterPos4s(GLshort x, GLshort y, GLshort z, GLshort w) {}
-
-void glRasterPos2dv(const GLdouble* v) {}
-void glRasterPos2fv(const GLfloat* v) {}
-void glRasterPos2iv(const GLint* v) {}
-void glRasterPos2sv(const GLshort* v) {}
-
-void glRasterPos3dv(const GLdouble* v) {}
-void glRasterPos3fv(const GLfloat* v) {}
-void glRasterPos3iv(const GLint* v) {}
-void glRasterPos3sv(const GLshort* v) {}
-
-void glRasterPos4dv(const GLdouble* v) {}
-void glRasterPos4fv(const GLfloat* v) {}
-void glRasterPos4iv(const GLint* v) {}
-void glRasterPos4sv(const GLshort* v) {}
+//ANDROID//void glColor4bv(const GLbyte* v) {}
+//ANDROID//void glColor4dv(const GLdouble* v) {}
+//ANDROID//void glColor4fv(const GLfloat* v) {}
+//ANDROID//void glColor4iv(const GLint* v) {}
+//ANDROID//void glColor4sv(const GLshort* v) {}
+//ANDROID//void glColor4ubv(const GLubyte* v) {}
+//ANDROID//void glColor4uiv(const GLuint* v) {}
+//ANDROID//void glColor4usv(const GLushort* v) {}
 
 
-void glRectd(GLdouble x1, GLdouble y1, GLdouble x2, GLdouble y2) {}
-void glRectf(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2) {}
-void glRecti(GLint x1, GLint y1, GLint x2, GLint y2) {}
-void glRects(GLshort x1, GLshort y1, GLshort x2, GLshort y2) {}
+//ANDROID//void glTexCoord1d(GLdouble s) {}
+//ANDROID//void glTexCoord1f(GLfloat s) {}
+//ANDROID//void glTexCoord1i(GLint s) {}
+//ANDROID//void glTexCoord1s(GLshort s) {}
+
+//ANDROID//void glTexCoord2d(GLdouble s, GLdouble t) {}
+//ANDROID//void glTexCoord2f(GLfloat s, GLfloat t) {}
+//ANDROID//void glTexCoord2i(GLint s, GLint t) {}
+//ANDROID//void glTexCoord2s(GLshort s, GLshort t) {}
+
+//ANDROID//void glTexCoord3d(GLdouble s, GLdouble t, GLdouble r) {}
+//ANDROID//void glTexCoord3f(GLfloat s, GLfloat t, GLfloat r) {}
+//ANDROID//void glTexCoord3i(GLint s, GLint t, GLint r) {}
+//ANDROID//void glTexCoord3s(GLshort s, GLshort t, GLshort r) {}
+
+//ANDROID//void glTexCoord4d(GLdouble s, GLdouble t, GLdouble r, GLdouble q) {}
+//ANDROID//void glTexCoord4f(GLfloat s, GLfloat t, GLfloat r, GLfloat q) {}
+//ANDROID//void glTexCoord4i(GLint s, GLint t, GLint r, GLint q) {}
+//ANDROID//void glTexCoord4s(GLshort s, GLshort t, GLshort r, GLshort q) {}
+
+//ANDROID//void glTexCoord1dv(const GLdouble* v) {}
+//ANDROID//void glTexCoord1fv(const GLfloat* v) {}
+//ANDROID//void glTexCoord1iv(const GLint* v) {}
+//ANDROID//void glTexCoord1sv(const GLshort* v) {}
+
+//ANDROID//void glTexCoord2dv(const GLdouble* v) {}
+//ANDROID//void glTexCoord2fv(const GLfloat* v) {}
+//ANDROID//void glTexCoord2iv(const GLint* v) {}
+//ANDROID//void glTexCoord2sv(const GLshort* v) {}
+
+//ANDROID//void glTexCoord3dv(const GLdouble* v) {}
+//ANDROID//void glTexCoord3fv(const GLfloat* v) {}
+//ANDROID//void glTexCoord3iv(const GLint* v) {}
+//ANDROID//void glTexCoord3sv(const GLshort* v) {}
+
+//ANDROID//void glTexCoord4dv(const GLdouble* v) {}
+//ANDROID//void glTexCoord4fv(const GLfloat* v) {}
+//ANDROID//void glTexCoord4iv(const GLint* v) {}
+//ANDROID//void glTexCoord4sv(const GLshort* v) {}
 
 
-void glRectdv(const GLdouble* v1, const GLdouble* v2) {}
-void glRectfv(const GLfloat* v1, const GLfloat* v2) {}
-void glRectiv(const GLint* v1, const GLint* v2) {}
-void glRectsv(const GLshort* v1, const GLshort* v2) {}
+//ANDROID//void glRasterPos2d(GLdouble x, GLdouble y) {}
+//ANDROID//void glRasterPos2f(GLfloat x, GLfloat y) {}
+//ANDROID//void glRasterPos2i(GLint x, GLint y) {}
+//ANDROID//void glRasterPos2s(GLshort x, GLshort y) {}
+
+//ANDROID//void glRasterPos3d(GLdouble x, GLdouble y, GLdouble z) {}
+//ANDROID//void glRasterPos3f(GLfloat x, GLfloat y, GLfloat z) {}
+//ANDROID//void glRasterPos3i(GLint x, GLint y, GLint z) {}
+//ANDROID//void glRasterPos3s(GLshort x, GLshort y, GLshort z) {}
+
+//ANDROID//void glRasterPos4d(GLdouble x, GLdouble y, GLdouble z, GLdouble w) {}
+//ANDROID//void glRasterPos4f(GLfloat x, GLfloat y, GLfloat z, GLfloat w) {}
+//ANDROID//void glRasterPos4i(GLint x, GLint y, GLint z, GLint w) {}
+//ANDROID//void glRasterPos4s(GLshort x, GLshort y, GLshort z, GLshort w) {}
+
+//ANDROID//void glRasterPos2dv(const GLdouble* v) {}
+//ANDROID//void glRasterPos2fv(const GLfloat* v) {}
+//ANDROID//void glRasterPos2iv(const GLint* v) {}
+//ANDROID//void glRasterPos2sv(const GLshort* v) {}
+
+//ANDROID//void glRasterPos3dv(const GLdouble* v) {}
+//ANDROID//void glRasterPos3fv(const GLfloat* v) {}
+//ANDROID//void glRasterPos3iv(const GLint* v) {}
+//ANDROID//void glRasterPos3sv(const GLshort* v) {}
+
+//ANDROID//void glRasterPos4dv(const GLdouble* v) {}
+//ANDROID//void glRasterPos4fv(const GLfloat* v) {}
+//ANDROID//void glRasterPos4iv(const GLint* v) {}
+//ANDROID//void glRasterPos4sv(const GLshort* v) {}
+
+
+//ANDROID//void glRectd(GLdouble x1, GLdouble y1, GLdouble x2, GLdouble y2) {}
+//ANDROID//void glRectf(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2) {}
+//ANDROID//void glRecti(GLint x1, GLint y1, GLint x2, GLint y2) {}
+//ANDROID//void glRects(GLshort x1, GLshort y1, GLshort x2, GLshort y2) {}
+
+
+//ANDROID//void glRectdv(const GLdouble* v1, const GLdouble* v2) {}
+//ANDROID//void glRectfv(const GLfloat* v1, const GLfloat* v2) {}
+//ANDROID//void glRectiv(const GLint* v1, const GLint* v2) {}
+//ANDROID//void glRectsv(const GLshort* v1, const GLshort* v2) {}
 
 
 /*
  * Vertex Arrays  (1.1)
  */
 
-void glVertexPointer(GLint size, GLenum type,
-                     GLsizei stride, const GLvoid* ptr) {}
+//ANDROID//void glVertexPointer(GLint size, GLenum type, GLsizei stride, const GLvoid* ptr) {}
 
-void glNormalPointer(GLenum type, GLsizei stride,
-                     const GLvoid* ptr) {}
+//ANDROID//void glNormalPointer(GLenum type, GLsizei stride, const GLvoid* ptr) {}
 
-void glColorPointer(GLint size, GLenum type,
-                    GLsizei stride, const GLvoid* ptr) {}
+//ANDROID//void glColorPointer(GLint size, GLenum type, GLsizei stride, const GLvoid* ptr) {}
 
-void glIndexPointer(GLenum type, GLsizei stride,
-                    const GLvoid* ptr) {}
+//ANDROID//void glIndexPointer(GLenum type, GLsizei stride, const GLvoid* ptr) {}
 
-void glTexCoordPointer(GLint size, GLenum type,
-                       GLsizei stride, const GLvoid* ptr) {}
+//ANDROID//void glTexCoordPointer(GLint size, GLenum type, GLsizei stride, const GLvoid* ptr) {}
 
-void glEdgeFlagPointer(GLsizei stride, const GLvoid* ptr) {}
+//ANDROID//void glEdgeFlagPointer(GLsizei stride, const GLvoid* ptr) {}
 
-void glGetPointerv(GLenum pname, GLvoid** params) {}
+//ANDROID//void glGetPointerv(GLenum pname, GLvoid** params) {}
 
-void glArrayElement(GLint i) {}
+//ANDROID//void glArrayElement(GLint i) {}
 
-void glDrawArrays(GLenum mode, GLint first, GLsizei count) {}
+//ANDROID//void glDrawArrays(GLenum mode, GLint first, GLsizei count) {}
 
-void glDrawElements(GLenum mode, GLsizei count,
-                    GLenum type, const GLvoid* indices) {}
+//ANDROID//void glDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid* indices) {}
 
-void glInterleavedArrays(GLenum format, GLsizei stride,
-                         const GLvoid* pointer) {}
+//ANDROID//void glInterleavedArrays(GLenum format, GLsizei stride, const GLvoid* pointer) {}
 
 /*
  * Lighting
  */
 
-void glShadeModel(GLenum mode) {}
+//ANDROID//void glShadeModel(GLenum mode) {}
 
-void glLightf(GLenum light, GLenum pname, GLfloat param) {}
-void glLighti(GLenum light, GLenum pname, GLint param) {}
-void glLightfv(GLenum light, GLenum pname,
-               const GLfloat* params) {}
-void glLightiv(GLenum light, GLenum pname,
-               const GLint* params) {}
+//ANDROID//void glLightf(GLenum light, GLenum pname, GLfloat param) {}
+//ANDROID//void glLighti(GLenum light, GLenum pname, GLint param) {}
+//ANDROID//void glLightfv(GLenum light, GLenum pname, const GLfloat* params) {}
+//ANDROID//void glLightiv(GLenum light, GLenum pname, const GLint* params) {}
 
-void glGetLightfv(GLenum light, GLenum pname,
-                  GLfloat* params) {}
-void glGetLightiv(GLenum light, GLenum pname,
-                  GLint* params) {}
+//ANDROID//void glGetLightfv(GLenum light, GLenum pname, GLfloat* params) {}
+//ANDROID//void glGetLightiv(GLenum light, GLenum pname, GLint* params) {}
 
-void glLightModelf(GLenum pname, GLfloat param) {}
-void glLightModeli(GLenum pname, GLint param) {}
-void glLightModelfv(GLenum pname, const GLfloat* params) {}
-void glLightModeliv(GLenum pname, const GLint* params) {}
+//ANDROID//void glLightModelf(GLenum pname, GLfloat param) {}
+//ANDROID//void glLightModeli(GLenum pname, GLint param) {}
+//ANDROID//void glLightModelfv(GLenum pname, const GLfloat* params) {}
+//ANDROID//void glLightModeliv(GLenum pname, const GLint* params) {}
 
-void glMaterialf(GLenum face, GLenum pname, GLfloat param) {}
-void glMateriali(GLenum face, GLenum pname, GLint param) {}
-void glMaterialfv(GLenum face, GLenum pname, const GLfloat* params) {}
-void glMaterialiv(GLenum face, GLenum pname, const GLint* params) {}
+//ANDROID//void glMaterialf(GLenum face, GLenum pname, GLfloat param) {}
+//ANDROID//void glMateriali(GLenum face, GLenum pname, GLint param) {}
+//ANDROID//void glMaterialfv(GLenum face, GLenum pname, const GLfloat* params) {}
+//ANDROID//void glMaterialiv(GLenum face, GLenum pname, const GLint* params) {}
 
-void glGetMaterialfv(GLenum face, GLenum pname, GLfloat* params) {}
-void glGetMaterialiv(GLenum face, GLenum pname, GLint* params) {}
+//ANDROID//void glGetMaterialfv(GLenum face, GLenum pname, GLfloat* params) {}
+//ANDROID//void glGetMaterialiv(GLenum face, GLenum pname, GLint* params) {}
 
-void glColorMaterial(GLenum face, GLenum mode) {}
+//ANDROID//void glColorMaterial(GLenum face, GLenum mode) {}
 
 
 /*
  * Raster functions
  */
 
-void glPixelZoom(GLfloat xfactor, GLfloat yfactor) {}
+//ANDROID//void glPixelZoom(GLfloat xfactor, GLfloat yfactor) {}
 
-void glPixelStoref(GLenum pname, GLfloat param) {}
-void glPixelStorei(GLenum pname, GLint param) {}
+//ANDROID//void glPixelStoref(GLenum pname, GLfloat param) {}
+//ANDROID//void glPixelStorei(GLenum pname, GLint param) {}
 
-void glPixelTransferf(GLenum pname, GLfloat param) {}
-void glPixelTransferi(GLenum pname, GLint param) {}
+//ANDROID//void glPixelTransferf(GLenum pname, GLfloat param) {}
+//ANDROID//void glPixelTransferi(GLenum pname, GLint param) {}
 
-void glPixelMapfv(GLenum map, GLsizei mapsize,
-                  const GLfloat* values) {}
-void glPixelMapuiv(GLenum map, GLsizei mapsize,
-                   const GLuint* values) {}
-void glPixelMapusv(GLenum map, GLsizei mapsize,
-                   const GLushort* values) {}
+//ANDROID//void glPixelMapfv(GLenum map, GLsizei mapsize, const GLfloat* values) {}
+//ANDROID//void glPixelMapuiv(GLenum map, GLsizei mapsize, const GLuint* values) {}
+//ANDROID//void glPixelMapusv(GLenum map, GLsizei mapsize, const GLushort* values) {}
 
-void glGetPixelMapfv(GLenum map, GLfloat* values) {}
-void glGetPixelMapuiv(GLenum map, GLuint* values) {}
-void glGetPixelMapusv(GLenum map, GLushort* values) {}
+//ANDROID//void glGetPixelMapfv(GLenum map, GLfloat* values) {}
+//ANDROID//void glGetPixelMapuiv(GLenum map, GLuint* values) {}
+//ANDROID//void glGetPixelMapusv(GLenum map, GLushort* values) {}
 
-void glBitmap(GLsizei width, GLsizei height,
-              GLfloat xorig, GLfloat yorig,
-              GLfloat xmove, GLfloat ymove,
-              const GLubyte* bitmap) {}
+//ANDROID//void glBitmap(GLsizei width, GLsizei height,
+//ANDROID//              GLfloat xorig, GLfloat yorig,
+//ANDROID//              GLfloat xmove, GLfloat ymove,
+//ANDROID//              const GLubyte* bitmap) {}
 
 void glReadPixels(GLint x, GLint y,
                   GLsizei width, GLsizei height,
                   GLenum format, GLenum type,
                   GLvoid* pixels) {}
 
-void glDrawPixels(GLsizei width, GLsizei height,
-                  GLenum format, GLenum type,
-                  const GLvoid* pixels) {}
+//ANDROID//void glDrawPixels(GLsizei width, GLsizei height,
+//ANDROID//                  GLenum format, GLenum type,
+//ANDROID//                  const GLvoid* pixels) {}
 
-void glCopyPixels(GLint x, GLint y,
-                  GLsizei width, GLsizei height,
-                  GLenum type) {}
+//ANDROID//void glCopyPixels(GLint x, GLint y,
+//ANDROID//                  GLsizei width, GLsizei height,
+//ANDROID//                  GLenum type) {}
 
 /*
  * Stenciling
@@ -1128,63 +1102,57 @@ void glClearStencil(GLint s) {}
  * Texture mapping
  */
 
-void glTexGend(GLenum coord, GLenum pname, GLdouble param) {}
-void glTexGenf(GLenum coord, GLenum pname, GLfloat param) {}
-void glTexGeni(GLenum coord, GLenum pname, GLint param) {}
+//ANDROID//void glTexGend(GLenum coord, GLenum pname, GLdouble param) {}
+//ANDROID//void glTexGenf(GLenum coord, GLenum pname, GLfloat param) {}
+//ANDROID//void glTexGeni(GLenum coord, GLenum pname, GLint param) {}
 
-void glTexGendv(GLenum coord, GLenum pname, const GLdouble* params) {}
-void glTexGenfv(GLenum coord, GLenum pname, const GLfloat* params) {}
-void glTexGeniv(GLenum coord, GLenum pname, const GLint* params) {}
+//ANDROID//void glTexGendv(GLenum coord, GLenum pname, const GLdouble* params) {}
+//ANDROID//void glTexGenfv(GLenum coord, GLenum pname, const GLfloat* params) {}
+//ANDROID//void glTexGeniv(GLenum coord, GLenum pname, const GLint* params) {}
 
-void glGetTexGendv(GLenum coord, GLenum pname, GLdouble* params) {}
-void glGetTexGenfv(GLenum coord, GLenum pname, GLfloat* params) {}
-void glGetTexGeniv(GLenum coord, GLenum pname, GLint* params) {}
+//ANDROID//void glGetTexGendv(GLenum coord, GLenum pname, GLdouble* params) {}
+//ANDROID//void glGetTexGenfv(GLenum coord, GLenum pname, GLfloat* params) {}
+//ANDROID//void glGetTexGeniv(GLenum coord, GLenum pname, GLint* params) {}
 
 
-void glTexEnvf(GLenum target, GLenum pname, GLfloat param) {}
-void glTexEnvi(GLenum target, GLenum pname, GLint param) {}
+//ANDROID//void glTexEnvf(GLenum target, GLenum pname, GLfloat param) {}
+//ANDROID//void glTexEnvi(GLenum target, GLenum pname, GLint param) {}
 
-void glTexEnvfv(GLenum target, GLenum pname, const GLfloat* params) {}
-void glTexEnviv(GLenum target, GLenum pname, const GLint* params) {}
+//ANDROID//void glTexEnvfv(GLenum target, GLenum pname, const GLfloat* params) {}
+//ANDROID//void glTexEnviv(GLenum target, GLenum pname, const GLint* params) {}
 
-void glGetTexEnvfv(GLenum target, GLenum pname, GLfloat* params) {}
-void glGetTexEnviv(GLenum target, GLenum pname, GLint* params) {}
+//ANDROID//void glGetTexEnvfv(GLenum target, GLenum pname, GLfloat* params) {}
+//ANDROID//void glGetTexEnviv(GLenum target, GLenum pname, GLint* params) {}
 
 
 void glTexParameterf(GLenum target, GLenum pname, GLfloat param) {}
 void glTexParameteri(GLenum target, GLenum pname, GLint param) {}
 
-void glTexParameterfv(GLenum target, GLenum pname,
-                      const GLfloat* params) {}
-void glTexParameteriv(GLenum target, GLenum pname,
-                      const GLint* params) {}
+void glTexParameterfv(GLenum target, GLenum pname, const GLfloat* params) {}
+void glTexParameteriv(GLenum target, GLenum pname, const GLint* params) {}
 
-void glGetTexParameterfv(GLenum target,
-                         GLenum pname, GLfloat* params) {}
-void glGetTexParameteriv(GLenum target,
-                         GLenum pname, GLint* params) {}
+void glGetTexParameterfv(GLenum target, GLenum pname, GLfloat* params) {}
+void glGetTexParameteriv(GLenum target, GLenum pname, GLint* params) {}
 
-void glGetTexLevelParameterfv(GLenum target, GLint level,
-                              GLenum pname, GLfloat* params) {}
-void glGetTexLevelParameteriv(GLenum target, GLint level,
-                              GLenum pname, GLint* params) {}
+//ANDROID//void glGetTexLevelParameterfv(GLenum target, GLint level, GLenum pname, GLfloat* params) {}
+//ANDROID//void glGetTexLevelParameteriv(GLenum target, GLint level, GLenum pname, GLint* params) {}
 
 
-void glTexImage1D(GLenum target, GLint level,
-                  GLint internalFormat,
-                  GLsizei width, GLint border,
-                  GLenum format, GLenum type,
-                  const GLvoid* pixels) {}
+//ANDROID//void glTexImage1D(GLenum target, GLint level,
+//ANDROID//                  GLint internalFormat,
+//ANDROID//                  GLsizei width, GLint border,
+//ANDROID//                  GLenum format, GLenum type,
+//ANDROID//                  const GLvoid* pixels) {}
 
-void glTexImage2D(GLenum target, GLint level,
-                  GLint internalFormat,
-                  GLsizei width, GLsizei height,
-                  GLint border, GLenum format, GLenum type,
-                  const GLvoid* pixels) {}
+//ANDROID//void glTexImage2D(GLenum target, GLint level,
+//ANDROID//                  GLint internalFormat,
+//ANDROID//                  GLsizei width, GLsizei height,
+//ANDROID//                  GLint border, GLenum format, GLenum type,
+//ANDROID//                  const GLvoid* pixels) {}
 
-void glGetTexImage(GLenum target, GLint level,
-                   GLenum format, GLenum type,
-                   GLvoid* pixels) {}
+//ANDROID//void glGetTexImage(GLenum target, GLint level,
+//ANDROID//                   GLenum format, GLenum type,
+//ANDROID//                   GLvoid* pixels) {}
 
 
 /* 1.1 functions */
@@ -1195,21 +1163,21 @@ void glDeleteTextures(GLsizei n, const GLuint* textures) {}
 
 void glBindTexture(GLenum target, GLuint texture) {}
 
-void glPrioritizeTextures(GLsizei n,
-                          const GLuint* textures,
-                          const GLclampf* priorities) {}
+//ANDROID//void glPrioritizeTextures(GLsizei n,
+//ANDROID//                          const GLuint* textures,
+//ANDROID//                          const GLclampf* priorities) {}
 
-GLboolean glAreTexturesResident(GLsizei n,
-                                const GLuint* textures,
-                                GLboolean* residences) {}
+//ANDROID//GLboolean glAreTexturesResident(GLsizei n,
+//ANDROID//                                const GLuint* textures,
+//ANDROID//                                GLboolean* residences) {}
 
 GLboolean glIsTexture(GLuint texture) {}
 
 
-void glTexSubImage1D(GLenum target, GLint level,
-                     GLint xoffset,
-                     GLsizei width, GLenum format,
-                     GLenum type, const GLvoid* pixels) {}
+//ANDROID//void glTexSubImage1D(GLenum target, GLint level,
+//ANDROID//                     GLint xoffset,
+//ANDROID//                     GLsizei width, GLenum format,
+//ANDROID//                     GLenum type, const GLvoid* pixels) {}
 
 
 void glTexSubImage2D(GLenum target, GLint level,
@@ -1219,10 +1187,10 @@ void glTexSubImage2D(GLenum target, GLint level,
                      const GLvoid* pixels) {}
 
 
-void glCopyTexImage1D(GLenum target, GLint level,
-                      GLenum internalformat,
-                      GLint x, GLint y,
-                      GLsizei width, GLint border) {}
+//ANDROID//void glCopyTexImage1D(GLenum target, GLint level,
+//ANDROID//                      GLenum internalformat,
+//ANDROID//                      GLint x, GLint y,
+//ANDROID//                      GLsizei width, GLint border) {}
 
 
 void glCopyTexImage2D(GLenum target, GLint level,
@@ -1232,9 +1200,9 @@ void glCopyTexImage2D(GLenum target, GLint level,
                       GLint border) {}
 
 
-void glCopyTexSubImage1D(GLenum target, GLint level,
-                         GLint xoffset, GLint x, GLint y,
-                         GLsizei width) {}
+//ANDROID//void glCopyTexSubImage1D(GLenum target, GLint level,
+//ANDROID//                         GLint xoffset, GLint x, GLint y,
+//ANDROID//                         GLsizei width) {}
 
 
 void glCopyTexSubImage2D(GLenum target, GLint level,
@@ -1247,85 +1215,85 @@ void glCopyTexSubImage2D(GLenum target, GLint level,
  * Evaluators
  */
 
-void glMap1d(GLenum target, GLdouble u1, GLdouble u2,
-             GLint stride,
-             GLint order, const GLdouble* points) {}
-void glMap1f(GLenum target, GLfloat u1, GLfloat u2,
-             GLint stride,
-             GLint order, const GLfloat* points) {}
+//ANDROID//void glMap1d(GLenum target, GLdouble u1, GLdouble u2,
+//ANDROID//             GLint stride,
+//ANDROID//             GLint order, const GLdouble* points) {}
+//ANDROID//void glMap1f(GLenum target, GLfloat u1, GLfloat u2,
+//ANDROID//             GLint stride,
+//ANDROID//             GLint order, const GLfloat* points) {}
 
-void glMap2d(GLenum target,
-             GLdouble u1, GLdouble u2, GLint ustride, GLint uorder,
-             GLdouble v1, GLdouble v2, GLint vstride, GLint vorder,
-             const GLdouble* points) {}
-void glMap2f(GLenum target,
-             GLfloat u1, GLfloat u2, GLint ustride, GLint uorder,
-             GLfloat v1, GLfloat v2, GLint vstride, GLint vorder,
-             const GLfloat* points) {}
+//ANDROID//void glMap2d(GLenum target,
+//ANDROID//             GLdouble u1, GLdouble u2, GLint ustride, GLint uorder,
+//ANDROID//             GLdouble v1, GLdouble v2, GLint vstride, GLint vorder,
+//ANDROID//             const GLdouble* points) {}
+//ANDROID//void glMap2f(GLenum target,
+//ANDROID//             GLfloat u1, GLfloat u2, GLint ustride, GLint uorder,
+//ANDROID//             GLfloat v1, GLfloat v2, GLint vstride, GLint vorder,
+//ANDROID//             const GLfloat* points) {}
 
-void glGetMapdv(GLenum target, GLenum query, GLdouble* v) {}
-void glGetMapfv(GLenum target, GLenum query, GLfloat* v) {}
-void glGetMapiv(GLenum target, GLenum query, GLint* v) {}
+//ANDROID//void glGetMapdv(GLenum target, GLenum query, GLdouble* v) {}
+//ANDROID//void glGetMapfv(GLenum target, GLenum query, GLfloat* v) {}
+//ANDROID//void glGetMapiv(GLenum target, GLenum query, GLint* v) {}
 
-void glEvalCoord1d(GLdouble u) {}
-void glEvalCoord1f(GLfloat u) {}
+//ANDROID//void glEvalCoord1d(GLdouble u) {}
+//ANDROID//void glEvalCoord1f(GLfloat u) {}
 
-void glEvalCoord1dv(const GLdouble* u) {}
-void glEvalCoord1fv(const GLfloat* u) {}
+//ANDROID//void glEvalCoord1dv(const GLdouble* u) {}
+//ANDROID//void glEvalCoord1fv(const GLfloat* u) {}
 
-void glEvalCoord2d(GLdouble u, GLdouble v) {}
-void glEvalCoord2f(GLfloat u, GLfloat v) {}
+//ANDROID//void glEvalCoord2d(GLdouble u, GLdouble v) {}
+//ANDROID//void glEvalCoord2f(GLfloat u, GLfloat v) {}
 
-void glEvalCoord2dv(const GLdouble* u) {}
-void glEvalCoord2fv(const GLfloat* u) {}
+//ANDROID//void glEvalCoord2dv(const GLdouble* u) {}
+//ANDROID//void glEvalCoord2fv(const GLfloat* u) {}
 
-void glMapGrid1d(GLint un, GLdouble u1, GLdouble u2) {}
-void glMapGrid1f(GLint un, GLfloat u1, GLfloat u2) {}
+//ANDROID//void glMapGrid1d(GLint un, GLdouble u1, GLdouble u2) {}
+//ANDROID//void glMapGrid1f(GLint un, GLfloat u1, GLfloat u2) {}
 
-void glMapGrid2d(GLint un, GLdouble u1, GLdouble u2,
-                 GLint vn, GLdouble v1, GLdouble v2) {}
-void glMapGrid2f(GLint un, GLfloat u1, GLfloat u2,
-                 GLint vn, GLfloat v1, GLfloat v2) {}
+//ANDROID//void glMapGrid2d(GLint un, GLdouble u1, GLdouble u2,
+//ANDROID//                 GLint vn, GLdouble v1, GLdouble v2) {}
+//ANDROID//void glMapGrid2f(GLint un, GLfloat u1, GLfloat u2,
+//ANDROID//                 GLint vn, GLfloat v1, GLfloat v2) {}
 
-void glEvalPoint1(GLint i) {}
+//ANDROID//void glEvalPoint1(GLint i) {}
 
-void glEvalPoint2(GLint i, GLint j) {}
+//ANDROID//void glEvalPoint2(GLint i, GLint j) {}
 
-void glEvalMesh1(GLenum mode, GLint i1, GLint i2) {}
+//ANDROID//void glEvalMesh1(GLenum mode, GLint i1, GLint i2) {}
 
-void glEvalMesh2(GLenum mode, GLint i1, GLint i2, GLint j1, GLint j2) {}
+//ANDROID//void glEvalMesh2(GLenum mode, GLint i1, GLint i2, GLint j1, GLint j2) {}
 
 
 /*
  * Fog
  */
 
-void glFogf(GLenum pname, GLfloat param) {}
+//ANDROID//void glFogf(GLenum pname, GLfloat param) {}
 
-void glFogi(GLenum pname, GLint param) {}
+//ANDROID//void glFogi(GLenum pname, GLint param) {}
 
-void glFogfv(GLenum pname, const GLfloat* params) {}
+//ANDROID//void glFogfv(GLenum pname, const GLfloat* params) {}
 
-void glFogiv(GLenum pname, const GLint* params) {}
+//ANDROID//void glFogiv(GLenum pname, const GLint* params) {}
 
 
 /*
  * Selection and Feedback
  */
 
-void glFeedbackBuffer(GLsizei size, GLenum type, GLfloat* buffer) {}
+//ANDROID//void glFeedbackBuffer(GLsizei size, GLenum type, GLfloat* buffer) {}
 
-void glPassThrough(GLfloat token) {}
+//ANDROID//void glPassThrough(GLfloat token) {}
 
-void glSelectBuffer(GLsizei size, GLuint* buffer) {}
+//ANDROID//void glSelectBuffer(GLsizei size, GLuint* buffer) {}
 
-void glInitNames(void) {}
+//ANDROID//void glInitNames(void) {}
 
-void glLoadName(GLuint name) {}
+//ANDROID//void glLoadName(GLuint name) {}
 
-void glPushName(GLuint name) {}
+//ANDROID//void glPushName(GLuint name) {}
 
-void glPopName(void) {}
+//ANDROID//void glPopName(void) {}
 
 
 
@@ -1375,28 +1343,28 @@ void glPopName(void) {}
 #define GL_MAX_3D_TEXTURE_SIZE                  0x8073
 #define GL_TEXTURE_BINDING_3D                   0x806A
 
-void glDrawRangeElements(GLenum mode, GLuint start,
-                         GLuint end, GLsizei count, GLenum type, const GLvoid* indices) {}
+//ANDROID//void glDrawRangeElements(GLenum mode, GLuint start,
+//ANDROID//                         GLuint end, GLsizei count, GLenum type, const GLvoid* indices) {}
 
-void glTexImage3D(GLenum target, GLint level,
-                  GLint internalFormat,
-                  GLsizei width, GLsizei height,
-                  GLsizei depth, GLint border,
-                  GLenum format, GLenum type,
-                  const GLvoid* pixels) {}
+//ANDROID//void glTexImage3D(GLenum target, GLint level,
+//ANDROID//                  GLint internalFormat,
+//ANDROID//                  GLsizei width, GLsizei height,
+//ANDROID//                  GLsizei depth, GLint border,
+//ANDROID//                  GLenum format, GLenum type,
+//ANDROID//                  const GLvoid* pixels) {}
 
-void glTexSubImage3D(GLenum target, GLint level,
-                     GLint xoffset, GLint yoffset,
-                     GLint zoffset, GLsizei width,
-                     GLsizei height, GLsizei depth,
-                     GLenum format,
-                     GLenum type, const GLvoid* pixels) {}
+//ANDROID//void glTexSubImage3D(GLenum target, GLint level,
+//ANDROID//                     GLint xoffset, GLint yoffset,
+//ANDROID//                     GLint zoffset, GLsizei width,
+//ANDROID//                     GLsizei height, GLsizei depth,
+//ANDROID//                     GLenum format,
+//ANDROID//                     GLenum type, const GLvoid* pixels) {}
 
-void glCopyTexSubImage3D(GLenum target, GLint level,
-                         GLint xoffset, GLint yoffset,
-                         GLint zoffset, GLint x,
-                         GLint y, GLsizei width,
-                         GLsizei height) {}
+//ANDROID//void glCopyTexSubImage3D(GLenum target, GLint level,
+//ANDROID//                         GLint xoffset, GLint yoffset,
+//ANDROID//                         GLint zoffset, GLint x,
+//ANDROID//                         GLint y, GLsizei width,
+//ANDROID//                         GLsizei height) {}
 
 //typedef void (APIENTRYP PFNGLDRAWRANGEELEMENTSPROC) (GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, const GLvoid *indices) {}
 //typedef void (APIENTRYP PFNGLTEXIMAGE3DPROC) (GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels) {}
@@ -1485,113 +1453,100 @@ void glCopyTexSubImage3D(GLenum target, GLint level,
 #define GL_BLEND_COLOR                          0x8005
 
 
-void glColorTable(GLenum target, GLenum internalformat,
-                  GLsizei width, GLenum format,
-                  GLenum type, const GLvoid* table) {}
+//ANDROID//void glColorTable(GLenum target, GLenum internalformat,
+//ANDROID//                  GLsizei width, GLenum format,
+//ANDROID//                  GLenum type, const GLvoid* table) {}
 
-void glColorSubTable(GLenum target,
-                     GLsizei start, GLsizei count,
-                     GLenum format, GLenum type,
-                     const GLvoid* data) {}
+//ANDROID//void glColorSubTable(GLenum target,
+//ANDROID//                     GLsizei start, GLsizei count,
+//ANDROID//                     GLenum format, GLenum type,
+//ANDROID//                     const GLvoid* data) {}
 
-void glColorTableParameteriv(GLenum target, GLenum pname,
-                             const GLint* params) {}
+//ANDROID//void glColorTableParameteriv(GLenum target, GLenum pname,
+//ANDROID//                             const GLint* params) {}
 
-void glColorTableParameterfv(GLenum target, GLenum pname,
-                             const GLfloat* params) {}
+//ANDROID//void glColorTableParameterfv(GLenum target, GLenum pname,
+//ANDROID//                             const GLfloat* params) {}
 
-void glCopyColorSubTable(GLenum target, GLsizei start,
-                         GLint x, GLint y, GLsizei width) {}
+//ANDROID//void glCopyColorSubTable(GLenum target, GLsizei start,
+//ANDROID//                         GLint x, GLint y, GLsizei width) {}
 
-void glCopyColorTable(GLenum target, GLenum internalformat,
-                      GLint x, GLint y, GLsizei width) {}
+//ANDROID//void glCopyColorTable(GLenum target, GLenum internalformat,
+//ANDROID//                      GLint x, GLint y, GLsizei width) {}
 
-void glGetColorTable(GLenum target, GLenum format,
-                     GLenum type, GLvoid* table) {}
+//ANDROID//void glGetColorTable(GLenum target, GLenum format,
+//ANDROID//                     GLenum type, GLvoid* table) {}
 
-void glGetColorTableParameterfv(GLenum target, GLenum pname,
-                                GLfloat* params) {}
+//ANDROID//void glGetColorTableParameterfv(GLenum target, GLenum pname, GLfloat* params) {}
 
-void glGetColorTableParameteriv(GLenum target, GLenum pname,
-                                GLint* params) {}
+//ANDROID//void glGetColorTableParameteriv(GLenum target, GLenum pname, GLint* params) {}
 
 void glBlendEquation(GLenum mode) {}
 
 void glBlendColor(GLclampf red, GLclampf green,
                   GLclampf blue, GLclampf alpha) {}
 
-void glHistogram(GLenum target, GLsizei width,
-                 GLenum internalformat, GLboolean sink) {}
+//ANDROID//void glHistogram(GLenum target, GLsizei width,
+//ANDROID//                 GLenum internalformat, GLboolean sink) {}
 
-void glResetHistogram(GLenum target) {}
+//ANDROID//void glResetHistogram(GLenum target) {}
 
-void glGetHistogram(GLenum target, GLboolean reset,
-                    GLenum format, GLenum type,
-                    GLvoid* values) {}
+//ANDROID//void glGetHistogram(GLenum target, GLboolean reset,
+//ANDROID//                    GLenum format, GLenum type,
+//ANDROID//                    GLvoid* values) {}
 
-void glGetHistogramParameterfv(GLenum target, GLenum pname,
-                               GLfloat* params) {}
+//ANDROID//void glGetHistogramParameterfv(GLenum target, GLenum pname, GLfloat* params) {}
 
-void glGetHistogramParameteriv(GLenum target, GLenum pname,
-                               GLint* params) {}
+//ANDROID//void glGetHistogramParameteriv(GLenum target, GLenum pname, GLint* params) {}
 
-void glMinmax(GLenum target, GLenum internalformat,
-              GLboolean sink) {}
+//ANDROID//void glMinmax(GLenum target, GLenum internalformat, GLboolean sink) {}
 
-void glResetMinmax(GLenum target) {}
+//ANDROID//void glResetMinmax(GLenum target) {}
 
-void glGetMinmax(GLenum target, GLboolean reset,
-                 GLenum format, GLenum types,
-                 GLvoid* values) {}
+//ANDROID//void glGetMinmax(GLenum target, GLboolean reset,
+//ANDROID//                 GLenum format, GLenum types,
+//ANDROID//                 GLvoid* values) {}
 
-void glGetMinmaxParameterfv(GLenum target, GLenum pname,
-                            GLfloat* params) {}
+//ANDROID//void glGetMinmaxParameterfv(GLenum target, GLenum pname, GLfloat* params) {}
 
-void glGetMinmaxParameteriv(GLenum target, GLenum pname,
-                            GLint* params) {}
+//ANDROID//void glGetMinmaxParameteriv(GLenum target, GLenum pname, GLint* params) {}
 
-void glConvolutionFilter1D(GLenum target,
-                           GLenum internalformat, GLsizei width, GLenum format, GLenum type,
-                           const GLvoid* image) {}
+//ANDROID//void glConvolutionFilter1D(GLenum target,
+//ANDROID//                           GLenum internalformat, GLsizei width, GLenum format, GLenum type,
+//ANDROID//                           const GLvoid* image) {}
 
-void glConvolutionFilter2D(GLenum target,
-                           GLenum internalformat, GLsizei width, GLsizei height, GLenum format,
-                           GLenum type, const GLvoid* image) {}
+//ANDROID//void glConvolutionFilter2D(GLenum target,
+//ANDROID//                           GLenum internalformat, GLsizei width, GLsizei height, GLenum format,
+//ANDROID//                           GLenum type, const GLvoid* image) {}
 
-void glConvolutionParameterf(GLenum target, GLenum pname,
-                             GLfloat params) {}
+//ANDROID//void glConvolutionParameterf(GLenum target, GLenum pname, GLfloat params) {}
 
-void glConvolutionParameterfv(GLenum target, GLenum pname,
-                              const GLfloat* params) {}
+//ANDROID//void glConvolutionParameterfv(GLenum target, GLenum pname, const GLfloat* params) {}
 
-void glConvolutionParameteri(GLenum target, GLenum pname,
-                             GLint params) {}
+//ANDROID//void glConvolutionParameteri(GLenum target, GLenum pname, GLint params) {}
 
-void glConvolutionParameteriv(GLenum target, GLenum pname,
-                              const GLint* params) {}
+//ANDROID//void glConvolutionParameteriv(GLenum target, GLenum pname, const GLint* params) {}
 
-void glCopyConvolutionFilter1D(GLenum target,
-                               GLenum internalformat, GLint x, GLint y, GLsizei width) {}
+//ANDROID//void glCopyConvolutionFilter1D(GLenum target,
+//ANDROID//                               GLenum internalformat, GLint x, GLint y, GLsizei width) {}
 
-void glCopyConvolutionFilter2D(GLenum target,
-                               GLenum internalformat, GLint x, GLint y, GLsizei width,
-                               GLsizei height) {}
+//ANDROID//void glCopyConvolutionFilter2D(GLenum target,
+//ANDROID//                               GLenum internalformat, GLint x, GLint y, GLsizei width,
+//ANDROID//                               GLsizei height) {}
 
-void glGetConvolutionFilter(GLenum target, GLenum format,
-                            GLenum type, GLvoid* image) {}
+//ANDROID//void glGetConvolutionFilter(GLenum target, GLenum format,
+//ANDROID//                            GLenum type, GLvoid* image) {}
 
-void glGetConvolutionParameterfv(GLenum target, GLenum pname,
-                                 GLfloat* params) {}
+//ANDROID//void glGetConvolutionParameterfv(GLenum target, GLenum pname, GLfloat* params) {}
 
-void glGetConvolutionParameteriv(GLenum target, GLenum pname,
-                                 GLint* params) {}
+//ANDROID//void glGetConvolutionParameteriv(GLenum target, GLenum pname, GLint* params) {}
 
-void glSeparableFilter2D(GLenum target,
-                         GLenum internalformat, GLsizei width, GLsizei height, GLenum format,
-                         GLenum type, const GLvoid* row, const GLvoid* column) {}
+//ANDROID//void glSeparableFilter2D(GLenum target,
+//ANDROID//                         GLenum internalformat, GLsizei width, GLsizei height, GLenum format,
+//ANDROID//                         GLenum type, const GLvoid* row, const GLvoid* column) {}
 
-void glGetSeparableFilter(GLenum target, GLenum format,
-                          GLenum type, GLvoid* row, GLvoid* column, GLvoid* span) {}
+//ANDROID//void glGetSeparableFilter(GLenum target, GLenum format,
+//ANDROID//                          GLenum type, GLvoid* row, GLvoid* column, GLvoid* span) {}
 
 //typedef void (APIENTRYP PFNGLBLENDCOLORPROC) (GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha) {}
 //typedef void (APIENTRYP PFNGLBLENDEQUATIONPROC) (GLenum mode) {}
@@ -1709,100 +1664,100 @@ void glGetSeparableFilter(GLenum target, GLenum format,
 
 void glActiveTexture(GLenum texture) {}
 
-void glClientActiveTexture(GLenum texture) {}
+//ANDROID//void glClientActiveTexture(GLenum texture) {}
 
-void glCompressedTexImage1D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border,
-                            GLsizei imageSize, const GLvoid* data) {}
+//ANDROID//void glCompressedTexImage1D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border,
+//ANDROID//                            GLsizei imageSize, const GLvoid* data) {}
 
 void glCompressedTexImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height,
                             GLint border, GLsizei imageSize, const GLvoid* data) {}
 
-void glCompressedTexImage3D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height,
-                            GLsizei depth, GLint border, GLsizei imageSize, const GLvoid* data) {}
+//ANDROID//void glCompressedTexImage3D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height,
+//ANDROID//                            GLsizei depth, GLint border, GLsizei imageSize, const GLvoid* data) {}
 
-void glCompressedTexSubImage1D(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format,
-                               GLsizei imageSize, const GLvoid* data) {}
+//ANDROID//void glCompressedTexSubImage1D(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format,
+//ANDROID//                               GLsizei imageSize, const GLvoid* data) {}
 
 void glCompressedTexSubImage2D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height,
                                GLenum format, GLsizei imageSize, const GLvoid* data) {}
 
-void glCompressedTexSubImage3D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width,
-                               GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const GLvoid* data) {}
+//ANDROID//void glCompressedTexSubImage3D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width,
+//ANDROID//                               GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const GLvoid* data) {}
 
-void glGetCompressedTexImage(GLenum target, GLint lod, GLvoid* img) {}
+//ANDROID//void glGetCompressedTexImage(GLenum target, GLint lod, GLvoid* img) {}
 
-void glMultiTexCoord1d(GLenum target, GLdouble s) {}
+//ANDROID//void glMultiTexCoord1d(GLenum target, GLdouble s) {}
 
-void glMultiTexCoord1dv(GLenum target, const GLdouble* v) {}
+//ANDROID//void glMultiTexCoord1dv(GLenum target, const GLdouble* v) {}
 
-void glMultiTexCoord1f(GLenum target, GLfloat s) {}
+//ANDROID//void glMultiTexCoord1f(GLenum target, GLfloat s) {}
 
-void glMultiTexCoord1fv(GLenum target, const GLfloat* v) {}
+//ANDROID//void glMultiTexCoord1fv(GLenum target, const GLfloat* v) {}
 
-void glMultiTexCoord1i(GLenum target, GLint s) {}
+//ANDROID//void glMultiTexCoord1i(GLenum target, GLint s) {}
 
-void glMultiTexCoord1iv(GLenum target, const GLint* v) {}
+//ANDROID//void glMultiTexCoord1iv(GLenum target, const GLint* v) {}
 
-void glMultiTexCoord1s(GLenum target, GLshort s) {}
+//ANDROID//void glMultiTexCoord1s(GLenum target, GLshort s) {}
 
-void glMultiTexCoord1sv(GLenum target, const GLshort* v) {}
+//ANDROID//void glMultiTexCoord1sv(GLenum target, const GLshort* v) {}
 
-void glMultiTexCoord2d(GLenum target, GLdouble s, GLdouble t) {}
+//ANDROID//void glMultiTexCoord2d(GLenum target, GLdouble s, GLdouble t) {}
 
-void glMultiTexCoord2dv(GLenum target, const GLdouble* v) {}
+//ANDROID//void glMultiTexCoord2dv(GLenum target, const GLdouble* v) {}
 
-void glMultiTexCoord2f(GLenum target, GLfloat s, GLfloat t) {}
+//ANDROID//void glMultiTexCoord2f(GLenum target, GLfloat s, GLfloat t) {}
 
-void glMultiTexCoord2fv(GLenum target, const GLfloat* v) {}
+//ANDROID//void glMultiTexCoord2fv(GLenum target, const GLfloat* v) {}
 
-void glMultiTexCoord2i(GLenum target, GLint s, GLint t) {}
+//ANDROID//void glMultiTexCoord2i(GLenum target, GLint s, GLint t) {}
 
-void glMultiTexCoord2iv(GLenum target, const GLint* v) {}
+//ANDROID//void glMultiTexCoord2iv(GLenum target, const GLint* v) {}
 
-void glMultiTexCoord2s(GLenum target, GLshort s, GLshort t) {}
+//ANDROID//void glMultiTexCoord2s(GLenum target, GLshort s, GLshort t) {}
 
-void glMultiTexCoord2sv(GLenum target, const GLshort* v) {}
+//ANDROID//void glMultiTexCoord2sv(GLenum target, const GLshort* v) {}
 
-void glMultiTexCoord3d(GLenum target, GLdouble s, GLdouble t, GLdouble r) {}
+//ANDROID//void glMultiTexCoord3d(GLenum target, GLdouble s, GLdouble t, GLdouble r) {}
 
-void glMultiTexCoord3dv(GLenum target, const GLdouble* v) {}
+//ANDROID//void glMultiTexCoord3dv(GLenum target, const GLdouble* v) {}
 
-void glMultiTexCoord3f(GLenum target, GLfloat s, GLfloat t, GLfloat r) {}
+//ANDROID//void glMultiTexCoord3f(GLenum target, GLfloat s, GLfloat t, GLfloat r) {}
 
-void glMultiTexCoord3fv(GLenum target, const GLfloat* v) {}
+//ANDROID//void glMultiTexCoord3fv(GLenum target, const GLfloat* v) {}
 
-void glMultiTexCoord3i(GLenum target, GLint s, GLint t, GLint r) {}
+//ANDROID//void glMultiTexCoord3i(GLenum target, GLint s, GLint t, GLint r) {}
 
-void glMultiTexCoord3iv(GLenum target, const GLint* v) {}
+//ANDROID//void glMultiTexCoord3iv(GLenum target, const GLint* v) {}
 
-void glMultiTexCoord3s(GLenum target, GLshort s, GLshort t, GLshort r) {}
+//ANDROID//void glMultiTexCoord3s(GLenum target, GLshort s, GLshort t, GLshort r) {}
 
-void glMultiTexCoord3sv(GLenum target, const GLshort* v) {}
+//ANDROID//void glMultiTexCoord3sv(GLenum target, const GLshort* v) {}
 
-void glMultiTexCoord4d(GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q) {}
+//ANDROID//void glMultiTexCoord4d(GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q) {}
 
-void glMultiTexCoord4dv(GLenum target, const GLdouble* v) {}
+//ANDROID//void glMultiTexCoord4dv(GLenum target, const GLdouble* v) {}
 
-void glMultiTexCoord4f(GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q) {}
+//ANDROID//void glMultiTexCoord4f(GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q) {}
 
-void glMultiTexCoord4fv(GLenum target, const GLfloat* v) {}
+//ANDROID//void glMultiTexCoord4fv(GLenum target, const GLfloat* v) {}
 
-void glMultiTexCoord4i(GLenum target, GLint s, GLint t, GLint r, GLint q) {}
+//ANDROID//void glMultiTexCoord4i(GLenum target, GLint s, GLint t, GLint r, GLint q) {}
 
-void glMultiTexCoord4iv(GLenum target, const GLint* v) {}
+//ANDROID//void glMultiTexCoord4iv(GLenum target, const GLint* v) {}
 
-void glMultiTexCoord4s(GLenum target, GLshort s, GLshort t, GLshort r, GLshort q) {}
+//ANDROID//void glMultiTexCoord4s(GLenum target, GLshort s, GLshort t, GLshort r, GLshort q) {}
 
-void glMultiTexCoord4sv(GLenum target, const GLshort* v) {}
+//ANDROID//void glMultiTexCoord4sv(GLenum target, const GLshort* v) {}
 
 
-void glLoadTransposeMatrixd(const GLdouble m[16]) {}
+//ANDROID//void glLoadTransposeMatrixd(const GLdouble m[16]) {}
 
-void glLoadTransposeMatrixf(const GLfloat m[16]) {}
+//ANDROID//void glLoadTransposeMatrixf(const GLfloat m[16]) {}
 
-void glMultTransposeMatrixd(const GLdouble m[16]) {}
+//ANDROID//void glMultTransposeMatrixd(const GLdouble m[16]) {}
 
-void glMultTransposeMatrixf(const GLfloat m[16]) {}
+//ANDROID//void glMultTransposeMatrixf(const GLfloat m[16]) {}
 
 void glSampleCoverage(GLclampf value, GLboolean invert) {}
 
