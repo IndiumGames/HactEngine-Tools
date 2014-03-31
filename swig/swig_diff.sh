@@ -22,8 +22,8 @@ fi
 
 
 # Run SWIG
-swig -c++ -lua -v -o swig_wrap.temp swig.i
-swig -c++ -lua -v -o swig_opengl_wrap.temp swig_opengl.i
+swig -c++ -lua -v -no-old-metatable-bindings -o swig_wrap.temp swig.i
+swig -c++ -lua -v -no-old-metatable-bindings -o swig_opengl_wrap.temp swig_opengl.i
 
 
 # 'swig_wrap.cxx'
