@@ -12,6 +12,7 @@
 #include "../../src/editorwindow.h"
 #include "../../src/entity.h"
 #include "../../src/gameengine.h"
+#include "../../src/hactmath.h"
 #include "../../src/hierarchyobject.h"
 #include "../../src/input.h"
 #include "../../src/logger.h"
@@ -106,6 +107,9 @@ namespace std {
 
 // GameEngine
 %include "../../src/gameengine.h"
+
+// HactMath
+%include "../../src/hactmath.h"
 
 // Input
 %include "../../src/input.h"
