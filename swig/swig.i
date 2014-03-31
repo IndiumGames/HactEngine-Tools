@@ -48,14 +48,17 @@
 %include <std_string.i>
 
 // Exception support
-%include <std_except.i>
 %include <exception.i>
+%include <std_except.i>
 %exception {
     try {
         $action
     }
-    catch (const std::exception& e) {
-        SWIG_exception(SWIG_RuntimeError, e.what());
+    catch (const std::runtime_error& exception) {
+        SWIG_exception(SWIG_RuntimeError, exception.what());
+    }
+    catch (const std::exception& exception) {
+        SWIG_exception(SWIG_SystemError, exception.what());
     }
 }
 
