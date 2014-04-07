@@ -6,10 +6,18 @@
 %module GLM
 
 %{
+#include <stdexcept>
+#include <string>
+#include <sstream>
+
+#include <iostream>
+
 #define GLM_SWIZZLE
 #include <glm/glm.hpp>
 %}
 
+// Exception support
+%include <std_except.i>
 
 // Types, macros, defines, etc.
 %include <glm/detail/setup.hpp>
@@ -17,23 +25,30 @@
 %include <glm/detail/_swizzle_func.hpp>
 
 
-// Vector types
-%import "swig_glm/swig_glm_vector.i"
-%template(vec2) glm::detail::tvec2<float, glm::highp>;
-%template(vec3) glm::detail::tvec3<float, glm::highp>;
-%template(vec4) glm::detail::tvec4<float, glm::highp>;
-
-
 // Matrix types
 %import "swig_glm/swig_glm_matrix.i"
-%template(mat2x2) glm::detail::tmat2x2<float, glm::highp>;
-%template(mat2x3) glm::detail::tmat2x3<float, glm::highp>;
-%template(mat2x4) glm::detail::tmat2x4<float, glm::highp>;
-%template(mat3x2) glm::detail::tmat3x2<float, glm::highp>;
-%template(mat3x3) glm::detail::tmat3x3<float, glm::highp>;
-%template(mat3x4) glm::detail::tmat3x4<float, glm::highp>;
-%template(mat4x2) glm::detail::tmat4x2<float, glm::highp>;
-%template(mat4x3) glm::detail::tmat4x3<float, glm::highp>;
-%template(mat4x4) glm::detail::tmat4x4<float, glm::highp>;
+
+GLM_MATRIX(mat2x2, glm::detail::tmat2x2, float, glm::highp)
+GLM_MATRIX(mat2x3, glm::detail::tmat2x3, float, glm::highp)
+GLM_MATRIX(mat2x4, glm::detail::tmat2x4, float, glm::highp)
+GLM_MATRIX(mat3x2, glm::detail::tmat3x2, float, glm::highp)
+GLM_MATRIX(mat3x3, glm::detail::tmat3x3, float, glm::highp)
+GLM_MATRIX(mat3x4, glm::detail::tmat3x4, float, glm::highp)
+GLM_MATRIX(mat4x2, glm::detail::tmat4x2, float, glm::highp)
+GLM_MATRIX(mat4x3, glm::detail::tmat4x3, float, glm::highp)
+GLM_MATRIX(mat4x4, glm::detail::tmat4x4, float, glm::highp)
+
+// Vector types
+%import "swig_glm/swig_glm_vector.i"
+
+GLM_VECTOR(vec2, glm::detail::tvec2, float, glm::highp)
+GLM_VECTOR(vec3, glm::detail::tvec3, float, glm::highp)
+GLM_VECTOR(vec4, glm::detail::tvec4, float, glm::highp)
+
+
+%template(operator_add) glm::detail::operator+<float, glm::highp>;
+%template(operator_sub) glm::detail::operator-<float, glm::highp>;
+%template(operator_mul) glm::detail::operator*<float, glm::highp>;
+%template(operator_div) glm::detail::operator/<float, glm::highp>;
 
 #endif // defined SWIG
