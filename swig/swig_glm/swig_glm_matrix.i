@@ -8,6 +8,7 @@
 %include "swig_glm/detail/type_mat4x3.hpp"
 %include "swig_glm/detail/type_mat4x4.hpp"
 
+
 %define GLM_MATRIX(lua_type, glm_class, glm_type, glm_precision)
 %extend glm_class {
     // [] is replaced by __getitem__ & __setitem__

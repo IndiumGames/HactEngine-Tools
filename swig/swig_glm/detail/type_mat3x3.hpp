@@ -50,10 +50,10 @@ namespace detail
 
 		GLM_FUNC_DECL GLM_CONSTEXPR length_t length() const;
 
-		template <typename U, precision Q>
-		friend tvec3<U, Q> operator/(tmat3x3<U, Q> const & m, tvec3<U, Q> const & v);
-		template <typename U, precision Q>
-		friend tvec3<U, Q> operator/(tvec3<U, Q> const & v, tmat3x3<U, Q> const & m);
+//!		template <typename U, precision Q>
+//!		friend tvec3<U, Q> operator/(tmat3x3<U, Q> const & m, tvec3<U, Q> const & v);
+//!		template <typename U, precision Q>
+//!		friend tvec3<U, Q> operator/(tvec3<U, Q> const & v, tmat3x3<U, Q> const & m);
 
 	private:
 		/// @cond DETAIL
@@ -223,15 +223,15 @@ namespace detail
 		T const & s,
 		tmat3x3<T, P> const & m);
 
-	template <typename T, precision P>
-	GLM_FUNC_DECL typename tmat3x3<T, P>::col_type operator/ (
-		tmat3x3<T, P> const & m,
-		typename tmat3x3<T, P>::row_type const & v);
+//!	template <typename T, precision P>
+//!	GLM_FUNC_DECL typename tmat3x3<T, P>::col_type operator/ (
+//!		tmat3x3<T, P> const & m,
+//!		typename tmat3x3<T, P>::row_type const & v);
 
-	template <typename T, precision P>
-	GLM_FUNC_DECL typename tmat3x3<T, P>::row_type operator/ (
-		typename tmat3x3<T, P>::col_type const & v,
-		tmat3x3<T, P> const & m);
+//!	template <typename T, precision P>
+//!	GLM_FUNC_DECL typename tmat3x3<T, P>::row_type operator/ (
+//!		typename tmat3x3<T, P>::col_type const & v,
+//!		tmat3x3<T, P> const & m);
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat3x3<T, P> operator/ (
