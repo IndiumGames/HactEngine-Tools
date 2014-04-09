@@ -34,11 +34,6 @@
         
         return stringStream.str().c_str();
     }
-    /*
-    glm_class operator*(const glm_class &vector) {
-        return glm::detail::operator*(*$self, vector);
-    }
-    */
 };
 
 %template(lua_type) glm_class<glm_type, glm_precision>;
