@@ -23,8 +23,6 @@
 %include <glm/detail/setup.hpp>
 %include <glm/detail/precision.hpp>
 %include <glm/detail/_swizzle_func.hpp>
-
-%include <glm/detail/type_int.hpp>
 %include <glm/detail/type_vec.hpp>
 
 // Rename operator functions
@@ -32,11 +30,68 @@
 %rename(_operator_sub) glm::detail::operator-;
 %rename(_operator_mul) glm::detail::operator*;
 %rename(_operator_div) glm::detail::operator/;
-%rename(_operator_mod) glm::detail::operator%;
 
 
-// Matrix types
-%import "swig_glm/swig_glm_matrix.i"
+
+/***************
+* MATRIX TYPES *
+***************/
+
+%include "swig_glm/detail/type_mat2x2.hpp"
+%include "swig_glm/detail/type_mat2x3.hpp"
+%include "swig_glm/detail/type_mat2x4.hpp"
+%include "swig_glm/detail/type_mat3x2.hpp"
+%include "swig_glm/detail/type_mat3x3.hpp"
+%include "swig_glm/detail/type_mat3x4.hpp"
+%include "swig_glm/detail/type_mat4x2.hpp"
+%include "swig_glm/detail/type_mat4x3.hpp"
+%include "swig_glm/detail/type_mat4x4.hpp"
+
+%define GLM_MATRIX(lua_type, glm_class, glm_type, glm_precision)
+%extend glm_class {
+    // [] is replaced by __getitem__ & __setitem__
+    // Simply throws a string, which causes a Lua error
+    col_type __getitem__(glm::length_t idx) throw (std::out_of_range) {
+        if (idx >= self->length()) {
+            throw std::out_of_range("in classname::__getitem__()");
+        }
+        
+        return (*self)[idx];
+    }
+    void __setitem__(glm::length_t idx, col_type val) throw (std::out_of_range) {
+        if (idx >= self->length()) {
+            throw std::out_of_range("in classname::__setitem__()");
+        }
+        
+        (*self)[idx] = val;
+    }
+    
+    const char* __str__() {
+        std::stringstream stringStream;
+        
+        const glm::length_t width = $self->length();
+        const glm::length_t height = (*$self)[0].length();
+        
+        for (glm::length_t row = 0; row < height; ++row) {
+            for (glm::length_t col = 0; col < width; ++col) {
+                stringStream << (*$self)[col][row];
+                
+                if (col + 1 != width) {
+                    stringStream << ",\t";
+                }
+            }
+            
+            if (row + 1 != height) {
+                stringStream << "\n";
+            }
+        }
+        
+        return stringStream.str().c_str();
+    }
+};
+
+%template(lua_type) glm_class<glm_type, glm_precision>;
+%enddef
 
 GLM_MATRIX(mat2x2, glm::detail::tmat2x2, float, glm::highp)
 GLM_MATRIX(mat2x3, glm::detail::tmat2x3, float, glm::highp)
@@ -49,38 +104,77 @@ GLM_MATRIX(mat4x3, glm::detail::tmat4x3, float, glm::highp)
 GLM_MATRIX(mat4x4, glm::detail::tmat4x4, float, glm::highp)
 
 
-// Vector types
-%import "swig_glm/swig_glm_vector.i"
+
+/***************
+* VECTOR TYPES *
+***************/
+
+%include "swig_glm/detail/type_vec2.hpp"
+%include "swig_glm/detail/type_vec3.hpp"
+%include "swig_glm/detail/type_vec4.hpp"
+
+%define GLM_VECTOR(lua_type, glm_class, glm_type, glm_precision)
+%extend glm_class {
+    // [] is replaced by __getitem__ & __setitem__
+    // Simply throws a string, which causes a Lua error
+    T __getitem__(glm::length_t idx) throw (std::out_of_range) {
+        if (idx >= $self->length()) {
+            throw std::out_of_range("in classname::__getitem__()");
+        }
+        
+        return (*$self)[idx];
+    }
+    void __setitem__(glm::length_t idx, T val) throw (std::out_of_range) {
+        if (idx >= $self->length()) {
+            throw std::out_of_range("in classname::__setitem__()");
+        }
+        
+        (*$self)[idx] = val;
+    }
+    
+    const char* __str__() {
+        std::stringstream stringStream;
+        
+        for (glm::length_t i = 0; i < $self->length(); ++i) {
+            stringStream << (*$self)[i];
+            
+            if (i + 1 != $self->length()) {
+                stringStream << ", ";
+            }
+        }
+        
+        return stringStream.str().c_str();
+    }
+};
+
+%template(lua_type) glm_class<glm_type, glm_precision>;
+%enddef
 
 GLM_VECTOR(vec2, glm::detail::tvec2, float, glm::highp)
 GLM_VECTOR(vec3, glm::detail::tvec3, float, glm::highp)
 GLM_VECTOR(vec4, glm::detail::tvec4, float, glm::highp)
 
-GLM_VECTOR(ivec2, glm::detail::tvec2, int, glm::highp)
-GLM_VECTOR(ivec3, glm::detail::tvec3, int, glm::highp)
-GLM_VECTOR(ivec4, glm::detail::tvec4, int, glm::highp)
-
 GLM_VECTOR(bvec2, glm::detail::tvec2, bool, glm::highp)
 GLM_VECTOR(bvec3, glm::detail::tvec3, bool, glm::highp)
 GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 
-// Operators
+
+
+/************
+* OPERATORS *
+*************/
+
 %template(operator_add) glm::detail::operator+<float, glm::highp>;
 %template(operator_sub) glm::detail::operator-<float, glm::highp>;
 %template(operator_mul) glm::detail::operator*<float, glm::highp>;
 %template(operator_div) glm::detail::operator/<float, glm::highp>;
 
-// In C++, the modulo operator isn't supported for floats
-//%template(operator_mod) glm::detail::operator%<float, glm::highp>;
-
-%template(operator_add) glm::detail::operator+<int, glm::highp>;
-%template(operator_sub) glm::detail::operator-<int, glm::highp>;
-%template(operator_mul) glm::detail::operator*<int, glm::highp>;
-%template(operator_div) glm::detail::operator/<int, glm::highp>;
-%template(operator_mod) glm::detail::operator%<int, glm::highp>;
 
 
-// Functions
+/************
+* FUNCTIONS *
+************/
+
 %define FLOAT_SCALAR_OR_VECTOR(function_name)
     float function_name(const float &);
     vec2  function_name(const vec2  &);
@@ -115,8 +209,8 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 %enddef
 
 
-// glm/detail/func_common.hpp
 namespace glm {
+    // glm/detail/func_common.hpp
     FLOAT_SCALAR_OR_VECTOR(abs)
     FLOAT_SCALAR_OR_VECTOR(sign)
     FLOAT_SCALAR_OR_VECTOR(floor)
@@ -164,16 +258,5 @@ namespace glm {
     //! frexp()
     //! ldexp()
 }
-
-//%import "swig_glm/swig_glm_functions.i"
-
-//%include <glm/detail/func_trigonometric.hpp>
-//%include "swig_glm/detail/func_exponential.hpp"
-//%include "swig_glm/detail/func_common.hpp"
-//%include "swig_glm/detail/func_packing.hpp"
-//%include "swig_glm/detail/func_geometric.hpp"
-//%include "swig_glm/detail/func_matrix.hpp"
-//%include "swig_glm/detail/func_vector_relational.hpp"
-//%include <glm/detail/func_integer.hpp>
 
 #endif // defined SWIG
