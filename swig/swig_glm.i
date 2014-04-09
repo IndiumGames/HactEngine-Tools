@@ -38,6 +38,7 @@ GLM_MATRIX(mat4x2, glm::detail::tmat4x2, float, glm::highp)
 GLM_MATRIX(mat4x3, glm::detail::tmat4x3, float, glm::highp)
 GLM_MATRIX(mat4x4, glm::detail::tmat4x4, float, glm::highp)
 
+
 // Vector types
 %import "swig_glm/swig_glm_vector.i"
 
@@ -56,14 +57,15 @@ GLM_VECTOR(vec4, glm::detail::tvec4, float, glm::highp)
 
 
 // Functions
-%include <glm/detail/func_trigonometric.hpp>
-%include "swig_glm/detail/func_exponential.hpp"
-%include "swig_glm/detail/func_common.hpp"
-//%include "swig_glm/detail/func_packing.hpp"
-%include "swig_glm/detail/func_geometric.hpp"
-%include "swig_glm/detail/func_matrix.hpp"
-%include "swig_glm/detail/func_vector_relational.hpp"
-%include <glm/detail/func_integer.hpp>
+%import "swig_glm/swig_glm_functions.i"
 
+//%include <glm/detail/func_trigonometric.hpp>
+//%include "swig_glm/detail/func_exponential.hpp"
+//%include "swig_glm/detail/func_common.hpp"
+//%include "swig_glm/detail/func_packing.hpp"
+//%include "swig_glm/detail/func_geometric.hpp"
+//%include "swig_glm/detail/func_matrix.hpp"
+//%include "swig_glm/detail/func_vector_relational.hpp"
+//%include <glm/detail/func_integer.hpp>
 
 #endif // defined SWIG
