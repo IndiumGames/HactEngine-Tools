@@ -6,14 +6,14 @@
 %module GLM
 
 %{
-#include <stdexcept>
-#include <string>
-#include <sstream>
-
-#include <iostream>
-
-#define GLM_SWIZZLE
-#include <glm/glm.hpp>
+    #include <stdexcept>
+    #include <string>
+    #include <sstream>
+    
+    #include <iostream>
+    
+    #define GLM_SWIZZLE
+    #include <glm/glm.hpp>
 %}
 
 // Exception support
@@ -49,49 +49,49 @@
 %include "swig_glm/detail/type_mat4x4.hpp"
 
 %define GLM_MATRIX(lua_type, glm_class, glm_type, glm_precision)
-%extend glm_class {
-    // [] is replaced by __getitem__ & __setitem__
-    // Simply throws a string, which causes a Lua error
-    col_type __getitem__(glm::length_t idx) throw (std::out_of_range) {
-        if (idx >= self->length()) {
-            throw std::out_of_range("in classname::__getitem__()");
+    %extend glm_class {
+        // [] is replaced by __getitem__ & __setitem__
+        // Simply throws a string, which causes a Lua error
+        col_type __getitem__(glm::length_t idx) throw (std::out_of_range) {
+            if (idx >= self->length()) {
+                throw std::out_of_range("in classname::__getitem__()");
+            }
+            
+            return (*self)[idx];
+        }
+        void __setitem__(glm::length_t idx, col_type val) throw (std::out_of_range) {
+            if (idx >= self->length()) {
+                throw std::out_of_range("in classname::__setitem__()");
+            }
+            
+            (*self)[idx] = val;
         }
         
-        return (*self)[idx];
-    }
-    void __setitem__(glm::length_t idx, col_type val) throw (std::out_of_range) {
-        if (idx >= self->length()) {
-            throw std::out_of_range("in classname::__setitem__()");
-        }
-        
-        (*self)[idx] = val;
-    }
-    
-    const char* __str__() {
-        std::stringstream stringStream;
-        
-        const glm::length_t width = $self->length();
-        const glm::length_t height = (*$self)[0].length();
-        
-        for (glm::length_t row = 0; row < height; ++row) {
-            for (glm::length_t col = 0; col < width; ++col) {
-                stringStream << (*$self)[col][row];
+        const char* __str__() {
+            std::stringstream stringStream;
+            
+            const glm::length_t width = $self->length();
+            const glm::length_t height = (*$self)[0].length();
+            
+            for (glm::length_t row = 0; row < height; ++row) {
+                for (glm::length_t col = 0; col < width; ++col) {
+                    stringStream << (*$self)[col][row];
+                    
+                    if (col + 1 != width) {
+                        stringStream << ",\t";
+                    }
+                }
                 
-                if (col + 1 != width) {
-                    stringStream << ",\t";
+                if (row + 1 != height) {
+                    stringStream << "\n";
                 }
             }
             
-            if (row + 1 != height) {
-                stringStream << "\n";
-            }
+            return stringStream.str().c_str();
         }
-        
-        return stringStream.str().c_str();
-    }
-};
-
-%template(lua_type) glm_class<glm_type, glm_precision>;
+    };
+    
+    %template(lua_type) glm_class<glm_type, glm_precision>;
 %enddef
 
 GLM_MATRIX(mat2x2, glm::detail::tmat2x2, float, glm::highp)
@@ -115,40 +115,40 @@ GLM_MATRIX(mat4x4, glm::detail::tmat4x4, float, glm::highp)
 %include "swig_glm/detail/type_vec4.hpp"
 
 %define GLM_VECTOR(lua_type, glm_class, glm_type, glm_precision)
-%extend glm_class {
-    // [] is replaced by __getitem__ & __setitem__
-    // Simply throws a string, which causes a Lua error
-    T __getitem__(glm::length_t idx) throw (std::out_of_range) {
-        if (idx >= $self->length()) {
-            throw std::out_of_range("in classname::__getitem__()");
-        }
-        
-        return (*$self)[idx];
-    }
-    void __setitem__(glm::length_t idx, T val) throw (std::out_of_range) {
-        if (idx >= $self->length()) {
-            throw std::out_of_range("in classname::__setitem__()");
-        }
-        
-        (*$self)[idx] = val;
-    }
-    
-    const char* __str__() {
-        std::stringstream stringStream;
-        
-        for (glm::length_t i = 0; i < $self->length(); ++i) {
-            stringStream << (*$self)[i];
-            
-            if (i + 1 != $self->length()) {
-                stringStream << ", ";
+    %extend glm_class {
+        // [] is replaced by __getitem__ & __setitem__
+        // Simply throws a string, which causes a Lua error
+        T __getitem__(glm::length_t idx) throw (std::out_of_range) {
+            if (idx >= $self->length()) {
+                throw std::out_of_range("in classname::__getitem__()");
             }
+            
+            return (*$self)[idx];
+        }
+        void __setitem__(glm::length_t idx, T val) throw (std::out_of_range) {
+            if (idx >= $self->length()) {
+                throw std::out_of_range("in classname::__setitem__()");
+            }
+            
+            (*$self)[idx] = val;
         }
         
-        return stringStream.str().c_str();
-    }
-};
-
-%template(lua_type) glm_class<glm_type, glm_precision>;
+        const char* __str__() {
+            std::stringstream stringStream;
+            
+            for (glm::length_t i = 0; i < $self->length(); ++i) {
+                stringStream << (*$self)[i];
+                
+                if (i + 1 != $self->length()) {
+                    stringStream << ", ";
+                }
+            }
+            
+            return stringStream.str().c_str();
+        }
+    };
+    
+    %template(lua_type) glm_class<glm_type, glm_precision>;
 %enddef
 
 GLM_VECTOR(vec2, glm::detail::tvec2, float, glm::highp)
@@ -158,6 +158,7 @@ GLM_VECTOR(vec4, glm::detail::tvec4, float, glm::highp)
 //GLM_VECTOR(ivec2, glm::detail::tvec2, int, glm::highp)
 //GLM_VECTOR(ivec3, glm::detail::tvec3, int, glm::highp)
 //GLM_VECTOR(ivec4, glm::detail::tvec4, int, glm::highp)
+
 //GLM_VECTOR(uvec2, glm::detail::tvec2, uint, glm::highp)
 //GLM_VECTOR(uvec3, glm::detail::tvec3, uint, glm::highp)
 //GLM_VECTOR(uvec4, glm::detail::tvec4, uint, glm::highp)
@@ -165,17 +166,6 @@ GLM_VECTOR(vec4, glm::detail::tvec4, float, glm::highp)
 GLM_VECTOR(bvec2, glm::detail::tvec2, bool, glm::highp)
 GLM_VECTOR(bvec3, glm::detail::tvec3, bool, glm::highp)
 GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
-
-
-
-/************
-* OPERATORS *
-*************/
-
-%template(operator_add) glm::detail::operator+<float, glm::highp>;
-%template(operator_sub) glm::detail::operator-<float, glm::highp>;
-%template(operator_mul) glm::detail::operator*<float, glm::highp>;
-%template(operator_div) glm::detail::operator/<float, glm::highp>;
 
 
 
@@ -254,7 +244,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 %enddef
 
 
-// glm/detail/func_common.hpp
+// <glm/detail/func_common.hpp>
 %define DECLARE_FUNC_COMMON()
     FLOAT_SCALAR_OR_VECTOR(abs)
     FLOAT_SCALAR_OR_VECTOR(sign)
@@ -322,15 +312,18 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     vec3  uintBitsToFloat(const uvec3 &);
     vec4  uintBitsToFloat(const uvec4 &);
     FLOAT_SCALAR_OR_VECTOR_3_PARAMS(fma)
-    //float frexp(const float &, float &);
-    //vec2  frexp(const vec2  &, vec2  &);
-    //vec3  frexp(const vec3  &, vec3  &);
-    //vec4  frexp(const vec4  &, vec4  &);
-    //FLOAT_SCALAR_OR_VECTOR_2_PARAMS(ldexp)
+    //float frexp(const float &, int &);
+    //vec2  frexp(const vec2  &, ivec2  &);
+    //vec3  frexp(const vec3  &, ivec3  &);
+    //vec4  frexp(const vec4  &, ivec4  &);
+    //float ldexp(const float &, const int &);
+    //vec2  ldexp(const vec2  &, const ivec2  &);
+    //vec3  ldexp(const vec3  &, const ivec3  &);
+    //vec4  ldexp(const vec4  &, const ivec4  &);
 %enddef // DECLARE_FUNC_COMMON
 
 
-// glm/detail/func_exponential.hpp
+// <glm/detail/func_exponential.hpp>
 %define DECLARE_FUNC_EXPONENTIAL()
     FLOAT_SCALAR_OR_VECTOR_2_PARAMS(pow)
     FLOAT_SCALAR_OR_VECTOR(exp)
@@ -342,7 +335,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 %enddef // DECLARE_FUNC_EXPONENTIAL
 
 
-// glm/detail/func_geometric.hpp
+// <glm/detail/func_geometric.hpp>
 %define DECLARE_FUNC_GEOMETRIC()
     FLOAT_VECTOR_RETURN_VALUE(length)
     FLOAT_VECTOR_RETURN_VALUE_2_PARAMS(distance)
@@ -357,7 +350,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 %enddef // DECLARE_FUNC_GEOMETRIC
 
 
-// glm/detail/func_integer.hpp
+// <glm/detail/func_integer.hpp>
 %define DECLARE_FUNC_INTEGER()
     uint  uaddCarry(const uint  &, const uint  &, uint  &);
     uvec2 uaddCarry(const uvec2 &, const uvec2 &, uvec2 &);
@@ -426,7 +419,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 %enddef // DECLARE_FUNC_INTEGER
 
 
-// glm/detail/func_matrix.hpp
+// <glm/detail/func_matrix.hpp>
 %define DECLARE_FUNC_MATRIX()
     mat2x2 matrixCompMult(const mat2x2 &, const mat2x2 &);
     mat2x3 matrixCompMult(const mat2x3 &, const mat2x3 &);
@@ -464,7 +457,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 %enddef // DECLARE_FUNC_MATRIX
 
 
-// glm/detail/func_noise.hpp
+// <glm/detail/func_noise.hpp>
 %define DECLARE_FUNC_NOISE()
     //float noise1(const float &);
     //float noise1(const vec2 &);
@@ -485,7 +478,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 %enddef // DECLARE_FUNC_NOISE
 
 
-// glm/detail/func_packing.hpp
+// <glm/detail/func_packing.hpp>
 %define DECLARE_FUNC_PACKING()
     uint packUnorm2x16(const vec2 &);
     uint packSnorm2x16(const vec2 &);
@@ -502,7 +495,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 %enddef // DECLARE_FUNC_PACKING
 
 
-// glm/detail/func_trigonometric.hpp
+// <glm/detail/func_trigonometric.hpp>
 %define DECLARE_FUNC_TRIGONOMETRIC()
     FLOAT_SCALAR_OR_VECTOR(radians)
     FLOAT_SCALAR_OR_VECTOR(degrees)
@@ -522,7 +515,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 %enddef // DECLARE_FUNC_TRIGONOMETRIC
 
 
-// glm/detail/func_vector_relational.hpp
+// <glm/detail/func_vector_relational.hpp>
 %define DECLARE_FUNC_VECTOR_RELATIONAL()
     bvec2 lessThanEqual(const vec2 &, const vec2 &);
     bvec3 lessThanEqual(const vec3 &, const vec3 &);
@@ -550,32 +543,337 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 
 // Declare functions
 namespace glm {
-    // glm/detail/func_common.hpp
+    // <glm/detail/func_common.hpp>
     DECLARE_FUNC_COMMON()
     
-    // glm/detail/func_exponential.hpp
+    // <glm/detail/func_exponential.hpp>
     DECLARE_FUNC_EXPONENTIAL()
     
-    // glm/detail/func_geometric.hpp
+    // <glm/detail/func_geometric.hpp>
     DECLARE_FUNC_GEOMETRIC()
     
-    // glm/detail/func_integer.hpp
+    // <glm/detail/func_integer.hpp>
     //DECLARE_FUNC_INTEGER()
     
-    // glm/detail/func_matrix.hpp
+    // <glm/detail/func_matrix.hpp>
     DECLARE_FUNC_MATRIX()
     
-    // glm/detail/func_noise.hpp
+    // <glm/detail/func_noise.hpp>
     DECLARE_FUNC_NOISE()
     
-    // glm/detail/func_packing.hpp
+    // <glm/detail/func_packing.hpp>
     //DECLARE_FUNC_PACKING()
     
-    // glm/detail/func_trigonometric.hpp
+    // <glm/detail/func_trigonometric.hpp>
     DECLARE_FUNC_TRIGONOMETRIC()
     
-    // glm/detail/func_vector_relational.hpp
+    // <glm/detail/func_vector_relational.hpp>
     DECLARE_FUNC_VECTOR_RELATIONAL()
 }
+
+
+
+/*************
+* EXTENSIONS *
+**************/
+
+// GTC extensions (stable)
+%define DECLARE_EXTENSIONS_GTC()
+    %{
+        #define GLM_FORCE_RADIANS
+        #include <glm/gtc/constants.hpp>
+        #include <glm/gtc/epsilon.hpp>
+        #include <glm/gtc/matrix_access.hpp>
+        //#include <glm/gtc/matrix_integer.hpp>
+        #include <glm/gtc/matrix_inverse.hpp>
+        #include <glm/gtc/matrix_transform.hpp>
+        #include <glm/gtc/noise.hpp>
+        //#include <glm/gtc/packing.hpp>
+        #include <glm/gtc/quaternion.hpp>
+        #include <glm/gtc/random.hpp>
+        #include <glm/gtc/reciprocal.hpp>
+        //#include <glm/gtc/type_precision.hpp>
+        #include <glm/gtc/type_ptr.hpp>
+        //#include <glm/gtc/ulp.hpp>
+    %}
+    
+    
+    // <glm/gtc/constants.hpp>
+    %include <glm/gtc/constants.hpp>
+    
+    namespace glm {
+        // <glm/gtc/constants.hpp>
+        %template(epsilon)           epsilon<float>;
+        %template(zero)              zero<float>;
+        %template(one)               one<float>;
+        %template(pi)                pi<float>;
+        %template(root_pi)           root_pi<float>;
+        %template(half_pi)           half_pi<float>;
+        %template(quarter_pi)        quarter_pi<float>;
+        %template(one_over_pi)       one_over_pi<float>;
+        %template(two_over_pi)       two_over_pi<float>;
+        %template(two_over_root_pi)  two_over_root_pi<float>;
+        %template(one_over_root_two) one_over_root_two<float>;
+        %template(root_half_pi)      root_half_pi<float>;
+        %template(root_two_pi)       root_two_pi<float>;
+        %template(root_ln_four)      root_ln_four<float>;
+        %template(e)                 e<float>;
+        %template(euler)             euler<float>;
+        %template(root_two)          root_two<float>;
+        %template(root_three)        root_three<float>;
+        %template(root_five)         root_five<float>;
+        %template(ln_two)            ln_two<float>;
+        %template(ln_ten)            ln_ten<float>;
+        %template(ln_ln_two)         ln_ln_two<float>;
+        %template(third)             third<float>;
+        %template(two_thirds)        two_thirds<float>;
+        %template(golden_ratio)      golden_ratio<float>;
+        
+        // <glm/gtc/epsilon.hpp>
+        bool  epsilonEqual(const float &, const float &, const float &);
+        bvec2 epsilonEqual(const vec2  &, const vec2  &, const float &);
+        bvec3 epsilonEqual(const vec3  &, const vec3  &, const float &);
+        bvec4 epsilonEqual(const vec4  &, const vec4  &, const float &);
+        bool  epsilonNotEqual(const float &, const float &, const float &);
+        bvec2 epsilonNotEqual(const vec2  &, const vec2  &, const float &);
+        bvec3 epsilonNotEqual(const vec3  &, const vec3  &, const float &);
+        bvec4 epsilonNotEqual(const vec4  &, const vec4  &, const float &);
+        
+        // <glm/gtc/matrix_access.hpp>
+        vec2   row(const mat2x2 &,    const length_t &);
+        vec2   row(const mat2x3 &,    const length_t &);
+        vec2   row(const mat2x4 &,    const length_t &);
+        vec3   row(const mat3x2 &,    const length_t &);
+        vec3   row(const mat3x3 &,    const length_t &);
+        vec3   row(const mat3x4 &,    const length_t &);
+        vec4   row(const mat4x2 &,    const length_t &);
+        vec4   row(const mat4x3 &,    const length_t &);
+        vec4   row(const mat4x4 &,    const length_t &);
+        mat2x2 row(const mat2x2 &,    const length_t &, const vec2 &);
+        mat2x3 row(const mat2x3 &,    const length_t &, const vec2 &);
+        mat2x4 row(const mat2x4 &,    const length_t &, const vec2 &);
+        mat3x2 row(const mat3x2 &,    const length_t &, const vec3 &);
+        mat3x3 row(const mat3x3 &,    const length_t &, const vec3 &);
+        mat3x4 row(const mat3x4 &,    const length_t &, const vec3 &);
+        mat4x2 row(const mat4x2 &,    const length_t &, const vec4 &);
+        mat4x3 row(const mat4x3 &,    const length_t &, const vec4 &);
+        mat4x4 row(const mat4x4 &,    const length_t &, const vec4 &);
+        vec2   column(const mat2x2 &, const length_t &);
+        vec2   column(const mat3x2 &, const length_t &);
+        vec2   column(const mat4x2 &, const length_t &);
+        vec3   column(const mat2x3 &, const length_t &);
+        vec3   column(const mat3x3 &, const length_t &);
+        vec3   column(const mat4x3 &, const length_t &);
+        vec4   column(const mat2x4 &, const length_t &);
+        vec4   column(const mat3x4 &, const length_t &);
+        vec4   column(const mat4x4 &, const length_t &);
+        mat2x2 column(const mat2x2 &, const length_t &, const vec2 &);
+        mat2x3 column(const mat2x3 &, const length_t &, const vec3 &);
+        mat2x4 column(const mat2x4 &, const length_t &, const vec4 &);
+        mat3x2 column(const mat3x2 &, const length_t &, const vec2 &);
+        mat3x3 column(const mat3x3 &, const length_t &, const vec3 &);
+        mat3x4 column(const mat3x4 &, const length_t &, const vec4 &);
+        mat4x2 column(const mat4x2 &, const length_t &, const vec2 &);
+        mat4x3 column(const mat4x3 &, const length_t &, const vec3 &);
+        mat4x4 column(const mat4x4 &, const length_t &, const vec4 &);
+        
+        // <glm/gtc/matrix_integer.hpp>
+        // Not included, only has typedefs
+        
+        // <glm/gtc/matrix_inverse.hpp>
+        mat3x3 affineInverse(const mat3x3 &);
+        mat4x4 affineInverse(const mat4x4 &);
+        mat2x2 inverseTranspose(const mat2x2 &);
+        mat3x3 inverseTranspose(const mat3x3 &);
+        mat4x4 inverseTranspose(const mat4x4 &);
+        
+        // <glm/gtc/matrix_transform.hpp>
+        mat4x4 translate(const mat4x4 &, const vec3 &);
+        mat4x4 rotate(const mat4x4 &, const float &, const vec3 &);
+        mat4x4 scale(const mat4x4 &, const vec3 &);
+        mat4x4 ortho(const float &, const float &,
+                     const float &, const float &);
+        mat4x4 ortho(const float &, const float &,
+                     const float &, const float &,
+                     const float &, const float &);
+        mat4x4 frustum(const float &, const float &,
+                       const float &, const float &,
+                       const float &, const float &);
+        mat4x4 perspective(const float &, const float &,
+                           const float &, const float &);
+        mat4x4 perspectiveFov(const float &, 
+                              const float &, const float &,
+                              const float &, const float &);
+        mat4x4 infinitePerspective(const float &, const float &, const float &);
+        mat4x4 tweakedInfinitePerspective(const float &, const float &, const float &);
+        vec3 project(const vec3 &, const mat4x4 &, const mat4x4 &, const vec4 &);
+        vec3 unProject(const vec3 &, const mat4x4 &, const mat4x4 &, const vec4 &);
+        mat4x4 pickMatrix(const vec2 &, const vec2 &, const vec4 &);
+        mat4x4 lookAt(const vec3 &, const vec3 &, const vec3 &);
+        
+        // <glm/gtc/noise.hpp>
+        FLOAT_VECTOR_RETURN_VALUE(perlin)
+        FLOAT_VECTOR_RETURN_VALUE_2_PARAMS(perlin)
+        FLOAT_VECTOR_RETURN_VALUE(simplex)
+        
+        // <glm/gtc/packing.hpp>
+        /*
+        uint8_t  packUnorm1x8(const float &);
+        float    unpackUnorm1x8(const uint8_t &);
+        uint16_t packUnorm2x8(const vec2 &);
+        vec2     unpackUnorm2x8(const uint16_t &);
+        uint8_t  packSnorm1x8(const float &);
+        float    unpackSnorm1x8(const uint8_t &);
+        uint16_t packSnorm2x8(const vec2 &);
+        vec2     unpackSnorm2x8(const uint16_t &);
+        uint16_t packUnorm1x16(const float &);
+        float    unpackUnorm1x16(const uint16_t &);
+        uint64_t packUnorm4x16(const vec4 &);
+        vec4     unpackUnorm4x16(const uint64_t &);
+        uint16_t packSnorm1x16(const float &);
+        float    unpackSnorm1x16(const uint16_t &);
+        uint64_t packSnorm4x16(const vec4 &);
+        vec4     unpackSnorm4x16(const uint64_t &);
+        uint16_t packHalf1x16(const float &);
+        float    unpackHalf1x16(const uint16_t &);
+        uint64_t packHalf4x16(const vec4 &);
+        vec4     unpackHalf4x16(const uint64_t &);
+        uint32_t packI3x10_1x2(const ivec4 &);
+        ivec4    unpackI3x10_1x2(const uint32_t &);
+        uint32_t packU3x10_1x2(const uvec4 &);
+        uvec4    unpackU3x10_1x2(const uint32_t &);
+        uint32_t packSnorm3x10_1x2(const vec4 &);
+        vec4     unpackSnorm3x10_1x2(const uint32_t &);
+        uint32_t packUnorm3x10_1x2(const vec4 &);
+        vec4     unpackUnorm3x10_1x2(const uint32_t &);
+        uint32_t packF2x11_1x10(const vec3 &);
+        vec3     unpackF2x11_1x10(const uint32_t &);
+        */
+        
+        // <glm/gtc/quaternion.hpp>
+        //%include <glm/gtc/quaternion.hpp>
+        
+        // <glm/gtc/random.hpp>
+        FLOAT_SCALAR_OR_VECTOR_2_PARAMS(linearRand)
+        FLOAT_SCALAR_OR_VECTOR_2_PARAMS(gaussRand)
+        vec2 circularRand(const float &);
+        vec3 sphericalRand(const float &);
+        vec2 diskRand(const float &);
+        vec3 ballRand(const float &);
+        
+        // <glm/gtc/reciprocal.hpp>
+        FLOAT_SCALAR_OR_VECTOR(sec)
+        FLOAT_SCALAR_OR_VECTOR(csc)
+        FLOAT_SCALAR_OR_VECTOR(cot)
+        FLOAT_SCALAR_OR_VECTOR(asec)
+        FLOAT_SCALAR_OR_VECTOR(acsc)
+        FLOAT_SCALAR_OR_VECTOR(acot)
+        FLOAT_SCALAR_OR_VECTOR(sech)
+        FLOAT_SCALAR_OR_VECTOR(csch)
+        FLOAT_SCALAR_OR_VECTOR(coth)
+        FLOAT_SCALAR_OR_VECTOR(asech)
+        FLOAT_SCALAR_OR_VECTOR(acsch)
+        FLOAT_SCALAR_OR_VECTOR(acoth)
+        
+        // <glm/gtc/type_precision.hpp>
+        // Not included, only has typedefs
+        
+        // <glm/gtc/type_ptr.hpp>
+        const float* value_ptr(const vec2 &);
+        const float* value_ptr(const vec3 &);
+        const float* value_ptr(const vec4 &);
+        vec2 make_vec2(const float* const);
+        vec3 make_vec3(const float* const);
+        vec4 make_vec4(const float* const);
+        mat2x2 make_mat2x2(const float* const);
+        mat2x3 make_mat2x3(const float* const);
+        mat2x4 make_mat2x4(const float* const);
+        mat3x2 make_mat3x2(const float* const);
+        mat3x3 make_mat3x3(const float* const);
+        mat3x4 make_mat3x4(const float* const);
+        mat4x2 make_mat4x2(const float* const);
+        mat4x3 make_mat4x3(const float* const);
+        mat4x4 make_mat4x4(const float* const);
+        mat2x2 make_mat2(const float* const);
+        mat3x3 make_mat3(const float* const);
+        mat4x4 make_mat4(const float* const);
+        //quat make_quat(const float* const);
+        
+        // <glm/gtc/ulp.hpp>
+        /*
+        float  next_float(const float  &);
+        vec2   next_float(const vec2   &);
+        vec3   next_float(const vec3   &);
+        vec4   next_float(const vec4   &);
+        mat2x2 next_float(const mat2x2 &);
+        mat2x3 next_float(const mat2x3 &);
+        mat2x4 next_float(const mat2x4 &);
+        mat3x2 next_float(const mat3x2 &);
+        mat3x3 next_float(const mat3x3 &);
+        mat3x4 next_float(const mat3x4 &);
+        mat4x2 next_float(const mat4x2 &);
+        mat4x3 next_float(const mat4x3 &);
+        mat4x4 next_float(const mat4x4 &);
+        float  prev_float(const float  &);
+        vec2   prev_float(const vec2   &);
+        vec3   prev_float(const vec3   &);
+        vec4   prev_float(const vec4   &);
+        mat2x2 prev_float(const mat2x2 &);
+        mat2x3 prev_float(const mat2x3 &);
+        mat2x4 prev_float(const mat2x4 &);
+        mat3x2 prev_float(const mat3x2 &);
+        mat3x3 prev_float(const mat3x3 &);
+        mat3x4 prev_float(const mat3x4 &);
+        mat4x2 prev_float(const mat4x2 &);
+        mat4x3 prev_float(const mat4x3 &);
+        mat4x4 prev_float(const mat4x4 &);
+        float  next_float(const float  &, const uint &);
+        vec2   next_float(const vec2   &, const uint &);
+        vec3   next_float(const vec3   &, const uint &);
+        vec4   next_float(const vec4   &, const uint &);
+        mat2x2 next_float(const mat2x2 &, const uint &);
+        mat2x3 next_float(const mat2x3 &, const uint &);
+        mat2x4 next_float(const mat2x4 &, const uint &);
+        mat3x2 next_float(const mat3x2 &, const uint &);
+        mat3x3 next_float(const mat3x3 &, const uint &);
+        mat3x4 next_float(const mat3x4 &, const uint &);
+        mat4x2 next_float(const mat4x2 &, const uint &);
+        mat4x3 next_float(const mat4x3 &, const uint &);
+        mat4x4 next_float(const mat4x4 &, const uint &);
+        float  prev_float(const float  &, const uint &);
+        vec2   prev_float(const vec2   &, const uint &);
+        vec3   prev_float(const vec3   &, const uint &);
+        vec4   prev_float(const vec4   &, const uint &);
+        mat2x2 prev_float(const mat2x2 &, const uint &);
+        mat2x3 prev_float(const mat2x3 &, const uint &);
+        mat2x4 prev_float(const mat2x4 &, const uint &);
+        mat3x2 prev_float(const mat3x2 &, const uint &);
+        mat3x3 prev_float(const mat3x3 &, const uint &);
+        mat3x4 prev_float(const mat3x4 &, const uint &);
+        mat4x2 prev_float(const mat4x2 &, const uint &);
+        mat4x3 prev_float(const mat4x3 &, const uint &);
+        mat4x4 prev_float(const mat4x4 &, const uint &);
+        uint  float_distance(const float &, const float &);
+        uvec2 float_distance(const vec2  &, const vec2  &);
+        uvec3 float_distance(const vec3  &, const vec3  &);
+        uvec4 float_distance(const vec4  &, const vec4  &);
+        */
+    }
+%enddef
+
+
+// Declare GTC extensions
+DECLARE_EXTENSIONS_GTC()
+
+
+
+/************
+* OPERATORS *
+*************/
+
+%template(operator_add) glm::detail::operator+<float, glm::highp>;
+%template(operator_sub) glm::detail::operator-<float, glm::highp>;
+%template(operator_mul) glm::detail::operator*<float, glm::highp>;
+%template(operator_div) glm::detail::operator/<float, glm::highp>;
 
 #endif // defined SWIG
