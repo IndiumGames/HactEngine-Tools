@@ -24,6 +24,7 @@
 %include <glm/detail/precision.hpp>
 %include <glm/detail/_swizzle_func.hpp>
 %include <glm/detail/type_vec.hpp>
+%include "swig_glm/detail/type_mat.hpp"
 
 // Rename operator functions
 %rename(_operator_add) glm::detail::operator+;
@@ -154,12 +155,12 @@ GLM_VECTOR(vec2, glm::detail::tvec2, float, glm::highp)
 GLM_VECTOR(vec3, glm::detail::tvec3, float, glm::highp)
 GLM_VECTOR(vec4, glm::detail::tvec4, float, glm::highp)
 
-GLM_VECTOR(ivec2, glm::detail::tvec2, int, glm::highp)
-GLM_VECTOR(ivec3, glm::detail::tvec3, int, glm::highp)
-GLM_VECTOR(ivec4, glm::detail::tvec4, int, glm::highp)
-GLM_VECTOR(uvec2, glm::detail::tvec2, uint, glm::highp)
-GLM_VECTOR(uvec3, glm::detail::tvec3, uint, glm::highp)
-GLM_VECTOR(uvec4, glm::detail::tvec4, uint, glm::highp)
+//GLM_VECTOR(ivec2, glm::detail::tvec2, int, glm::highp)
+//GLM_VECTOR(ivec3, glm::detail::tvec3, int, glm::highp)
+//GLM_VECTOR(ivec4, glm::detail::tvec4, int, glm::highp)
+//GLM_VECTOR(uvec2, glm::detail::tvec2, uint, glm::highp)
+//GLM_VECTOR(uvec3, glm::detail::tvec3, uint, glm::highp)
+//GLM_VECTOR(uvec4, glm::detail::tvec4, uint, glm::highp)
 
 GLM_VECTOR(bvec2, glm::detail::tvec2, bool, glm::highp)
 GLM_VECTOR(bvec3, glm::detail::tvec3, bool, glm::highp)
@@ -252,6 +253,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     vec4 function_name(const vec4 &, const float &, const float &);
 %enddef
 
+
 // glm/detail/func_common.hpp
 %define DECLARE_FUNC_COMMON()
     FLOAT_SCALAR_OR_VECTOR(abs)
@@ -327,6 +329,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     //FLOAT_SCALAR_OR_VECTOR_2_PARAMS(ldexp)
 %enddef // DECLARE_FUNC_COMMON
 
+
 // glm/detail/func_exponential.hpp
 %define DECLARE_FUNC_EXPONENTIAL()
     FLOAT_SCALAR_OR_VECTOR_2_PARAMS(pow)
@@ -337,6 +340,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     FLOAT_VECTOR(sqrt)
     FLOAT_SCALAR_OR_VECTOR(inversesqrt)
 %enddef // DECLARE_FUNC_EXPONENTIAL
+
 
 // glm/detail/func_geometric.hpp
 %define DECLARE_FUNC_GEOMETRIC()
@@ -351,6 +355,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     vec3 refract(const vec3 &, const vec3 &, const float &);
     vec4 refract(const vec4 &, const vec4 &, const float &);
 %enddef // DECLARE_FUNC_GEOMETRIC
+
 
 // glm/detail/func_integer.hpp
 %define DECLARE_FUNC_INTEGER()
@@ -420,6 +425,66 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     ivec4 findMSB(const uvec4 &);
 %enddef // DECLARE_FUNC_INTEGER
 
+
+// glm/detail/func_matrix.hpp
+%define DECLARE_FUNC_MATRIX()
+    mat2x2 matrixCompMult(const mat2x2 &, const mat2x2 &);
+    mat2x3 matrixCompMult(const mat2x3 &, const mat2x3 &);
+    mat2x4 matrixCompMult(const mat2x4 &, const mat2x4 &);
+    mat3x2 matrixCompMult(const mat3x2 &, const mat3x2 &);
+    mat3x3 matrixCompMult(const mat3x3 &, const mat3x3 &);
+    mat3x4 matrixCompMult(const mat3x4 &, const mat3x4 &);
+    mat4x2 matrixCompMult(const mat4x2 &, const mat4x2 &);
+    mat4x3 matrixCompMult(const mat4x3 &, const mat4x3 &);
+    mat4x4 matrixCompMult(const mat4x4 &, const mat4x4 &);
+    mat2x2 outerProduct(const vec2 &, const vec2 &);
+    //mat2x3 outerProduct(const vec2 &, const vec3 &);
+    //mat2x4 outerProduct(const vec2 &, const vec4 &);
+    //mat3x2 outerProduct(const vec3 &, const vec2 &);
+    mat3x3 outerProduct(const vec3 &, const vec3 &);
+    //mat3x4 outerProduct(const vec3 &, const vec4 &);
+    //mat4x2 outerProduct(const vec4 &, const vec2 &);
+    //mat4x3 outerProduct(const vec4 &, const vec3 &);
+    mat4x4 outerProduct(const vec4 &, const vec4 &);
+    mat2x2 transpose(const mat2x2 &);
+    mat2x3 transpose(const mat3x2 &);
+    mat2x4 transpose(const mat4x2 &);
+    mat3x2 transpose(const mat2x3 &);
+    mat3x3 transpose(const mat3x3 &);
+    mat3x4 transpose(const mat4x3 &);
+    mat4x2 transpose(const mat2x4 &);
+    mat4x3 transpose(const mat3x4 &);
+    mat4x4 transpose(const mat4x4 &);
+    float determinant(const mat2x2 &);
+    float determinant(const mat3x3 &);
+    float determinant(const mat4x4 &);
+    mat2x2 inverse(const mat2x2 &);
+    mat3x3 inverse(const mat3x3 &);
+    mat4x4 inverse(const mat4x4 &);
+%enddef // DECLARE_FUNC_MATRIX
+
+
+// glm/detail/func_noise.hpp
+%define DECLARE_FUNC_NOISE()
+    //float noise1(const float &);
+    //float noise1(const vec2 &);
+    //float noise1(const vec3 &);
+    //float noise1(const vec4 &);
+    //vec2  noise2(const float &);
+    //vec2  noise2(const vec2 &);
+    //vec2  noise2(const vec3 &);
+    //vec2  noise2(const vec4 &);
+    //vec3  noise3(const float &);
+    //vec3  noise3(const vec2 &);
+    //vec3  noise3(const vec3 &);
+    //vec3  noise3(const vec4 &);
+    //vec4  noise4(const float &);
+    //vec4  noise4(const vec2 &);
+    //vec4  noise4(const vec3 &);
+    //vec4  noise4(const vec4 &);
+%enddef // DECLARE_FUNC_NOISE
+
+
 // glm/detail/func_packing.hpp
 %define DECLARE_FUNC_PACKING()
     uint packUnorm2x16(const vec2 &);
@@ -435,6 +500,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     uint packHalf2x16(const vec2 &);
     vec2 unpackHalf2x16(const uint &);
 %enddef // DECLARE_FUNC_PACKING
+
 
 // glm/detail/func_trigonometric.hpp
 %define DECLARE_FUNC_TRIGONOMETRIC()
@@ -454,6 +520,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     FLOAT_SCALAR_OR_VECTOR(acosh)
     FLOAT_SCALAR_OR_VECTOR(atanh)
 %enddef // DECLARE_FUNC_TRIGONOMETRIC
+
 
 // glm/detail/func_vector_relational.hpp
 %define DECLARE_FUNC_VECTOR_RELATIONAL()
@@ -493,47 +560,16 @@ namespace glm {
     DECLARE_FUNC_GEOMETRIC()
     
     // glm/detail/func_integer.hpp
-    DECLARE_FUNC_INTEGER()
+    //DECLARE_FUNC_INTEGER()
     
     // glm/detail/func_matrix.hpp
-    //mat2x2 matrixCompMult(const mat2x2 &, const mat2x2 &);
-    //mat2x3 matrixCompMult(const mat2x3 &, const mat2x3 &);
-    //mat2x4 matrixCompMult(const mat2x4 &, const mat2x4 &);
-    //mat3x2 matrixCompMult(const mat3x2 &, const mat3x2 &);
-    //mat3x3 matrixCompMult(const mat3x3 &, const mat3x3 &);
-    //mat3x4 matrixCompMult(const mat3x4 &, const mat3x4 &);
-    //mat4x2 matrixCompMult(const mat4x2 &, const mat4x2 &);
-    //mat4x3 matrixCompMult(const mat4x3 &, const mat4x3 &);
-    //mat4x4 matrixCompMult(const mat4x4 &, const mat4x4 &);
-    //! outerProduct()
-    //! transpose()
-    //float determinant(const mat2x2 &);
-    //float determinant(const mat3x3 &);
-    //float determinant(const mat4x4 &);
-    //mat2x2 inverse(const mat2x2 &);
-    //mat2x2 inverse(const mat3x3 &);
-    //mat2x2 inverse(const mat4x4 &);
+    DECLARE_FUNC_MATRIX()
     
     // glm/detail/func_noise.hpp
-    //float noise1(const float &);
-    //float noise1(const vec2 &);
-    //float noise1(const vec3 &);
-    //float noise1(const vec4 &);
-    //vec2  noise2(const float &);
-    //vec2  noise2(const vec2 &);
-    //vec2  noise2(const vec3 &);
-    //vec2  noise2(const vec4 &);
-    //vec3  noise3(const float &);
-    //vec3  noise3(const vec2 &);
-    //vec3  noise3(const vec3 &);
-    //vec3  noise3(const vec4 &);
-    //vec4  noise4(const float &);
-    //vec4  noise4(const vec2 &);
-    //vec4  noise4(const vec3 &);
-    //vec4  noise4(const vec4 &);
+    DECLARE_FUNC_NOISE()
     
     // glm/detail/func_packing.hpp
-    DECLARE_FUNC_PACKING()
+    //DECLARE_FUNC_PACKING()
     
     // glm/detail/func_trigonometric.hpp
     DECLARE_FUNC_TRIGONOMETRIC()
