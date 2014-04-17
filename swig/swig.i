@@ -12,7 +12,6 @@
 #include "../../src/editorwindow.h"
 #include "../../src/entity.h"
 #include "../../src/gameengine.h"
-#include "../../src/hactmath.h"
 #include "../../src/hierarchyobject.h"
 #include "../../src/input.h"
 #include "../../src/logger.h"
@@ -21,12 +20,6 @@
 #include "../../src/logqueue.h"
 #include "../../src/mesh.h"
 #include "../../src/property.h"
-#include "../../src/propertyboolean.h"
-#include "../../src/propertyfloat.h"
-#include "../../src/propertyinteger.h"
-#include "../../src/propertymatrix.h"
-#include "../../src/propertystring.h"
-#include "../../src/propertyvector.h"
 #include "../../src/qtquickmanager.h"
 #include "../../src/qtquickwrapper.h"
 #include "../../src/resourcemanager.h"
@@ -108,9 +101,6 @@ namespace std {
 // GameEngine
 %include "../../src/gameengine.h"
 
-// HactMath
-%include "../../src/hactmath.h"
-
 // Input
 %include "../../src/input.h"
 
@@ -123,14 +113,8 @@ namespace std {
 // Mesh
 %include "../../src/mesh.h"
 
-// Property and derived classes
+// Property
 %include "../../src/property.h"
-%include "../../src/propertyboolean.h"
-%include "../../src/propertyfloat.h"
-%include "../../src/propertyinteger.h"
-%include "../../src/propertymatrix.h"
-%include "../../src/propertystring.h"
-%include "../../src/propertyvector.h"
 
 // QtQuickManager and QtQuickWrapper
 %include "../../src/qtquickmanager.h"
