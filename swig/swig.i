@@ -8,6 +8,7 @@
 #include "../../src/audio.h"
 #include "../../src/audiomanager.h"
 #include "../../src/chronotime.h"
+#include "../../src/container.h"
 #include "../../src/debug.h"
 #include "../../src/editorwindow.h"
 #include "../../src/entity.h"
@@ -89,6 +90,10 @@ namespace std {
 
 // ChronoTime
 %include "../../src/chronotime.h"
+
+// Container
+%include "../../src/container.h"
+%template(PropertyContainer) Container<Property>;
 
 // Debug
 %include "../../src/debug.h"
