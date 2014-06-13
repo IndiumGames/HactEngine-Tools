@@ -91,8 +91,9 @@ namespace std {
 
 // Container
 %include "../../src/container.h"
-%template(PropertyContainer) Container<Property>;
-%template(EntityContainer)   Container<Entity>;
+%template(PropertyContainer)  Container<Property>;
+%template(EntityContainer)    Container<Entity>;
+%template(EntityOrderedContainer)  OrderedContainer<Entity>;
 
 // Debug
 %include "../../src/debug.h"
