@@ -93,7 +93,7 @@ namespace std {
 %include "../../src/container.h"
 %template(PropertyContainer)  Container<Property>;
 %template(EntityContainer)    Container<Entity>;
-%template(EntityOrderedContainer)  OrderedContainer<Entity>;
+%template(EntityOrderedContainer)  Container<Entity, std::list<Entity>>;
 
 // Debug
 %include "../../src/debug.h"
