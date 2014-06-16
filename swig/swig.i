@@ -13,6 +13,7 @@
 #include "../../src/editorwindow.h"
 #include "../../src/entity.h"
 #include "../../src/gameengine.h"
+#include "../../src/hierarchy.h"
 #include "../../src/hierarchyobject.h"
 #include "../../src/input.h"
 #include "../../src/logger.h"
@@ -75,9 +76,12 @@ namespace std {
 };
 
 
+// Hierarchy
+%include "../../src/hierarchy.h"
+%template(EntityHierarchy)  Hierarchy<NewEntity, Container<NewEntity>>;
+
 // HierarchyObject
 %include "../../src/hierarchyobject.h"
-//%template(EditorWindowHierarchyObject)  HierarchyObject<EditorWindow>;
 %template(EntityHierarchyObject)        HierarchyObject<Entity>;
 %template(XmlElementHierarchyObject)    HierarchyObject<XmlElement>;
 
@@ -94,6 +98,7 @@ namespace std {
 %template(PropertyContainer)  Container<Property>;
 %template(EntityContainer)    Container<Entity>;
 %template(EntityOrderedContainer)  OrderedContainer<Entity>;
+%template(NewEntityContainer)  Container<NewEntity>;
 
 // Debug
 %include "../../src/debug.h"
