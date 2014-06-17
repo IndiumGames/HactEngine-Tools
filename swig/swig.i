@@ -77,7 +77,7 @@ namespace std {
 // Hierarchy
 %include "../../src/hierarchy.h"
 %template(EntityHierarchy)      Hierarchy<Entity, Container<Entity>>;
-//%template(XmlElementHierarchy)  Hierarchy<XmlElement, OrderedContainer<XmlElement>>;
+%template(XmlElementHierarchy)  Hierarchy<NewXmlElement, OrderedContainer<NewXmlElement>>;
 
 // HierarchyObject
 %include "../../src/hierarchyobject.h"
@@ -93,9 +93,10 @@ namespace std {
 
 // Container
 %include "../../src/container.h"
-%template(EntityContainer)      Container<Entity>;
-%template(PropertyContainer)    Container<Property>;
-%template(XmlElementContainer)  OrderedContainer<XmlElement>;
+%template(EntityContainer)        Container<Entity>;
+%template(PropertyContainer)      Container<Property>;
+%template(XmlAttributeContainer)  OrderedContainer<XmlAttribute>;
+%template(XmlElementContainer)    OrderedContainer<NewXmlElement>;
 
 // Debug
 %include "../../src/debug.h"
