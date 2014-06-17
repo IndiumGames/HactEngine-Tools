@@ -71,6 +71,8 @@ namespace std {
     %template(StringVector)  vector<string>;
     
     %template(ShaderProgramPointerVector) vector<ShaderProgram*>;
+    
+    %template(XmlAttributePointerVector) vector<XmlAttribute*>;
 };
 
 
