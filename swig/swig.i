@@ -70,19 +70,17 @@ namespace std {
     %template(DoubleVector)  vector<double>;
     %template(StringVector)  vector<string>;
     
-    %template(EntityPointerVector) vector<Entity*>;
-    
     %template(ShaderProgramPointerVector) vector<ShaderProgram*>;
 };
 
 
 // Hierarchy
 %include "../../src/hierarchy.h"
-%template(EntityHierarchy)  Hierarchy<NewEntity, Container<NewEntity>>;
+%template(EntityHierarchy)      Hierarchy<Entity, Container<Entity>>;
+//%template(XmlElementHierarchy)  Hierarchy<XmlElement, OrderedContainer<XmlElement>>;
 
 // HierarchyObject
 %include "../../src/hierarchyobject.h"
-%template(EntityHierarchyObject)        HierarchyObject<Entity>;
 %template(XmlElementHierarchyObject)    HierarchyObject<XmlElement>;
 
 
@@ -95,10 +93,9 @@ namespace std {
 
 // Container
 %include "../../src/container.h"
-%template(PropertyContainer)  Container<Property>;
-%template(EntityContainer)    Container<Entity>;
-%template(EntityOrderedContainer)  OrderedContainer<Entity>;
-%template(NewEntityContainer)  Container<NewEntity>;
+%template(EntityContainer)      Container<Entity>;
+%template(PropertyContainer)    Container<Property>;
+%template(XmlElementContainer)  OrderedContainer<XmlElement>;
 
 // Debug
 %include "../../src/debug.h"
