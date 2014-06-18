@@ -14,7 +14,6 @@
 #include "../../src/entity.h"
 #include "../../src/gameengine.h"
 #include "../../src/hierarchy.h"
-#include "../../src/hierarchyobject.h"
 #include "../../src/input.h"
 #include "../../src/logger.h"
 #include "../../src/loglistener.h"
@@ -71,8 +70,6 @@ namespace std {
     %template(StringVector)  vector<string>;
     
     %template(ShaderProgramPointerVector) vector<ShaderProgram*>;
-    
-    %template(XmlAttributePointerVector) vector<XmlAttribute*>;
 };
 
 
@@ -80,10 +77,6 @@ namespace std {
 %include "../../src/hierarchy.h"
 %template(EntityHierarchy)      Hierarchy<Entity, Container<Entity>>;
 %template(XmlElementHierarchy)  Hierarchy<XmlElement, OrderedContainer<XmlElement>>;
-
-// HierarchyObject
-//%include "../../src/hierarchyobject.h"
-//%template(XmlElementHierarchyObject)    HierarchyObject<XmlElement>;
 
 
 // Audio and AudioManager
