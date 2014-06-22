@@ -75,8 +75,9 @@ namespace std {
 
 // Hierarchy
 %include "../../src/hierarchy.h"
-%template(EntityHierarchy)      Hierarchy<Entity, Container<Entity>>;
-%template(XmlElementHierarchy)  Hierarchy<XmlElement, OrderedContainer<XmlElement>>;
+%template(EditorWindowHierarchy)  Hierarchy<EditorWindow, OrderedContainer<EditorWindow>>;
+%template(EntityHierarchy)        Hierarchy<Entity, Container<Entity>>;
+%template(XmlElementHierarchy)    Hierarchy<XmlElement, OrderedContainer<XmlElement>>;
 
 
 // Audio and AudioManager
@@ -90,6 +91,7 @@ namespace std {
 %include "../../src/container.h"
 %template(EntityContainer)        Container<Entity>;
 %template(PropertyContainer)      Container<Property>;
+%template(EditorWindowContainer)  OrderedContainer<EditorWindow>;
 %template(XmlAttributeContainer)  OrderedContainer<XmlAttribute>;
 %template(XmlElementContainer)    OrderedContainer<XmlElement>;
 
