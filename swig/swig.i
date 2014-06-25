@@ -10,7 +10,7 @@
 #include "../../src/chronotime.h"
 #include "../../src/container.h"
 #include "../../src/debug.h"
-#include "../../src/editorwindow.h"
+#include "../../src/editor.h"
 #include "../../src/entity.h"
 #include "../../src/gameengine.h"
 #include "../../src/hierarchy.h"
@@ -75,9 +75,9 @@ namespace std {
 
 // Hierarchy
 %include "../../src/hierarchy.h"
-%template(EditorWindowHierarchy)  Hierarchy<EditorWindow, OrderedContainer<EditorWindow>>;
-%template(EntityHierarchy)        Hierarchy<Entity, Container<Entity>>;
-%template(XmlElementHierarchy)    Hierarchy<XmlElement, OrderedContainer<XmlElement>>;
+%template(EditorHierarchy)      Hierarchy<Editor, OrderedContainer<Editor>>;
+%template(EntityHierarchy)      Hierarchy<Entity, Container<Entity>>;
+%template(XmlElementHierarchy)  Hierarchy<XmlElement, OrderedContainer<XmlElement>>;
 
 
 // Audio and AudioManager
@@ -91,6 +91,7 @@ namespace std {
 %include "../../src/container.h"
 %template(EntityContainer)        Container<Entity>;
 %template(PropertyContainer)      Container<Property>;
+%template(EditorContainer)        OrderedContainer<Editor>;
 %template(EditorWindowContainer)  OrderedContainer<EditorWindow>;
 %template(XmlAttributeContainer)  OrderedContainer<XmlAttribute>;
 %template(XmlElementContainer)    OrderedContainer<XmlElement>;
@@ -98,8 +99,8 @@ namespace std {
 // Debug
 %include "../../src/debug.h"
 
-// EditorWindow
-%include "../../src/editorwindow.h"
+// Editor and EditorWindow
+%include "../../src/editor.h"
 
 // Entity
 %include "../../src/entity.h"
@@ -146,7 +147,6 @@ namespace std {
 
 // Util
 %include "../../src/util.h"
-%template(ConvertFloat) Util::Convert::Convert<float>;
 
 // XmlElement and XmlUtils
 %include "../../src/xmlelement.h"
