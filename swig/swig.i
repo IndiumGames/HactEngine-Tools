@@ -11,6 +11,7 @@
 #include "../../src/container.h"
 #include "../../src/debug.h"
 #include "../../src/editor.h"
+#include "../../src/editorwindow.h"
 #include "../../src/entity.h"
 #include "../../src/gameengine.h"
 #include "../../src/hierarchy.h"
@@ -96,11 +97,9 @@ namespace std {
 %template(XmlAttributeContainer)  OrderedContainer<XmlAttribute>;
 %template(XmlElementContainer)    OrderedContainer<XmlElement>;
 
-// Debug
-%include "../../src/debug.h"
-
 // Editor and EditorWindow
 %include "../../src/editor.h"
+%include "../../src/editorwindow.h"
 
 // Entity
 %include "../../src/entity.h"
@@ -123,9 +122,11 @@ namespace std {
 // Property
 %include "../../src/property.h"
 
+/***********************************/
 // QtQuickManager and QtQuickWrapper
 %include "../../src/qtquickmanager.h"
 %include "../../src/qtquickwrapper.h"
+/***********************************/
 
 // ResourceManager
 %include "../../src/resourcemanager.h"
