@@ -148,7 +148,11 @@ namespace std {
 
 // Util
 %include "../../src/util.h"
-%template(Util_Convert_Convert_String) Util::Convert::Convert<std::string>;
+%template(Util_Convert_Convert_int32_t)  Util::Convert::Convert<int32_t>;
+%template(Util_Convert_Convert_uint32_t) Util::Convert::Convert<uint32_t>;
+%template(Util_Convert_Convert_int64_t)  Util::Convert::Convert<long long int>;
+%template(Util_Convert_Convert_uint64_t) Util::Convert::Convert<long long unsigned int>;
+%template(Util_Convert_Convert_double)   Util::Convert::Convert<double>;
 
 // XmlElement and XmlUtils
 %include "../../src/xmlelement.h"
