@@ -148,6 +148,7 @@ namespace std {
 
 // Util
 %include "../../src/util.h"
+%template(Util_Convert_Convert_String) Util::Convert::Convert<std::string>;
 
 // XmlElement and XmlUtils
 %include "../../src/xmlelement.h"
