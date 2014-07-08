@@ -70,6 +70,7 @@ namespace std {
     %template(DoubleVector)  vector<double>;
     %template(StringVector)  vector<string>;
     
+    %template(EntityPointerVector)        vector<Entity*>;
     %template(ShaderProgramPointerVector) vector<ShaderProgram*>;
 };
 
@@ -148,11 +149,11 @@ namespace std {
 
 // Util
 %include "../../src/util.h"
-%template(Util_Convert_Convert_int32_t)  Util::Convert::Convert<int32_t>;
-%template(Util_Convert_Convert_uint32_t) Util::Convert::Convert<uint32_t>;
-%template(Util_Convert_Convert_int64_t)  Util::Convert::Convert<long long int>;
-%template(Util_Convert_Convert_uint64_t) Util::Convert::Convert<long long unsigned int>;
-%template(Util_Convert_Convert_double)   Util::Convert::Convert<double>;
+%template(Util_Convert_ToString_double)        Util::Convert::ToString<double>;
+%template(Util_Convert_ToString_int64_t)       Util::Convert::ToString<long long int>;
+%template(Util_Convert_ToString_EntityPointer) Util::Convert::ToString<Entity*>;
+%template(Util_Convert_Convert_double)         Util::Convert::Convert<double>;
+%template(Util_Convert_Convert_int64_t)        Util::Convert::Convert<long long int>;
 
 // XmlElement and XmlUtils
 %include "../../src/xmlelement.h"
