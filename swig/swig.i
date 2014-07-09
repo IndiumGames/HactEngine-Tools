@@ -31,8 +31,6 @@
 #include "../../src/logqueue.h"
 #include "../../src/mesh.h"
 #include "../../src/property.h"
-#include "../../src/qtquickmanager.h"
-#include "../../src/qtquickwrapper.h"
 #include "../../src/resourcemanager.h"
 #include "../../src/resourceutil.h"
 #include "../../src/scriptingengine.h"
@@ -130,12 +128,6 @@ namespace std {
 
 // Property
 %include "../../src/property.h"
-
-/***********************************/
-// QtQuickManager and QtQuickWrapper
-%include "../../src/qtquickmanager.h"
-%include "../../src/qtquickwrapper.h"
-/***********************************/
 
 // ResourceManager
 %include "../../src/resourcemanager.h"
