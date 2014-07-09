@@ -149,6 +149,7 @@ namespace std {
 
 // Util
 %include "../../src/util.h"
+
 %template(Util_Convert_ToString_double)        Util::Convert::ToString<double>;
 %template(Util_Convert_ToString_int64_t)       Util::Convert::ToString<long long int>;
 %template(Util_Convert_ToString_EntityPointer) Util::Convert::ToString<Entity*>;
