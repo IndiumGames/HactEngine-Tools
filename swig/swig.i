@@ -162,8 +162,8 @@ namespace std {
 %template(Util_Convert_ToString_double)        Util::Convert::ToString<double>;
 %template(Util_Convert_ToString_int64_t)       Util::Convert::ToString<long long int>;
 %template(Util_Convert_ToString_EntityPointer) Util::Convert::ToString<Entity*>;
-%template(Util_Convert_Convert_double)         Util::Convert::Convert<double>;
-%template(Util_Convert_Convert_int64_t)        Util::Convert::Convert<long long int>;
+%template(Util_Convert_FromString_double)      Util::Convert::FromString<double>;
+%template(Util_Convert_FromString_int64_t)     Util::Convert::FromString<long long int>;
 
 // XmlElement and XmlUtils
 %include "../../src/xmlelement.h"
