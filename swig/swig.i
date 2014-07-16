@@ -157,6 +157,10 @@ namespace std {
 %template(Util_Convert_FromString_double)      Util::Convert::FromString<double>;
 %template(Util_Convert_FromString_int64_t)     Util::Convert::FromString<long long int>;
 
+%template(Util_Vector_PushBack_double)         Util::Vector::PushBack<double>;
+%template(Util_Vector_PushBack_int64_t)        Util::Vector::PushBack<long long int>;
+%template(Util_Vector_PushBack_EntityPointer)  Util::Vector::PushBack<Entity*>;
+
 // XmlElement and XmlUtils
 %include "../../src/xmlelement.h"
 %include "../../src/xmlutils.h"
