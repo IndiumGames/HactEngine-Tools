@@ -29,10 +29,10 @@
 %include <std_except.i>
 
 // Types, macros, defines, etc.
-%include <glm/detail/setup.hpp>
-%include <glm/detail/precision.hpp>
-%include <glm/detail/_swizzle_func.hpp>
-%include <glm/detail/type_vec.hpp>
+%include "../../thirdparty/glm/detail/setup.hpp"
+%include "../../thirdparty/glm/detail/precision.hpp"
+%include "../../thirdparty/glm/detail/_swizzle_func.hpp"
+%include "../../thirdparty/glm/detail/type_vec.hpp"
 %include "swig_glm/detail/type_mat.hpp"
 
 // Rename operator functions
@@ -614,7 +614,7 @@ namespace glm {
     
     
     // <glm/gtc/constants.hpp>
-    %include <glm/gtc/constants.hpp>
+    %include "../../thirdparty/glm/gtc/constants.hpp"
     
     
     // <glm/gtc/quaternion.hpp>
