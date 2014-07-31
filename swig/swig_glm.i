@@ -171,9 +171,9 @@ GLM_VECTOR(vec4, glm::detail::tvec4, float, glm::highp)
 #endif // defined DEFINE_INT_VECTORS
 
 #if defined DEFINE_UINT_VECTORS
-    GLM_VECTOR(uvec2, glm::detail::tvec2, uint, glm::highp)
-    GLM_VECTOR(uvec3, glm::detail::tvec3, uint, glm::highp)
-    GLM_VECTOR(uvec4, glm::detail::tvec4, uint, glm::highp)
+    GLM_VECTOR(uvec2, glm::detail::tvec2, uint32_t, glm::highp)
+    GLM_VECTOR(uvec3, glm::detail::tvec3, uint32_t, glm::highp)
+    GLM_VECTOR(uvec4, glm::detail::tvec4, uint32_t, glm::highp)
 #endif // defined DEFINE_UINT_VECTORS
 
 GLM_VECTOR(bvec2, glm::detail::tvec2, bool, glm::highp)
@@ -312,18 +312,18 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     ivec2 floatBitsToInt(const vec2 &);
     ivec3 floatBitsToInt(const vec3 &);
     ivec4 floatBitsToInt(const vec4 &);
-    uint  floatBitsToUint(const float &);
-    uvec2 floatBitsToUint(const vec2 &);
-    uvec3 floatBitsToUint(const vec3 &);
-    uvec4 floatBitsToUint(const vec4 &);
+    //!WINDOWSuint  floatBitsToUint(const float &);
+    //!WINDOWSuvec2 floatBitsToUint(const vec2 &);
+    //!WINDOWSuvec3 floatBitsToUint(const vec3 &);
+    //!WINDOWSuvec4 floatBitsToUint(const vec4 &);
     float intBitsToFloat(const int &);
     vec2  intBitsToFloat(const ivec2 &);
     vec3  intBitsToFloat(const ivec3 &);
     vec4  intBitsToFloat(const ivec4 &);
-    float uintBitsToFloat(const uint &);
-    vec2  uintBitsToFloat(const uvec2 &);
-    vec3  uintBitsToFloat(const uvec3 &);
-    vec4  uintBitsToFloat(const uvec4 &);
+    //!WINDOWSfloat uintBitsToFloat(const uint &);
+    //!WINDOWSvec2  uintBitsToFloat(const uvec2 &);
+    //!WINDOWSvec3  uintBitsToFloat(const uvec3 &);
+    //!WINDOWSvec4  uintBitsToFloat(const uvec4 &);
     FLOAT_SCALAR_OR_VECTOR_3_PARAMS(fma)
     //float frexp(const float &, int &);
     //vec2  frexp(const vec2  &, ivec2  &);
@@ -365,15 +365,15 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 
 // <glm/detail/func_integer.hpp>
 %define DECLARE_FUNC_INTEGER()
-    uint  uaddCarry(const uint  &, const uint  &, uint  &);
+    //!WINDOWSuint  uaddCarry(const uint  &, const uint  &, uint  &);
     uvec2 uaddCarry(const uvec2 &, const uvec2 &, uvec2 &);
     uvec3 uaddCarry(const uvec3 &, const uvec3 &, uvec3 &);
     uvec4 uaddCarry(const uvec4 &, const uvec4 &, uvec4 &);
-    uint  usubBorrow(const uint  &, const uint  &, uint  &);
+    //!WINDOWSuint  usubBorrow(const uint  &, const uint  &, uint  &);
     uvec2 usubBorrow(const uvec2 &, const uvec2 &, uvec2 &);
     uvec3 usubBorrow(const uvec3 &, const uvec3 &, uvec3 &);
     uvec4 usubBorrow(const uvec4 &, const uvec4 &, uvec4 &);
-    void  umulExtended(const uint  &, const uint  &, uint  &, uint  &);
+    //!WINDOWSvoid  umulExtended(const uint  &, const uint  &, uint  &, uint  &);
     void  umulExtended(const uvec2 &, const uvec2 &, uvec2 &, uvec2 &);
     void  umulExtended(const uvec3 &, const uvec3 &, uvec3 &, uvec3 &);
     void  umulExtended(const uvec4 &, const uvec4 &, uvec4 &, uvec4 &);
@@ -385,7 +385,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     ivec2 bitfieldExtract(const ivec2 &, const int &, const int &);
     ivec3 bitfieldExtract(const ivec3 &, const int &, const int &);
     ivec4 bitfieldExtract(const ivec4 &, const int &, const int &);
-    uint  bitfieldExtract(const uint  &, const int &, const int &);
+    //!WINDOWSuint  bitfieldExtract(const uint  &, const int &, const int &);
     uvec2 bitfieldExtract(const uvec2 &, const int &, const int &);
     uvec3 bitfieldExtract(const uvec3 &, const int &, const int &);
     uvec4 bitfieldExtract(const uvec4 &, const int &, const int &);
@@ -393,7 +393,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     ivec2 bitfieldInsert(const ivec2 &, const ivec2 &, const int &, const int &);
     ivec3 bitfieldInsert(const ivec3 &, const ivec3 &, const int &, const int &);
     ivec4 bitfieldInsert(const ivec4 &, const ivec4 &, const int &, const int &);
-    uint  bitfieldInsert(const uint  &, const uint  &, const int &, const int &);
+    //!WINDOWSuint  bitfieldInsert(const uint  &, const uint  &, const int &, const int &);
     uvec2 bitfieldInsert(const uvec2 &, const uvec2 &, const int &, const int &);
     uvec3 bitfieldInsert(const uvec3 &, const uvec3 &, const int &, const int &);
     uvec4 bitfieldInsert(const uvec4 &, const uvec4 &, const int &, const int &);
@@ -401,7 +401,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     ivec2 bitfieldReverse(const ivec2 &);
     ivec3 bitfieldReverse(const ivec3 &);
     ivec4 bitfieldReverse(const ivec4 &);
-    uint  bitfieldReverse(const uint  &);
+    //!WINDOWSuint  bitfieldReverse(const uint  &);
     uvec2 bitfieldReverse(const uvec2 &);
     uvec3 bitfieldReverse(const uvec3 &);
     uvec4 bitfieldReverse(const uvec4 &);
@@ -409,7 +409,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     ivec2 bitCount(const ivec2 &);
     ivec3 bitCount(const ivec3 &);
     ivec4 bitCount(const ivec4 &);
-    int   bitCount(const uint  &);
+    //!WINDOWSint   bitCount(const uint  &);
     ivec2 bitCount(const uvec2 &);
     ivec3 bitCount(const uvec3 &);
     ivec4 bitCount(const uvec4 &);
@@ -417,7 +417,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     ivec2 findLSB(const ivec2 &);
     ivec3 findLSB(const ivec3 &);
     ivec4 findLSB(const ivec4 &);
-    int   findLSB(const uint  &);
+    //!WINDOWSint   findLSB(const uint  &);
     ivec2 findLSB(const uvec2 &);
     ivec3 findLSB(const uvec3 &);
     ivec4 findLSB(const uvec4 &);
@@ -425,7 +425,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     ivec2 findMSB(const ivec2 &);
     ivec3 findMSB(const ivec3 &);
     ivec4 findMSB(const ivec4 &);
-    int   findMSB(const uint  &);
+    //!WINDOWSint   findMSB(const uint  &);
     ivec2 findMSB(const uvec2 &);
     ivec3 findMSB(const uvec3 &);
     ivec4 findMSB(const uvec4 &);
@@ -493,18 +493,18 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 
 // <glm/detail/func_packing.hpp>
 %define DECLARE_FUNC_PACKING()
-    uint packUnorm2x16(const vec2 &);
-    uint packSnorm2x16(const vec2 &);
-    uint packUnorm4x8(const vec4 &);
-    uint packSnorm4x8(const vec4 &);
-    vec2 unpackUnorm2x16(const uint &);
-    vec2 unpackSnorm2x16(const uint &);
-    vec4 unpackUnorm4x8(const uint &);
-    vec4 unpackSnorm4x8(const uint &);
+    //!WINDOWSuint packUnorm2x16(const vec2 &);
+    //!WINDOWSuint packSnorm2x16(const vec2 &);
+    //!WINDOWSuint packUnorm4x8(const vec4 &);
+    //!WINDOWSuint packSnorm4x8(const vec4 &);
+    //!WINDOWSvec2 unpackUnorm2x16(const uint &);
+    //!WINDOWSvec2 unpackSnorm2x16(const uint &);
+    //!WINDOWSvec4 unpackUnorm4x8(const uint &);
+    //!WINDOWSvec4 unpackSnorm4x8(const uint &);
     double packDouble2x32(const uvec2 &);
     uvec2 unpackDouble2x32(const double &);
-    uint packHalf2x16(const vec2 &);
-    vec2 unpackHalf2x16(const uint &);
+    //!WINDOWSuint packHalf2x16(const vec2 &);
+    //!WINDOWSvec2 unpackHalf2x16(const uint &);
 %enddef // DECLARE_FUNC_PACKING
 
 
@@ -949,11 +949,11 @@ DECLARE_EXTENSIONS_GTC()
 #endif // defined DEFINE_INT_VECTORS
 
 #if defined DEFINE_UINT_VECTORS
-    %template(operator_add) glm::detail::operator+<uint, glm::highp>;
-    %template(operator_sub) glm::detail::operator-<uint, glm::highp>;
-    %template(operator_mul) glm::detail::operator*<uint, glm::highp>;
-    %template(operator_div) glm::detail::operator/<uint, glm::highp>;
-    %template(operator_div) glm::detail::operator%<uint, glm::highp>;
+    %template(operator_add) glm::detail::operator+<uint32_t, glm::highp>;
+    %template(operator_sub) glm::detail::operator-<uint32_t, glm::highp>;
+    %template(operator_mul) glm::detail::operator*<uint32_t, glm::highp>;
+    %template(operator_div) glm::detail::operator/<uint32_t, glm::highp>;
+    %template(operator_div) glm::detail::operator%<uint32_t, glm::highp>;
 #endif // defined DEFINE_UINT_VECTORS
 
 #endif // defined SWIG

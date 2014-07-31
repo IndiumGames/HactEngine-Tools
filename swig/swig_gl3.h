@@ -812,15 +812,15 @@ typedef struct __GLsync *GLsync;
 
 /* OpenGL ES 2.0 */
 
-void           glActiveTexture (GLenum texture);
+//!WINDOWS//void           glActiveTexture (GLenum texture);
 //DESKTOP//void           glAttachShader (GLuint program, GLuint shader);
 //DESKTOP//void           glBindAttribLocation (GLuint program, GLuint index, const GLchar* name);
 //DESKTOP//void           glBindBuffer (GLenum target, GLuint buffer);
 //DESKTOP//void           glBindFramebuffer (GLenum target, GLuint framebuffer);
 //DESKTOP//void           glBindRenderbuffer (GLenum target, GLuint renderbuffer);
 void           glBindTexture (GLenum target, GLuint texture);
-void           glBlendColor (GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
-void           glBlendEquation (GLenum mode);
+//!WINDOWS//void           glBlendColor (GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
+//!WINDOWS//void           glBlendEquation (GLenum mode);
 //DESKTOP//void           glBlendEquationSeparate (GLenum modeRGB, GLenum modeAlpha);
 void           glBlendFunc (GLenum sfactor, GLenum dfactor);
 //DESKTOP//void           glBlendFuncSeparate (GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha);
@@ -833,8 +833,8 @@ void           glClearColor (GLfloat red, GLfloat green, GLfloat blue, GLfloat a
 void           glClearStencil (GLint s);
 void           glColorMask (GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha);
 //DESKTOP//void           glCompileShader (GLuint shader);
-void           glCompressedTexImage2D (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const GLvoid* data);
-void           glCompressedTexSubImage2D (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const GLvoid* data);
+//!WINDOWS//void           glCompressedTexImage2D (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const GLvoid* data);
+//!WINDOWS//void           glCompressedTexSubImage2D (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const GLvoid* data);
 void           glCopyTexImage2D (GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border);
 void           glCopyTexSubImage2D (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height);
 //DESKTOP//GLuint         glCreateProgram (void);
@@ -907,7 +907,7 @@ void           glPolygonOffset (GLfloat factor, GLfloat units);
 void           glReadPixels (GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLvoid* pixels);
 //DESKTOP//void           glReleaseShaderCompiler (void);
 //DESKTOP//void           glRenderbufferStorage (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
-void           glSampleCoverage (GLfloat value, GLboolean invert);
+//!WINDOWS//void           glSampleCoverage (GLfloat value, GLboolean invert);
 void           glScissor (GLint x, GLint y, GLsizei width, GLsizei height);
 //DESKTOP//void           glShaderBinary (GLsizei n, const GLuint* shaders, GLenum binaryformat, const GLvoid* binary, GLsizei length);
 //DESKTOP//void           glShaderSource (GLuint shader, GLsizei count, const GLchar* const* string, const GLint* length);
