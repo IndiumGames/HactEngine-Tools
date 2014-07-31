@@ -23,7 +23,7 @@ fi
 
 # Run SWIG
 swig -c++ -lua -v -no-old-metatable-bindings -o swig_wrap.temp swig.i
-swig -c++ -lua -v -no-old-metatable-bindings -I../../../glm -o swig_glm_wrap.temp swig_glm.i
+swig -c++ -lua -v -no-old-metatable-bindings -o swig_glm_wrap.temp swig_glm.i
 swig -c++ -lua -v -no-old-metatable-bindings -o swig_opengl_wrap.temp swig_opengl.i
 
 
