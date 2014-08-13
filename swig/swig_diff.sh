@@ -67,7 +67,7 @@ fi
 # Check if old output file exists
 if [ -f swig_opengl_wrap.cxx ]; then
     # Compare the new output file with the new
-    if ! diff -q swig_opengl_wrap.temp swig_wrap.cxx > /dev/null; then
+    if ! diff -q swig_opengl_wrap.temp swig_hact_wrap.cxx > /dev/null; then
         # The files are different, replace the old with the new
         rm swig_opengl_wrap.cxx
         mv swig_opengl_wrap.temp swig_opengl_wrap.cxx
