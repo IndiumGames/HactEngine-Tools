@@ -77,7 +77,7 @@ namespace std {
     %template(DoubleVector)  vector<double>;
     %template(StringVector)  vector<string>;
     
-    %template(EntityPointerVector)        vector<Entity*>;
+    //%template(EntityPointerVector)        vector<Entity*>;
     %template(ShaderProgramPointerVector) vector<ShaderProgram*>;
 };
 
