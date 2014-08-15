@@ -20,12 +20,12 @@
     #include "../../src/container.h"
     #include "../../src/debug.h"
     #include "../../src/editor.h"
+    #include "../../src/editorinput.h"
     #include "../../src/editorwindow.h"
     #include "../../src/entity.h"
     #include "../../src/gameengine.h"
     #include "../../src/gamewindow.h"
     #include "../../src/hierarchy.h"
-    #include "../../src/input.h"
     #include "../../src/logger.h"
     #include "../../src/loglistener.h"
     #include "../../src/logmessage.h"
@@ -110,6 +110,9 @@ namespace std {
 %include "../../src/editor.h"
 %include "../../src/editorwindow.h"
 
+// EditorInput
+%include "../../src/editorinput.h"
+
 // Entity
 %include "../../src/entity.h"
 
@@ -118,9 +121,6 @@ namespace std {
 
 // GameWindow
 %include "../../src/gamewindow.h"
-
-// Input
-%include "../../src/input.h"
 
 // Logging
 %include "../../src/logger.h"
