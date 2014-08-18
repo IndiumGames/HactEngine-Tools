@@ -31,6 +31,7 @@
     #include "../../src/logmessage.h"
     #include "../../src/logqueue.h"
     #include "../../src/mesh.h"
+    #include "../../src/openglcontext.h"
     #include "../../src/property.h"
     #include "../../src/resourcemanager.h"
     #include "../../src/resourceutil.h"
@@ -130,6 +131,9 @@ namespace std {
 
 // Mesh
 %include "../../src/mesh.h"
+
+# OpenGlContext
+%include "../../src/openglcontext.h"
 
 // Property
 %include "../../src/property.h"
