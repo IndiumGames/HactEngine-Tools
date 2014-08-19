@@ -37,6 +37,8 @@
     #include "../../src/resourcemanager.h"
     #include "../../src/resourceutil.h"
     #include "../../src/scriptingengine.h"
+    #include "../../src/shaderobject.h"
+    #include "../../src/shaderprogram.h"
     #include "../../src/text.h"
     #include "../../src/thread.h"
     #include "../../src/texture.h"
@@ -132,7 +134,7 @@ namespace std {
 // Mesh
 %include "../../src/mesh.h"
 
-# OpenGlContext
+// OpenGlContext
 %include "../../src/openglcontext.h"
 
 // Property
@@ -146,6 +148,10 @@ namespace std {
 
 // ScriptingEngine
 %include "../../src/scriptingengine.h"
+
+// ShaderObject and ShaderProgram
+%include "../../src/shaderobject.h"
+%include "../../src/shaderprogram.h"
 
 // Thread
 %include "../../src/thread.h"
