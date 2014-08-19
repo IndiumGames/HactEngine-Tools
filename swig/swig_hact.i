@@ -33,10 +33,10 @@
     #include "../../src/mesh.h"
     #include "../../src/openglcontext.h"
     #include "../../src/property.h"
+    #include "../../src/qtshaderprogram.h"
     #include "../../src/resourcemanager.h"
     #include "../../src/resourceutil.h"
     #include "../../src/scriptingengine.h"
-    #include "../../src/shaderprogram.h"
     #include "../../src/text.h"
     #include "../../src/thread.h"
     #include "../../src/texture.h"
@@ -79,7 +79,7 @@ namespace std {
     %template(DoubleVector)  vector<double>;
     %template(StringVector)  vector<string>;
     
-    %template(ShaderProgramPointerVector) vector<ShaderProgram*>;
+    %template(QtShaderProgramPointerVector) vector<QtShaderProgram*>;
 };
 
 
@@ -138,14 +138,14 @@ namespace std {
 // Property
 %include "../../src/property.h"
 
+// QtShaderProgram
+%include "../../src/qtshaderprogram.h"
+
 // ResourceManager
 %include "../../src/resourcemanager.h"
 
 // ScriptingEngine
 %include "../../src/scriptingengine.h"
-
-// ShaderProgram
-%include "../../src/shaderprogram.h"
 
 // Thread
 %include "../../src/thread.h"
