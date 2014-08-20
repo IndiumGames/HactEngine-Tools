@@ -32,8 +32,9 @@
     #include "../../src/logqueue.h"
     #include "../../src/mesh.h"
     #include "../../src/openglcontext.h"
+    //#include "../../src/openglfunctions.h"
     #include "../../src/property.h"
-    #include "../../src/qtshaderprogram.h"
+    //#include "../../src/qtshaderprogram.h"
     #include "../../src/resourcemanager.h"
     #include "../../src/resourceutil.h"
     #include "../../src/scriptingengine.h"
@@ -137,11 +138,14 @@ namespace std {
 // OpenGlContext
 %include "../../src/openglcontext.h"
 
+// OpenGlFunctions
+//%include "../../src/openglfunctions.h"
+
 // Property
 %include "../../src/property.h"
 
 // QtShaderProgram
-%include "../../src/qtshaderprogram.h"
+//%include "../../src/qtshaderprogram.h"
 
 // ResourceManager
 %include "../../src/resourcemanager.h"
