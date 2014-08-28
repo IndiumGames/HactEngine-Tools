@@ -81,8 +81,6 @@ namespace std {
     %template(FloatVector)   vector<float>;
     %template(DoubleVector)  vector<double>;
     %template(StringVector)  vector<string>;
-    
-    %template(QtShaderProgramPointerVector) vector<QtShaderProgram*>;
 };
 
 
@@ -107,6 +105,7 @@ namespace std {
 %template(GameWindowContainer)    OrderedContainer<GameWindow>;
 %template(EditorContainer)        OrderedContainer<Editor>;
 %template(EditorWindowContainer)  OrderedContainer<EditorWindow>;
+%template(ShaderObjectContainer)  OrderedContainer<ShaderObject>;
 %template(XmlAttributeContainer)  OrderedContainer<XmlAttribute>;
 %template(XmlElementContainer)    OrderedContainer<XmlElement>;
 
