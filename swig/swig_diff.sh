@@ -8,7 +8,7 @@
 # 
 # This way qmake doesn't unnecessarily recompile the generated code.
 # 
-# @param $1  Working directory (optional).
+# :param $1  Working directory (optional).
 # 
 # @author Sami Kankaristo <sami@indiumgames.fi>
 # @since 2014-08-13
