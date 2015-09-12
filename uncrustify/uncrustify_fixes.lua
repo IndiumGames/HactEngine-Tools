@@ -29,14 +29,14 @@ end
 
 -- Loop over the lines from end to beginning
 for i = #lines - 1, 1, -1 do
-    if lines[i]:find("^%s*%);?%s*$") then
+    if lines[i]:find("^%s*%)") then
         -- Closing parenthesis of a function call
         
         -- Get indentation and remove one level of indentation
         local indent = lines[i - 1]:match("^(%s*)"):sub(1, -(config.indentSize + 1))
         
-        -- Function call end (')' and possible ';')
-        local callEnd = lines[i]:match("%);?")
+        -- Function call end (')' and everything after it)
+        local callEnd = lines[i]:match("^%s*(%).*)")
         
         -- Replace line content
         lines[i] = indent .. callEnd
