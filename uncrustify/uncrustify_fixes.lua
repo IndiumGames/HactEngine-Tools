@@ -1,6 +1,11 @@
 --
--- Indent empty lines in a file.
+-- Fixes for some missing functionality in Uncrustify.
 --
+
+local config = {
+    indentSize = 4;
+}
+
 
 -- File name
 local fileName = arg[1] or error("No file name given.", 2)
@@ -24,14 +29,19 @@ end
 
 -- Loop over the lines from end to beginning
 for i = #lines - 1, 1, -1 do
-    -- Check that the current line is empty
-    if lines[i]:find("^%s*$") then
-        -- Write the indent on the next line to the current line
-        lines[i] = lines[i + 1]:match("^(%s*)")
+    if lines[i]:find("^%s*%);?%s*$") then
+        -- Closing parenthesis of a function call
+        
+        -- Get indentation and remove one level of indentation
+        local indent = lines[i - 1]:match("^(%s*)"):sub(1, -(config.indentSize + 1))
+        
+        -- Function call end (')' and possible ';')
+        local callEnd = lines[i]:match("%);?")
+        
+        -- Replace line content
+        lines[i] = indent .. callEnd
     end
 end
-
--- TODO: Check that there are exactly 2 line changes at the end of the file?
 
 -- Output the result
 io.write(table.concat(lines, "\n"))
