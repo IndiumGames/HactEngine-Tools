@@ -27,8 +27,8 @@ if lines[#lines] ~= "" then
     lines[#lines + 1] = ""
 end
 
--- Loop over the lines from end to beginning
-for i = #lines - 1, 1, -1 do
+-- Loop over the lines beginning to end
+for i = 2, #lines do
     if lines[i]:find("^%s*%)") then
         -- Closing parenthesis of a function call
         
