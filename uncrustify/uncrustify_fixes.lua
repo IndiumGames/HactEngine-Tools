@@ -41,6 +41,10 @@ for i = 2, #lines do
         -- Replace line content
         lines[i] = indent .. callEnd
     end
+    
+    -- Uncrustify can't understand a dereference in a ranged for loop
+    -- TODO: Create issue on GitHub
+    lines[i] = lines[i]:gsub(": %* ", ": *")
 end
 
 -- Output the result
