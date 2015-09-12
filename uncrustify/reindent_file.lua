@@ -27,6 +27,5 @@ for i = #lines - 1, 1, -1 do
 end
 
 -- Output the result
-io.write(table.concat(lines, "\n"))
+io.write(table.concat(lines, "\n") .. "\n")
 io.flush()
-
