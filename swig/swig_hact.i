@@ -9,7 +9,6 @@
     #include "../../src/audiomanager.h"
     #include "../../src/chronotime.h"
     #include "../../src/container.h"
-    #include "../../src/debug.h"
     #include "../../src/editor.h"
     #include "../../src/editorinput.h"
     #include "../../src/editorwindow.h"
@@ -17,10 +16,7 @@
     #include "../../src/gameengine.h"
     #include "../../src/gamewindow.h"
     #include "../../src/hierarchy.h"
-    #include "../../src/logger.h"
-    #include "../../src/loglistener.h"
-    #include "../../src/logmessage.h"
-    #include "../../src/logqueue.h"
+    #include "../../src/log.h"
     #include "../../src/mesh.h"
     #include "../../src/openglcontext.h"
     //#include "../../src/openglfunctions.h"
@@ -117,10 +113,7 @@ namespace std {
 %include "../../src/gamewindow.h"
 
 // Logging
-%include "../../src/logger.h"
-%include "../../src/loglistener.h"
-%include "../../src/logmessage.h"
-%include "../../src/logqueue.h"
+%include "../../src/log.h"
 
 // Mesh
 %include "../../src/mesh.h"
