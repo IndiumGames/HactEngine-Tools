@@ -14,6 +14,7 @@
     #include "../../src/editorwindow.h"
     #include "../../src/entity.h"
     #include "../../src/gameengine.h"
+    #include "../../src/gameengineconfig.h"
     #include "../../src/gamewindow.h"
     #include "../../src/hierarchy.h"
     #include "../../src/log.h"
@@ -108,6 +109,9 @@ namespace std {
 
 // GameEngine
 %include "../../src/gameengine.h"
+
+// GameEngineConfig
+%include "../../src/gameengineconfig.h"
 
 // GameWindow
 %include "../../src/gamewindow.h"
