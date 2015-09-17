@@ -17,6 +17,7 @@
     #include "../../src/gameengineconfig.h"
     #include "../../src/gamewindow.h"
     #include "../../src/hierarchy.h"
+    #include "../../src/input.h"
     #include "../../src/log.h"
     #include "../../src/mesh.h"
     #include "../../src/openglcontext.h"
@@ -29,8 +30,8 @@
     #include "../../src/shaderobject.h"
     #include "../../src/shaderprogram.h"
     #include "../../src/text.h"
-    #include "../../src/thread.h"
     #include "../../src/texture.h"
+    #include "../../src/thread.h"
     #include "../../src/util.h"
     #include "../../src/xmlelement.h"
     #include "../../src/xmlutils.h"
@@ -94,15 +95,14 @@ namespace std {
 %template(EditorContainer)        OrderedContainer<Editor>;
 %template(EditorWindowContainer)  OrderedContainer<EditorWindow>;
 %template(ShaderObjectContainer)  OrderedContainer<ShaderObject>;
+//%template(ThreadContainer)        OrderedContainer<Thread>;
 %template(XmlAttributeContainer)  OrderedContainer<XmlAttribute>;
 %template(XmlElementContainer)    OrderedContainer<XmlElement>;
 
-// Editor and EditorWindow
+// Editor, EditorInput and EditorWindow
 %include "../../src/editor.h"
-%include "../../src/editorwindow.h"
-
-// EditorInput
 %include "../../src/editorinput.h"
+%include "../../src/editorwindow.h"
 
 // Entity
 %include "../../src/entity.h"
@@ -115,6 +115,9 @@ namespace std {
 
 // GameWindow
 %include "../../src/gamewindow.h"
+
+// Input
+%include "../../src/input.h"
 
 // Logging
 %include "../../src/log.h"
@@ -137,6 +140,9 @@ namespace std {
 // ResourceManager
 %include "../../src/resourcemanager.h"
 
+// ResourceUtil
+%include "../../src/resourceutil.h"
+
 // ScriptingEngine
 %include "../../src/scriptingengine.h"
 
@@ -144,14 +150,14 @@ namespace std {
 %include "../../src/shaderobject.h"
 %include "../../src/shaderprogram.h"
 
-// Thread
-%include "../../src/thread.h"
-
 // Text
 //%include "../../src/text.h"
 
 // Texture
 %include "../../src/texture.h"
+
+// Thread
+%include "../../src/thread.h"
 
 // Util
 %include "../../src/util.h"
