@@ -70,8 +70,6 @@ namespace std {
     %template(FloatVector)   vector<float>;
     %template(DoubleVector)  vector<double>;
     %template(StringVector)  vector<string>;
-    
-    %template(EventVector)  vector<Event>;
 };
 
 
@@ -96,6 +94,7 @@ namespace std {
 %template(GameWindowContainer)    OrderedContainer<GameWindow>;
 %template(EditorContainer)        OrderedContainer<Editor>;
 %template(EditorWindowContainer)  OrderedContainer<EditorWindow>;
+%template(EventContainer)         OrderedContainer<Event>;
 %template(ShaderObjectContainer)  OrderedContainer<ShaderObject>;
 //%template(ThreadContainer)        OrderedContainer<Thread>;
 %template(XmlAttributeContainer)  OrderedContainer<XmlAttribute>;
