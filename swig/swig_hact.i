@@ -70,6 +70,8 @@ namespace std {
     %template(FloatVector)   vector<float>;
     %template(DoubleVector)  vector<double>;
     %template(StringVector)  vector<string>;
+    
+    %template(EventVector)  vector<Event>;
 };
 
 
@@ -106,6 +108,9 @@ namespace std {
 
 // Entity
 %include "../../src/entity.h"
+
+// Event
+%include "../../src/event.h"
 
 // GameEngine
 %include "../../src/gameengine.h"
