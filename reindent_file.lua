@@ -1,3 +1,5 @@
+#!/usr/bin/env lua
+
 --
 -- Indent empty lines in a file.
 --
