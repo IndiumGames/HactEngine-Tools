@@ -12,7 +12,9 @@
     #include "../../src/editor.h"
     #include "../../src/editorinput.h"
     #include "../../src/editorwindow.h"
+    #include "../../src/element.h"
     #include "../../src/entity.h"
+    #include "../../src/event.h"
     #include "../../src/gameengine.h"
     #include "../../src/gameengineconfig.h"
     #include "../../src/gamewindow.h"
@@ -104,6 +106,9 @@ namespace std {
 %include "../../src/editor.h"
 %include "../../src/editorinput.h"
 %include "../../src/editorwindow.h"
+
+// Element
+%include "../../src/element.h"
 
 // Entity
 %include "../../src/entity.h"
