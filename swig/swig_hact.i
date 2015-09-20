@@ -75,6 +75,9 @@ namespace std {
 };
 
 
+// Element
+%include "../../src/element.h"
+
 // Hierarchy
 %include "../../src/hierarchy.h"
 %template(EditorHierarchy)      Hierarchy<Editor, OrderedContainer<Editor>>;
@@ -106,9 +109,6 @@ namespace std {
 %include "../../src/editor.h"
 %include "../../src/editorinput.h"
 %include "../../src/editorwindow.h"
-
-// Element
-%include "../../src/element.h"
 
 // Entity
 %include "../../src/entity.h"
