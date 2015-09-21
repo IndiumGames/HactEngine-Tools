@@ -94,6 +94,7 @@ namespace std {
 
 // Container
 %include "../../src/container.h"
+
 %template(EntityContainer)        Container<Entity>;
 %template(PropertyContainer)      Container<Property>;
 %template(GameWindowContainer)    OrderedContainer<GameWindow>;
@@ -101,9 +102,23 @@ namespace std {
 %template(EditorWindowContainer)  OrderedContainer<EditorWindow>;
 %template(EventContainer)         OrderedContainer<Event>;
 %template(ShaderObjectContainer)  OrderedContainer<ShaderObject>;
-//%template(ThreadContainer)        OrderedContainer<Thread>;
+%template(ThreadContainer)        OrderedContainer<Thread>;
 %template(XmlAttributeContainer)  OrderedContainer<XmlAttribute>;
 %template(XmlElementContainer)    OrderedContainer<XmlElement>;
+
+%extend OrderedContainer<GameWindow> {
+    GameWindow* Emplace(const std::string &id) {
+        return $self->Emplace(id);
+    }
+};
+
+%extend OrderedContainer<Thread> {
+    Thread* Emplace(const std::string &initialScript,
+                    const float &yieldTime = 0.01f,
+                    const bool &yield = false) {
+        return $self->Emplace(initialScript, yieldTime, yield);
+    }
+};
 
 // Editor, EditorInput and EditorWindow
 %include "../../src/editor.h"
