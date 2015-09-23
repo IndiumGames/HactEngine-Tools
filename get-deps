@@ -48,73 +48,68 @@ if not os.path.exists(tempDir):
 def GitShallowClone(url, directory):
     # Get GNU Readline
     output = subprocess.check_output(
-        ["git", "clone", "--depth=1", "--branch=master", url, directory],
-        cwd = tempDir
+        "git clone --depth=1 --branch=master " + url + " " + directory,
+        cwd = tempDir,
+        stderr = subprocess.STDOUT,
+        shell = True
     )
+    
+    return output
 
 
-if os.path.exists(tempDir + "/readline"):
-    print "! Skipping Readline (needed by Lua) because directory exists: temp/readline"
-else:
-    print("! Clone Readline")
-    
-    # Get GNU Readline
-    GitShallowClone("git://git.savannah.gnu.org/readline.git", "readline")
-    
-    if not args.no_compile:
-        print("! Compile Readline")
+#!
+#! Get dependency.
+#!
+def GetDependency(directory, gitUrl, compileCommands):
+    if os.path.exists(tempDir + "/" + directory):
+        print "### Skipping " + directory + " because directory exists: temp/" + directory
+    else:
+        print("### Clone " + directory)
         
-        # Configure
-        output = subprocess.check_output(
-            "./configure",
-            cwd = tempDir + "/readline"
-        )
-        #print output
+        # Get GNU Readline
+        GitShallowClone(gitUrl, directory)
         
-        # Make
-        output = subprocess.check_output(
-            "make",
-            cwd = tempDir + "/readline",
-            shell = True
-        )
-        #print output
+        if not args.no_compile:
+            print("    ### Compile " + directory)
+            
+            for compileCommand in compileCommands:
+                print("        ### Running compile command: " + compileCommand)
+                
+                output = subprocess.check_output(
+                    compileCommand,
+                    cwd = tempDir + "/" + directory,
+                    shell = True
+                )
+                #print output
+    
+    print
 
 
-if os.path.exists(tempDir + "/lua"):
-    print "! Skipping Lua because directory exists: temp/lua"
-else:
-    print("! Clone Lua")
-    
-    # Get latest version of Lua (unofficial repository)
-    GitShallowClone("https://github.com/lua/lua.git", "lua")
-    
-    if not args.no_compile:
-        print("! Compile Lua")
-        
-        # Compile Lua
-        output = subprocess.check_output(
-            "make all SYSCFLAGS=\"-DLUA_USE_LINUX\" CFLAGS=\"-I../..\" SYSLIBS=\"-Wl,-E -ldl -L../../readline -lreadline\"",
-            cwd = tempDir + "/lua/src",
-            shell = True
-        )
-        #print output
+# Get and compile GNU Readline
+GetDependency(
+    "readline",
+    "git://git.savannah.gnu.org/readline.git",
+    [
+        "./configure",
+        "make"
+    ]
+)
 
+# Get and compile Lua
+GetDependency(
+    "lua",
+    "https://github.com/lua/lua.git",
+    [
+        "cd src; make all SYSCFLAGS=\"-DLUA_USE_LINUX\" CFLAGS=\"-I../..\" SYSLIBS=\"-Wl,-E -ldl -L../../readline -lreadline\""
+    ]
+)
 
-if os.path.exists(tempDir + "/luacheck"):
-    print "! Skipping Luacheck because directory exists: temp/luacheck"
-else:
-    print("! Clone Luacheck")
-    
-    # Get latest version of Luacheck
-    GitShallowClone("https://github.com/mpeterv/luacheck.git", "luacheck")
-    
-    if not args.no_compile:
-        print "! Install Luacheck"
-        
-        output = subprocess.check_output(
-            tempDir + "/lua/src/lua install.lua ./install",
-            cwd = tempDir + "/luacheck",
-            shell = True
-        )
-        #print output
+# Get and compile Luacheck
+GetDependency(
+    "luacheck",
+    "https://github.com/mpeterv/luacheck.git",
+    [
+        "../lua/src/lua install.lua ./install"
+    ]
+)
 
