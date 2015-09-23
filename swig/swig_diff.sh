@@ -22,9 +22,12 @@ fi
 
 
 # Run SWIG
-SWIG_LIB=../temp/SWIG/Lib ../temp/SWIG/swig -c++ -lua -v -no-old-metatable-bindings -o swig_hact_wrap.temp swig_hact.i
-SWIG_LIB=../temp/SWIG/Lib ../temp/SWIG/swig -c++ -lua -v -no-old-metatable-bindings -o swig_glm_wrap.temp swig_glm.i
-SWIG_LIB=../temp/SWIG/Lib ../temp/SWIG/swig -c++ -lua -v -no-old-metatable-bindings -o swig_opengl_wrap.temp swig_opengl.i
+#SWIG_LIB=../temp/_prefix/share/swig/3.0.8 ../temp/_prefix/bin/swig -c++ -lua -v -no-old-metatable-bindings -o swig_hact_wrap.temp swig_hact.i
+#SWIG_LIB=../temp/_prefix/share/swig/3.0.8 ../temp/_prefix/bin/swig -c++ -lua -v -no-old-metatable-bindings -o swig_glm_wrap.temp swig_glm.i
+#SWIG_LIB=../temp/_prefix/share/swig/3.0.8 ../temp/_prefix/bin/swig -c++ -lua -v -no-old-metatable-bindings -o swig_opengl_wrap.temp swig_opengl.i
+swig3.0 -c++ -lua -v -no-old-metatable-bindings -o swig_hact_wrap.temp swig_hact.i
+swig3.0 -c++ -lua -v -no-old-metatable-bindings -o swig_glm_wrap.temp swig_glm.i
+swig3.0 -c++ -lua -v -no-old-metatable-bindings -o swig_opengl_wrap.temp swig_opengl.i
 
 
 # 'swig_hact_wrap.cxx'
