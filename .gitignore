@@ -1,0 +1,15 @@
+# Backup and temporary files
+*~
+*.autosave
+*.temp
+
+# Ignore automatically generated files from SWIG
+*wrap.cxx
+
+# Ignore temp directory
+temp/
+
+# Ignore logs
+logs/
+*.log
+
