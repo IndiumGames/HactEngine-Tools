@@ -1,0 +1,118 @@
+#!/usr/bin/env python
+
+# Update tools
+
+import argparse
+#import re
+import os
+import platform
+import subprocess
+import sys
+
+
+if os.name != "posix":
+    sys.exit("! Non-POSIX system not supported (Windows?)")
+elif platform.system() != "Linux":
+    sys.exit("! Non-Linux system not supported (OS X?)")
+
+
+# Available arguments
+parser = argparse.ArgumentParser("update-tools")
+parser.add_argument(
+    "--no-compile",
+    action="store_true",
+    help="Only download, do not install tools"
+)
+
+# Parse arguments
+args = parser.parse_args()
+
+
+# The directory containing this script
+scriptDir = os.path.dirname(os.path.realpath(__file__))
+
+# The directory to use as the temporary directory
+tempDir = scriptDir + "/temp"
+
+# Create temp directory if it doesn't exist
+if not os.path.exists(tempDir):
+    os.makedirs(tempDir)
+
+# Git shallow clone command
+gitShallow = ["git", "clone", "--depth=1", "--branch=master"]
+
+
+if os.path.exists(tempDir + "/readline"):
+    print "! Skipping Readline (needed by Lua) because directory exists: temp/readline"
+else:
+    print("! Clone Readline")
+    
+    # Get GNU Readline
+    output = subprocess.check_output(
+        gitShallow + ["git://git.savannah.gnu.org/readline.git", "readline"],
+        cwd = tempDir
+    )
+    
+    if not args.no_compile:
+        print("! Compile Readline")
+        
+        # Configure
+        output = subprocess.check_output(
+            "./configure",
+            cwd = tempDir + "/readline"
+        )
+        #print output
+        
+        # Make
+        output = subprocess.check_output(
+            "make",
+            cwd = tempDir + "/readline",
+            shell = True
+        )
+        #print output
+
+
+if os.path.exists(tempDir + "/lua"):
+    print "! Skipping Lua because directory exists: temp/lua"
+else:
+    print("! Clone Lua")
+    
+    # Get latest version of Lua (unofficial repository)
+    output = subprocess.check_output(
+        gitShallow + ["https://github.com/lua/lua.git", "lua"],
+        cwd = tempDir
+    )
+    
+    if not args.no_compile:
+        print("! Compile Lua")
+        
+        # Compile Lua
+        output = subprocess.check_output(
+            "make all SYSCFLAGS=\"-DLUA_USE_LINUX\" CFLAGS=\"-I../..\" SYSLIBS=\"-Wl,-E -ldl -L../../readline -lreadline\"",
+            cwd = tempDir + "/lua/src",
+            shell = True
+        )
+        #print output
+
+
+if os.path.exists(tempDir + "/luacheck"):
+    print "! Skipping Luacheck because directory exists: temp/luacheck"
+else:
+    print("! Clone Luacheck")
+    
+    # Get latest version of Luacheck
+    output = subprocess.check_output(
+        gitShallow + ["https://github.com/mpeterv/luacheck.git", "luacheck"],
+        cwd = tempDir
+    )
+    
+    if not args.no_compile:
+        print "! Install Luacheck"
+        
+        output = subprocess.check_output(
+            tempDir + "/lua/src/lua install.lua ./install",
+            cwd = tempDir + "/luacheck",
+            shell = True
+        )
+        #print output
+
