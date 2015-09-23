@@ -38,8 +38,19 @@ tempDir = scriptDir + "/temp"
 if not os.path.exists(tempDir):
     os.makedirs(tempDir)
 
-# Git shallow clone command
-gitShallow = ["git", "clone", "--depth=1", "--branch=master"]
+
+#!
+#! Do a shallow Git clone.
+#!
+#! :param url:        URL to clone from.
+#! :param directory:  Directory to clone into (relative to temp dir).
+#!
+def GitShallowClone(url, directory):
+    # Get GNU Readline
+    output = subprocess.check_output(
+        ["git", "clone", "--depth=1", "--branch=master", url, directory],
+        cwd = tempDir
+    )
 
 
 if os.path.exists(tempDir + "/readline"):
@@ -48,10 +59,7 @@ else:
     print("! Clone Readline")
     
     # Get GNU Readline
-    output = subprocess.check_output(
-        gitShallow + ["git://git.savannah.gnu.org/readline.git", "readline"],
-        cwd = tempDir
-    )
+    GitShallowClone("git://git.savannah.gnu.org/readline.git", "readline")
     
     if not args.no_compile:
         print("! Compile Readline")
@@ -78,10 +86,7 @@ else:
     print("! Clone Lua")
     
     # Get latest version of Lua (unofficial repository)
-    output = subprocess.check_output(
-        gitShallow + ["https://github.com/lua/lua.git", "lua"],
-        cwd = tempDir
-    )
+    GitShallowClone("https://github.com/lua/lua.git", "lua")
     
     if not args.no_compile:
         print("! Compile Lua")
@@ -101,10 +106,7 @@ else:
     print("! Clone Luacheck")
     
     # Get latest version of Luacheck
-    output = subprocess.check_output(
-        gitShallow + ["https://github.com/mpeterv/luacheck.git", "luacheck"],
-        cwd = tempDir
-    )
+    GitShallowClone("https://github.com/mpeterv/luacheck.git", "luacheck")
     
     if not args.no_compile:
         print "! Install Luacheck"
