@@ -45,6 +45,15 @@ tempDir = scriptDir + "/temp"
 if not os.path.exists(tempDir):
     os.makedirs(tempDir)
 
+os.chdir(tempDir)
+
+# The prefix directory
+prefixDir = tempDir + "/_prefix"
+
+# Create prefix directory if it doesn't exist
+if not os.path.exists(prefixDir):
+    os.makedirs(prefixDir)
+
 
 #!
 #! Do a shallow Git clone.
@@ -67,14 +76,26 @@ def GitShallowClone(url, directory):
 #!
 #! Get dependency.
 #!
-def GetDependency(directory, gitUrl, compileCommands):
+def GetDependency(directory, gitUrl, compileCommands, downloadCommands = None):
     if os.path.exists(tempDir + "/" + directory):
         print "### Skipping " + directory + " because directory exists: temp/" + directory
     else:
         print("### Clone " + directory)
         
-        # Get GNU Readline
-        GitShallowClone(gitUrl, directory)
+        if gitUrl != "":
+            # Get GNU Readline
+            GitShallowClone(gitUrl, directory)
+        
+        if downloadCommands:
+            print("    ### Download " + directory)
+            
+            for downloadCommand in downloadCommands:
+                output = subprocess.check_output(
+                    downloadCommand,
+                    cwd = tempDir,
+                    shell = True
+                )
+                #print output
         
         if not args.no_compile:
             print("    ### Compile " + directory)
@@ -112,12 +133,22 @@ GetDependency(
 )
 
 
+# Get GLM
+GetDependency(
+    "GLM",
+    "https://github.com/g-truc/glm.git",
+    [
+        # No compile necessary, this is a header only library
+    ]
+)
+
+
 # Get and compile Luacheck
 GetDependency(
     "luacheck",
     "https://github.com/mpeterv/luacheck.git",
     [
-        "../lua/src/lua install.lua ./install"
+        "../lua/src/lua install.lua " + prefixDir
     ]
 )
 
@@ -146,16 +177,18 @@ GetDependency(
     "https://github.com/swig/swig.git",
     [
         "./autogen.sh",
-        "./configure",
-        "make"
+        "./configure --prefix=" + prefixDir,
+        "make",
+        "make install"
     ]
 )
 
 
-# This is not something I want to even try to compile myself...
+# These are not something I want to even try to compile myself...
 if platform.linux_distribution()[0] == "Ubuntu":
     print "Install these dependencies:"
     print "sudo apt-get install libgles2-mesa-dev"
+    print "sudo apt-get install libdbus-1-dev libibus-1.0-dev"
     print
 
 # Get and compile SDL2
@@ -164,18 +197,27 @@ GetDependency(
     "https://github.com/spurious/SDL-mirror.git",
     [
         "./autogen.sh",
-        "./configure",
-        "make"
+        "./configure --prefix=" + prefixDir,
+        "make",
+        "make install"
     ]
 )
 
 
-# Get and compile GLM
+# Get and compile SDL2_image
 GetDependency(
-    "GLM",
-    "https://github.com/g-truc/glm.git",
+    "SDL2_image",
+    "",
     [
-        # No compile necessary, this is a header only library
+        "./autogen.sh",
+        "PATH=\"$PATH:../_prefix/bin\" ./configure --prefix=" + prefixDir,
+        "make",
+        "make install"
+    ],
+    [
+        "curl -sLO https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz",
+        "tar xf SDL2_image-2.0.0.tar.gz",
+        "mv SDL2_image-2.0.0 SDL2_image"
     ]
 )
 
