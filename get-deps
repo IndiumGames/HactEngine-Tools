@@ -10,6 +10,13 @@ import subprocess
 import sys
 
 
+print "System info:"
+print os.name
+print platform.system()
+print platform.linux_distribution()[0]
+print
+
+
 if os.name != "posix":
     sys.exit("! Non-POSIX system not supported (Windows?)")
 elif platform.system() != "Linux":
@@ -85,7 +92,7 @@ def GetDependency(directory, gitUrl, compileCommands):
     print
 
 
-# Get and compile GNU Readline
+# Get and compile GNU Readline (for Lua)
 GetDependency(
     "readline",
     "git://git.savannah.gnu.org/readline.git",
@@ -104,12 +111,70 @@ GetDependency(
     ]
 )
 
+
 # Get and compile Luacheck
 GetDependency(
     "luacheck",
     "https://github.com/mpeterv/luacheck.git",
     [
         "../lua/src/lua install.lua ./install"
+    ]
+)
+
+
+# SWIG is difficult to compile without installing some dependencies
+if platform.linux_distribution()[0] == "Ubuntu":
+    print "Install these dependencies:"
+    print "sudo apt-get install build-essential libtool libpcre3-dev perl-byacc"
+    print
+
+# Get and compile PCRE (for SWIG)
+#GetDependency(
+#    "pcre",
+#    "https://gitlab.com/tortoisegit/pcre.git",
+#    [
+#        "./autogen.sh",
+#        "./configure",
+#        "make"
+#    ]
+#)
+
+# Get and compile SWIG
+GetDependency(
+    "SWIG",
+    "https://github.com/swig/swig.git",
+    [
+        "./autogen.sh",
+        "./configure",
+        "make"
+    ]
+)
+
+
+# This is not something I want to even try to compile myself...
+if platform.linux_distribution()[0] == "Ubuntu":
+    print "Install these dependencies:"
+    print "sudo apt-get install libgles2-mesa-dev"
+    print
+
+# Get and compile SDL
+GetDependency(
+    "SDL",
+    "https://github.com/spurious/SDL-mirror.git",
+    [
+        "./autogen.sh",
+        "./configure",
+        "make"
+    ]
+)
+
+
+# Get and compile GLM
+GetDependency(
+    "GLM",
+    "https://github.com/g-truc/glm.git",
+    [
+        # No compile necessary, this is a header only library
     ]
 )
 
