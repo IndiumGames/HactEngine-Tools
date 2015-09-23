@@ -158,9 +158,9 @@ if platform.linux_distribution()[0] == "Ubuntu":
     print "sudo apt-get install libgles2-mesa-dev"
     print
 
-# Get and compile SDL
+# Get and compile SDL2
 GetDependency(
-    "SDL",
+    "SDL2",
     "https://github.com/spurious/SDL-mirror.git",
     [
         "./autogen.sh",
