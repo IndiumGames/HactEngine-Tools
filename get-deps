@@ -126,6 +126,7 @@ GetDependency(
 if platform.linux_distribution()[0] == "Ubuntu":
     print "Install these dependencies:"
     print "sudo apt-get install build-essential libtool libpcre3-dev perl-byacc"
+    print "sudo apt-get install yodl"
     print
 
 # Get and compile PCRE (for SWIG)
