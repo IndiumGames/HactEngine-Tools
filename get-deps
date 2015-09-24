@@ -1,6 +1,19 @@
 #!/usr/bin/env python
 
-# Update tools
+#
+# Get and compile dependencies for HactEngine.
+#
+# This script will download and compile most of the dependencies needed for
+# HactEngine's development. It even downloads the Qt installer for you.
+#
+# Some of the dependencies are "header only" or otherwise do not require
+# installing, but they are downloaded as well.
+#
+# There are some tools which HactEngine does not directly depend on, but are
+# required to compile the engine's dependencies. If these are small and simple
+# to compile (like GNU Readline), they are downloaded and compiled as well.
+#
+
 
 import argparse
 import multiprocessing
