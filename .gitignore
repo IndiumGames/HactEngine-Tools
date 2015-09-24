@@ -6,6 +6,9 @@
 # Ignore automatically generated files from SWIG
 *wrap.cxx
 
+# Ignore core dumps
+core
+
 # Ignore prefix directory
 prefix/
 
