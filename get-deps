@@ -3,17 +3,19 @@
 # Update tools
 
 import argparse
-#import re
+import multiprocessing
 import os
 import platform
+#import re
 import subprocess
 import sys
 
-
-print "System info:"
-print os.name
-print platform.system()
-print platform.linux_distribution()[0]
+print "System info"
+print "==========="
+print "OS name:            " + os.name
+print "Platform:           " + platform.system()
+print "Linux distribution: " + platform.linux_distribution()[0]
+print "CPU cores:          " + str(multiprocessing.cpu_count())
 print
 
 
@@ -34,6 +36,9 @@ parser.add_argument(
 # Parse arguments
 args = parser.parse_args()
 
+
+# Amount of jobs to use when building
+make_jobs = "-j" + str(multiprocessing.cpu_count())
 
 # The directory containing this script
 scriptDir = os.path.dirname(os.path.realpath(__file__))
@@ -90,6 +95,8 @@ def GetDependency(directory, gitUrl, compileCommands, downloadCommands = None):
             print("    ### Download " + directory)
             
             for downloadCommand in downloadCommands:
+                print("        ### Running download command: " + downloadCommand)
+                
                 output = subprocess.check_output(
                     downloadCommand,
                     cwd = tempDir,
@@ -119,7 +126,7 @@ GetDependency(
     "git://git.savannah.gnu.org/readline.git",
     [
         "./configure",
-        "make"
+        "make " + make_jobs
     ]
 )
 
@@ -128,7 +135,7 @@ GetDependency(
     "lua",
     "https://github.com/lua/lua.git",
     [
-        "cd src; make all SYSCFLAGS=\"-DLUA_USE_LINUX\" CFLAGS=\"-I../..\" SYSLIBS=\"-Wl,-E -ldl -L../../readline -lreadline\""
+        "cd src; make " + make_jobs + " all SYSCFLAGS=\"-DLUA_USE_LINUX\" CFLAGS=\"-I../..\" SYSLIBS=\"-Wl,-E -ldl -L../../readline -lreadline\""
     ]
 )
 
@@ -178,7 +185,7 @@ GetDependency(
     [
         "./autogen.sh",
         "./configure --prefix=" + prefixDir,
-        "make",
+        "make " + make_jobs,
         "make install"
     ]
 )
@@ -187,8 +194,9 @@ GetDependency(
 # These are not something I want to even try to compile myself...
 if platform.linux_distribution()[0] == "Ubuntu":
     print "Install these dependencies:"
+    print "sudo apt-get install libtool"
     print "sudo apt-get install libgles2-mesa-dev"
-    print "sudo apt-get install libdbus-1-dev libibus-1.0-dev"
+    print "#sudo apt-get install libdbus-1-dev libibus-1.0-dev"
     print
 
 # Get and compile SDL2
@@ -198,11 +206,81 @@ GetDependency(
     [
         "./autogen.sh",
         "./configure --prefix=" + prefixDir,
-        "make",
+        "make " + make_jobs,
         "make install"
     ]
 )
 
+
+# Get and compile zlib (needed by libpng, needed by SDL2_image)
+GetDependency(
+    "zlib",
+    "",
+    [
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    [
+        "curl -sLO http://zlib.net/zlib-1.2.8.tar.gz",
+        "tar xf zlib-1.2.8.tar.gz",
+        "mv zlib-1.2.8 zlib"
+    ]
+)
+
+# Get and compile libpng (needed by SDL2_image)
+GetDependency(
+    "libpng",
+    "",
+    [
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    [
+        "curl -sLO http://download.sourceforge.net/libpng/libpng-1.2.52.tar.gz",
+        "tar xf libpng-1.2.52.tar.gz",
+        "mv libpng-1.2.52 libpng"
+    ]
+)
+
+# Get and compile libjpeg (needed by SDL2_image)
+GetDependency(
+    "libjpeg",
+    "",
+    [
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    [
+        "curl -sLO http://www.ijg.org/files/jpegsrc.v9a.tar.gz",
+        "tar xf jpegsrc.v9a.tar.gz",
+        "mv jpeg-9a libjpeg"
+    ]
+)
+
+# Get and compile libtiff (needed by SDL2_image)
+GetDependency(
+    "libtiff",
+    "",
+    [
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    [
+        "curl -sLO ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.6.tar.gz",
+        "tar xf tiff-4.0.6.tar.gz",
+        "mv tiff-4.0.6 libtiff"
+    ]
+)
+
+# These are not something I want to even try to compile myself...
+if platform.linux_distribution()[0] == "Ubuntu":
+    print "Install these dependencies:"
+    print "sudo apt-get install libtool"
+    print
 
 # Get and compile SDL2_image
 GetDependency(
@@ -210,8 +288,8 @@ GetDependency(
     "",
     [
         "./autogen.sh",
-        "PATH=\"$PATH:../_prefix/bin\" ./configure --prefix=" + prefixDir,
-        "make",
+        "PATH=\"$PATH:../_prefix/bin\" CFLAGS=\"-I../_prefix/include\" C_INCLUDE_PATH=\"../_prefix/include\" ./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
         "make install"
     ],
     [
