@@ -43,6 +43,7 @@ make_jobs = "-j" + str(multiprocessing.cpu_count())
 # The directory containing this script
 scriptDir = os.path.dirname(os.path.realpath(__file__))
 
+
 # The directory to use as the temporary directory
 tempDir = scriptDir + "/temp"
 
@@ -50,10 +51,9 @@ tempDir = scriptDir + "/temp"
 if not os.path.exists(tempDir):
     os.makedirs(tempDir)
 
-os.chdir(tempDir)
 
 # The prefix directory
-prefixDir = tempDir + "/_prefix"
+prefixDir = scriptDir + "/prefix"
 
 # Create prefix directory if it doesn't exist
 if not os.path.exists(prefixDir):
@@ -67,9 +67,13 @@ if not os.path.exists(prefixDir):
 #! :param directory:  Directory to clone into (relative to temp dir).
 #!
 def GitShallowClone(url, directory):
+    command = "git clone --depth=1 --branch=master " + url + " " + directory
+    
+    print("        ### Running download command: " + command)
+    
     # Get GNU Readline
     output = subprocess.check_output(
-        "git clone --depth=1 --branch=master " + url + " " + directory,
+        command,
         cwd = tempDir,
         stderr = subprocess.STDOUT,
         shell = True
@@ -85,15 +89,14 @@ def GetDependency(directory, gitUrl, compileCommands, downloadCommands = None):
     if os.path.exists(tempDir + "/" + directory):
         print "### Skipping " + directory + " because directory exists: temp/" + directory
     else:
-        print("### Clone " + directory)
+        print("### " + directory)
+        
+        print("    ### Download " + directory)
         
         if gitUrl != "":
             # Get GNU Readline
             GitShallowClone(gitUrl, directory)
-        
-        if downloadCommands:
-            print("    ### Download " + directory)
-            
+        elif downloadCommands:
             for downloadCommand in downloadCommands:
                 print("        ### Running download command: " + downloadCommand)
                 
@@ -125,17 +128,55 @@ GetDependency(
     "readline",
     "git://git.savannah.gnu.org/readline.git",
     [
-        "./configure",
-        "make " + make_jobs
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ]
+)
+
+# Get and compile termcap (needed by GNU Readline, needed by Lua)
+GetDependency(
+    "termcap",
+    "",
+    [
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    [
+        "curl -sLO http://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz",
+        "tar xf termcap-1.3.1.tar.gz",
+        "mv termcap-1.3.1 termcap"
     ]
 )
 
 # Get and compile Lua
 GetDependency(
     "lua",
-    "https://github.com/lua/lua.git",
+    "",
     [
-        "cd src; make " + make_jobs + " all SYSCFLAGS=\"-DLUA_USE_LINUX\" CFLAGS=\"-I../..\" SYSLIBS=\"-Wl,-E -ldl -L../../readline -lreadline\""
+        "PATH=\"$PATH:" + prefixDir + "/bin\" "
+        + "LIBRARY_PATH=\"$LIBRARY_PATH:" + prefixDir + "/lib\" "
+        + "C_INCLUDE_PATH=\"$C_INCLUDE_PATH:" + prefixDir + "/include\" "
+        + "make " + make_jobs + " linux MYLIBS=-ltermcap",
+        "cp src/liblua.a " + prefixDir + "/lib",
+        "cp src/lua " + prefixDir + "/bin",
+        "cp src/luac " + prefixDir + "/bin"
+    ],
+    [
+        "curl -sLO http://www.lua.org/ftp/lua-5.3.1.tar.gz",
+        "tar xf lua-5.3.1.tar.gz",
+        "mv lua-5.3.1 lua"
+    ]
+)
+
+
+# Get and compile Luacheck
+GetDependency(
+    "luacheck",
+    "https://github.com/mpeterv/luacheck.git",
+    [
+        "PATH=\"$PATH:" + prefixDir + "/bin\" ./install.lua " + prefixDir
     ]
 )
 
@@ -146,16 +187,6 @@ GetDependency(
     "https://github.com/g-truc/glm.git",
     [
         # No compile necessary, this is a header only library
-    ]
-)
-
-
-# Get and compile Luacheck
-GetDependency(
-    "luacheck",
-    "https://github.com/mpeterv/luacheck.git",
-    [
-        "../lua/src/lua install.lua " + prefixDir
     ]
 )
 
@@ -202,12 +233,17 @@ if platform.linux_distribution()[0] == "Ubuntu":
 # Get and compile SDL2
 GetDependency(
     "SDL2",
-    "https://github.com/spurious/SDL-mirror.git",
+    "",
     [
         "./autogen.sh",
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
+    ],
+    [
+        "curl -sLO https://www.libsdl.org/release/SDL2-2.0.3.tar.gz",
+        "tar xf SDL2-2.0.3.tar.gz",
+        "mv SDL2-2.0.3 SDL2"
     ]
 )
 
@@ -288,7 +324,10 @@ GetDependency(
     "",
     [
         "./autogen.sh",
-        "PATH=\"$PATH:../_prefix/bin\" CFLAGS=\"-I../_prefix/include\" C_INCLUDE_PATH=\"../_prefix/include\" ./configure --prefix=" + prefixDir,
+        "PATH=\"$PATH:" + prefixDir + "/bin\" "
+        + "CFLAGS=\"-I" + prefixDir + "/include\" "
+        + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
+        + "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ],
