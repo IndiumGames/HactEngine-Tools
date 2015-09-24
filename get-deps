@@ -150,47 +150,9 @@ GetDependency(
     ]
 )
 
-# Get and compile ncurses (needed by readline, needed by Lua)
-GetDependency(
-    "ncurses",
-    "",
-    [
-        #"./configure --with-shared --prefix=" + prefixDir,
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    [
-        "curl -sLO http://ftp.gnu.org/gnu/ncurses/ncurses-6.0.tar.gz",
-        "tar xf ncurses-6.0.tar.gz",
-        "mv ncurses-6.0 ncurses"
-    ]
-)
-
-# Get and compile libedit (needed by Lua)
-GetDependency(
-    "libedit",
-    "",
-    [
-        "LDFLAGS=\"-L" + prefixDir + "/lib/\" "
-        + "./configure --enable-shared=no --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-        #,
-        #"ln -s " + prefixDir + "/include/editline " + prefixDir + "/include/readline",
-        #"ln -s " + prefixDir + "/include/histedit.h " + prefixDir + "/include/readline/history.h",
-        #"ln -s " + prefixDir + "/lib/libedit.a " + prefixDir + "/lib/libreadline.a"
-    ],
-    [
-        "curl -sLO http://thrysoee.dk/editline/libedit-20150325-3.1.tar.gz",
-        "tar xf libedit-20150325-3.1.tar.gz",
-        "mv libedit-20150325-3.1 libedit"
-    ]
-)
-
 # Get and compile Lua (with Readline)
 GetDependency(
-    "lua-readline",
+    "lua",
     "",
     [
         "PATH=\"$PATH:" + prefixDir + "/bin\" "
@@ -203,48 +165,9 @@ GetDependency(
     [
         "curl -sLO http://www.lua.org/ftp/lua-5.3.1.tar.gz",
         "tar xf lua-5.3.1.tar.gz",
-        "mv lua-5.3.1 lua-readline"
-    ]
-)
-
-# Get and compile Lua
-GetDependency(
-    "lua",
-    "",
-    [
-        "cd src; "
-        + "make " + make_jobs + " all "
-        + "SYSCFLAGS=\"-DLUA_USE_POSIX -DLUA_USE_DLOPEN\" "
-        + "CFLAGS=\"-I" + prefixDir + "/include\" "
-        + "SYSLIBS=\"-Wl,-E -ldl\""
-        #,
-        #"cp src/liblua.a " + prefixDir + "/lib"
-    ],
-    [
-        "curl -sLO http://www.lua.org/ftp/lua-5.3.1.tar.gz",
-        "tar xf lua-5.3.1.tar.gz",
         "mv lua-5.3.1 lua"
     ]
 )
-
-# Get and compile Lua
-#GetDependency(
-#    "lua",
-#    "",
-#    [
-#        "cd src; "
-#        + "make " + make_jobs + " all "
-#        + "SYSCFLAGS=\"-DLUA_USE_LINUX\" "
-#        + "CFLAGS=\"-I" + prefixDir + "/include\" "
-#        + "SYSLIBS=\"-Wl,-E -ldl\"",
-#        "make install INSTALL_TOP=\"" + prefixDir + "\""
-#    ],
-#    [
-#        "curl -sLO http://www.lua.org/ftp/lua-5.3.1.tar.gz",
-#        "tar xf lua-5.3.1.tar.gz",
-#        "mv lua-5.3.1 lua"
-#    ]
-#)
 
 
 # Get and compile Luacheck
