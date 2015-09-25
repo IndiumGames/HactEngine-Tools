@@ -42,6 +42,8 @@ elif platform.system() == "Windows":
 else:
     sys.exit("! Unsupported system!")
 
+print("")
+
 
 # Available arguments
 parser = argparse.ArgumentParser("update-tools")
@@ -103,7 +105,13 @@ def GitShallowClone(url, directory):
 #!
 #! Get dependency.
 #!
-def GetDependency(directory, gitUrl, compileCommands, downloadCommands = None):
+def GetDependency(directory,
+                  gitUrl = None,
+                  download = None,
+                  compile = None,
+                  compileLinux = None,
+                  compileMac = None,
+                  compileWindows = None):
     if os.path.exists(tempDir + "/" + directory):
         print("### Skipping " + directory + " because directory exists: temp/" + directory)
     else:
@@ -111,15 +119,15 @@ def GetDependency(directory, gitUrl, compileCommands, downloadCommands = None):
         
         print("    ### Download " + directory)
         
-        if gitUrl != "":
+        if gitUrl:
             # Get GNU Readline
             GitShallowClone(gitUrl, directory)
-        elif downloadCommands:
-            for downloadCommand in downloadCommands:
-                print("        ### Running download command: " + downloadCommand)
+        elif download:
+            for command in download:
+                print("        ### Running download command: " + command)
                 
                 output = subprocess.check_output(
-                    downloadCommand,
+                    command,
                     cwd = tempDir,
                     shell = True
                 )
@@ -128,15 +136,47 @@ def GetDependency(directory, gitUrl, compileCommands, downloadCommands = None):
         if not args.no_compile:
             print("    ### Compile " + directory)
             
-            for compileCommand in compileCommands:
-                print("        ### Running compile command: " + compileCommand)
-                
-                output = subprocess.check_output(
-                    compileCommand,
-                    cwd = tempDir + "/" + directory,
-                    shell = True
-                )
-                #print output
+            if compile:
+                for command in compile:
+                    print("        ### Running compile command: " + command)
+                    
+                    output = subprocess.check_output(
+                        command,
+                        cwd = tempDir + "/" + directory,
+                        shell = True
+                    )
+                    #print output
+            
+            if compileLinux and platform.system() == "Linux":
+                for command in compileLinux:
+                    print("        ### Running Linux compile command: " + command)
+                    
+                    output = subprocess.check_output(
+                        command,
+                        cwd = tempDir + "/" + directory,
+                        shell = True
+                    )
+                    #print output
+            elif compileMac and platform.system() == "OS X":
+                for command in compileMac:
+                    print("        ### Running OS X compile command: " + command)
+                    
+                    output = subprocess.check_output(
+                        command,
+                        cwd = tempDir + "/" + directory,
+                        shell = True
+                    )
+                    #print output
+            elif compileWindows and platform.system() == "Windows":
+                for command in compileWindows:
+                    print("        ### Running Windows compile command: " + command)
+                    
+                    output = subprocess.check_output(
+                        command,
+                        cwd = tempDir + "/" + directory,
+                        shell = True
+                    )
+                    #print output
     
     print("")
 
@@ -144,44 +184,42 @@ def GetDependency(directory, gitUrl, compileCommands, downloadCommands = None):
 # Get and compile Termcap (needed by GNU Readline, needed by Lua)
 GetDependency(
     "termcap-1.3.1",
-    "",
-    [
+    download = [
+        "curl -sLO http://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz",
+        "tar xf termcap-1.3.1.tar.gz"
+    ],
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
-    ],
-    [
-        "curl -sLO http://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz",
-        "tar xf termcap-1.3.1.tar.gz"
     ]
 )
 
 # Get and compile GNU Readline (for Lua)
 GetDependency(
     "readline",
-    "git://git.savannah.gnu.org/readline.git",
-    [
+    gitUrl = "git://git.savannah.gnu.org/readline.git",
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ]
 )
 
-# Get and compile Lua (with Readline)
+# Get and compile Lua
 GetDependency(
     "lua-5.3.1",
-    "",
-    [
+    download = [
+        "curl -sLO http://www.lua.org/ftp/lua-5.3.1.tar.gz",
+        "tar xf lua-5.3.1.tar.gz"
+    ],
+    compileLinux = [
         "PATH=\"$PATH:" + prefixDir + "/bin\" "
         + "LIBRARY_PATH=\"$LIBRARY_PATH:" + prefixDir + "/lib/\" "
         + "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:" + prefixDir + "/lib\" "
         + "C_INCLUDE_PATH=\"$C_INCLUDE_PATH:" + prefixDir + "/include\" "
         + "make " + make_jobs + " linux MYLIBS=-ltermcap",
         "make install INSTALL_TOP=\"" + prefixDir + "\""
-    ],
-    [
-        "curl -sLO http://www.lua.org/ftp/lua-5.3.1.tar.gz",
-        "tar xf lua-5.3.1.tar.gz"
     ]
 )
 
@@ -189,8 +227,8 @@ GetDependency(
 # Get and compile Luacheck
 GetDependency(
     "luacheck",
-    "https://github.com/mpeterv/luacheck.git",
-    [
+    gitUrl = "https://github.com/mpeterv/luacheck.git",
+    compile = [
         "PATH=\"$PATH:" + prefixDir + "/bin\" ./install.lua " + prefixDir
     ]
 )
@@ -199,19 +237,14 @@ GetDependency(
 # Get GLM
 GetDependency(
     "GLM",
-    "https://github.com/g-truc/glm.git",
-    [
-        # No compile necessary, this is a header only library
-    ]
+    gitUrl = "https://github.com/g-truc/glm.git"
 )
 
 
 # Get rapidxml
 GetDependency(
     "rapidxml-1.13",
-    "",
-    [],
-    [
+    download = [
         "curl -sLO http://downloads.sourceforge.net/project/rapidxml/rapidxml/rapidxml%201.13/rapidxml-1.13.zip",
         "unzip -o rapidxml-1.13.zip"
     ]
@@ -221,9 +254,7 @@ GetDependency(
 # Get utf8cpp
 GetDependency(
     "utf8cpp",
-    "",
-    [],
-    [
+    download = [
         "curl -sLO http://downloads.sourceforge.net/project/utfcpp/utf8cpp_2x/Release%202.3.4/utf8_v2_3_4.zip",
         "unzip -o utf8_v2_3_4.zip -d utf8cpp"
     ]
@@ -233,30 +264,28 @@ GetDependency(
 # Get and compile libogg
 GetDependency(
     "libogg-1.3.2",
-    "",
-    [
+    download = [
+        "curl -sLO http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz",
+        "tar xf libogg-1.3.2.tar.gz"
+    ],
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
-    ],
-    [
-        "curl -sLO http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz",
-        "tar xf libogg-1.3.2.tar.gz"
     ]
 )
 
 # Get and compile libvorbis
 GetDependency(
     "libvorbis-1.3.5",
-    "",
-    [
+    download = [
+        "curl -sLO http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.5.tar.gz",
+        "tar xf libvorbis-1.3.5.tar.gz"
+    ],
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
-    ],
-    [
-        "curl -sLO http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.5.tar.gz",
-        "tar xf libvorbis-1.3.5.tar.gz"
     ]
 )
 
@@ -269,8 +298,8 @@ if platform.linux_distribution()[0] == "Ubuntu":
 # Get and compile OpenAL Soft
 GetDependency(
     "openal-soft",
-    "http://repo.or.cz/openal-soft.git",
-    [
+    gitUrl = "http://repo.or.cz/openal-soft.git",
+    compileLinux = [
         "cd build; cmake -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
         "cd build; make " + make_jobs,
         "cd build; make install"
@@ -281,15 +310,14 @@ GetDependency(
 # Get and compile OpenAL Soft
 GetDependency(
     "freetype-2.6",
-    "",
-    [
+    download = [
+        "curl -sLO http://download.savannah.gnu.org/releases/freetype/freetype-2.6.tar.gz",
+        "tar xf freetype-2.6.tar.gz"
+    ],
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
-    ],
-    [
-        "curl -sLO http://download.savannah.gnu.org/releases/freetype/freetype-2.6.tar.gz",
-        "tar xf freetype-2.6.tar.gz"
     ]
 )
 
@@ -315,8 +343,8 @@ if platform.linux_distribution()[0] == "Ubuntu":
 # Get and compile SWIG
 GetDependency(
     "SWIG",
-    "https://github.com/swig/swig.git",
-    [
+    gitUrl = "https://github.com/swig/swig.git",
+    compileLinux = [
         "./autogen.sh",
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
@@ -337,16 +365,15 @@ if platform.linux_distribution()[0] == "Ubuntu":
 # Get and compile SDL2
 GetDependency(
     "SDL2-2.0.3",
-    "",
-    [
+    download = [
+        "curl -sLO https://www.libsdl.org/release/SDL2-2.0.3.tar.gz",
+        "tar xf SDL2-2.0.3.tar.gz"
+    ],
+    compileLinux = [
         "./autogen.sh",
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
-    ],
-    [
-        "curl -sLO https://www.libsdl.org/release/SDL2-2.0.3.tar.gz",
-        "tar xf SDL2-2.0.3.tar.gz"
     ]
 )
 
@@ -354,60 +381,56 @@ GetDependency(
 # Get and compile zlib (needed by libpng, needed by SDL2_image)
 GetDependency(
     "zlib-1.2.8",
-    "",
-    [
+    download = [
+        "curl -sLO http://zlib.net/zlib-1.2.8.tar.gz",
+        "tar xf zlib-1.2.8.tar.gz"
+    ],
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
-    ],
-    [
-        "curl -sLO http://zlib.net/zlib-1.2.8.tar.gz",
-        "tar xf zlib-1.2.8.tar.gz"
     ]
 )
 
 # Get and compile libpng (needed by SDL2_image)
 GetDependency(
     "libpng-1.2.52",
-    "",
-    [
+    download = [
+        "curl -sLO http://download.sourceforge.net/libpng/libpng-1.2.52.tar.gz",
+        "tar xf libpng-1.2.52.tar.gz"
+    ],
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
-    ],
-    [
-        "curl -sLO http://download.sourceforge.net/libpng/libpng-1.2.52.tar.gz",
-        "tar xf libpng-1.2.52.tar.gz"
     ]
 )
 
 # Get and compile libjpeg (needed by SDL2_image)
 GetDependency(
     "jpeg-9a",
-    "",
-    [
+    download = [
+        "curl -sLO http://www.ijg.org/files/jpegsrc.v9a.tar.gz",
+        "tar xf jpegsrc.v9a.tar.gz"
+    ],
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
-    ],
-    [
-        "curl -sLO http://www.ijg.org/files/jpegsrc.v9a.tar.gz",
-        "tar xf jpegsrc.v9a.tar.gz"
     ]
 )
 
 # Get and compile libtiff (needed by SDL2_image)
 GetDependency(
     "tiff-4.0.6",
-    "",
-    [
+    download = [
+        "curl -sLO ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.6.tar.gz",
+        "tar xf tiff-4.0.6.tar.gz"
+    ],
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
-    ],
-    [
-        "curl -sLO ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.6.tar.gz",
-        "tar xf tiff-4.0.6.tar.gz"
     ]
 )
 
@@ -420,8 +443,11 @@ if platform.linux_distribution()[0] == "Ubuntu":
 # Get and compile SDL2_image
 GetDependency(
     "SDL2_image-2.0.0",
-    "",
-    [
+    download = [
+        "curl -sLO https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz",
+        "tar xf SDL2_image-2.0.0.tar.gz"
+    ],
+    compileLinux = [
         "./autogen.sh",
         "PATH=\"$PATH:" + prefixDir + "/bin\" "
         + "CFLAGS=\"-I" + prefixDir + "/include\" "
@@ -429,25 +455,19 @@ GetDependency(
         + "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
-    ],
-    [
-        "curl -sLO https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz",
-        "tar xf SDL2_image-2.0.0.tar.gz"
     ]
 )
 
 # Get Qt
 GetDependency(
     "Qt",
-    "",
-    [
-        # Don't start installation automatically
-        #./qt-installer.run
-    ],
-    [
+    download = [
         "curl -sLo qt-installer.run http://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run",
         "chmod a+x qt-installer.run",
         "touch Qt"
+    ],
+    compileLinux = [
+        "./qt-installer.run"
     ]
 )
 
