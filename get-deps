@@ -23,19 +23,24 @@ import platform
 import subprocess
 import sys
 
-print "System info"
-print "==========="
-print "OS name:            " + os.name
-print "Platform:           " + platform.system()
-print "Linux distribution: " + platform.linux_distribution()[0]
-print "CPU cores:          " + str(multiprocessing.cpu_count())
-print
+print("System info")
+print("===========")
+print("OS name:            " + os.name)
+print("Platform:           " + platform.system())
+print("Linux distribution: " + platform.linux_distribution()[0])
+print("CPU cores:          " + str(multiprocessing.cpu_count()))
+print("")
 
 
-if os.name != "posix":
-    sys.exit("! Non-POSIX system not supported (Windows?)")
-elif platform.system() != "Linux":
-    sys.exit("! Non-Linux system not supported (OS X?)")
+if platform.system() == "Linux":
+    print("Linux detected!")
+elif platform.system() == "OS X":
+    sys.exit("! OS X not supported")
+elif platform.system() == "Windows":
+    print("Windows detected!")
+    #sys.exit("! Windows not supported")
+else:
+    sys.exit("! Unsupported system!")
 
 
 # Available arguments
@@ -100,7 +105,7 @@ def GitShallowClone(url, directory):
 #!
 def GetDependency(directory, gitUrl, compileCommands, downloadCommands = None):
     if os.path.exists(tempDir + "/" + directory):
-        print "### Skipping " + directory + " because directory exists: temp/" + directory
+        print("### Skipping " + directory + " because directory exists: temp/" + directory)
     else:
         print("### " + directory)
         
@@ -133,7 +138,7 @@ def GetDependency(directory, gitUrl, compileCommands, downloadCommands = None):
                 )
                 #print output
     
-    print
+    print("")
 
 
 # Get and compile Termcap (needed by GNU Readline, needed by Lua)
@@ -262,9 +267,9 @@ GetDependency(
 
 
 if platform.linux_distribution()[0] == "Ubuntu":
-    print "Install these dependencies:"
-    print "sudo apt-get install cmake"
-    print
+    print("Install these dependencies:")
+    print("sudo apt-get install cmake")
+    print("")
 
 # Get and compile OpenAL Soft
 GetDependency(
@@ -297,10 +302,10 @@ GetDependency(
 
 # SWIG is difficult to compile without installing some dependencies
 if platform.linux_distribution()[0] == "Ubuntu":
-    print "Install these dependencies:"
-    print "sudo apt-get install build-essential libtool libpcre3-dev perl-byacc"
-    print "sudo apt-get install yodl"
-    print
+    print("Install these dependencies:")
+    print("sudo apt-get install build-essential libtool libpcre3-dev perl-byacc")
+    print("sudo apt-get install yodl")
+    print("")
 
 # Get and compile PCRE (for SWIG)
 #GetDependency(
@@ -328,12 +333,12 @@ GetDependency(
 
 # These are not something I want to even try to compile myself...
 if platform.linux_distribution()[0] == "Ubuntu":
-    print "Install these dependencies:"
-    print "sudo apt-get install libtool"
-    print "sudo apt-get install libgles2-mesa-dev"
-    print "#sudo apt-get install libgle3-dev"
-    print "#sudo apt-get install libdbus-1-dev libibus-1.0-dev"
-    print
+    print("Install these dependencies:")
+    print("sudo apt-get install libtool")
+    print("sudo apt-get install libgles2-mesa-dev")
+    print("#sudo apt-get install libgle3-dev")
+    print("#sudo apt-get install libdbus-1-dev libibus-1.0-dev")
+    print("")
 
 # Get and compile SDL2
 GetDependency(
@@ -419,9 +424,9 @@ GetDependency(
 
 # These are not something I want to even try to compile myself...
 if platform.linux_distribution()[0] == "Ubuntu":
-    print "Install these dependencies:"
-    print "sudo apt-get install libtool"
-    print
+    print("Install these dependencies:")
+    print("sudo apt-get install libtool")
+    print("")
 
 # Get and compile SDL2_image
 GetDependency(
