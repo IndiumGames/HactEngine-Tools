@@ -143,7 +143,7 @@ def GetDependency(directory, gitUrl, compileCommands, downloadCommands = None):
 
 # Get and compile Termcap (needed by GNU Readline, needed by Lua)
 GetDependency(
-    "termcap",
+    "termcap-1.3.1",
     "",
     [
         "./configure --prefix=" + prefixDir,
@@ -152,8 +152,7 @@ GetDependency(
     ],
     [
         "curl -sLO http://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz",
-        "tar xf termcap-1.3.1.tar.gz",
-        "mv termcap-1.3.1 termcap"
+        "tar xf termcap-1.3.1.tar.gz"
     ]
 )
 
@@ -170,7 +169,7 @@ GetDependency(
 
 # Get and compile Lua (with Readline)
 GetDependency(
-    "lua",
+    "lua-5.3.1",
     "",
     [
         "PATH=\"$PATH:" + prefixDir + "/bin\" "
@@ -182,8 +181,7 @@ GetDependency(
     ],
     [
         "curl -sLO http://www.lua.org/ftp/lua-5.3.1.tar.gz",
-        "tar xf lua-5.3.1.tar.gz",
-        "mv lua-5.3.1 lua"
+        "tar xf lua-5.3.1.tar.gz"
     ]
 )
 
@@ -210,13 +208,12 @@ GetDependency(
 
 # Get rapidxml
 GetDependency(
-    "rapidxml",
+    "rapidxml-1.13",
     "",
     [],
     [
         "curl -sLO http://downloads.sourceforge.net/project/rapidxml/rapidxml/rapidxml%201.13/rapidxml-1.13.zip",
-        "unzip -o rapidxml-1.13.zip",
-        "mv rapidxml-1.13 rapidxml"
+        "unzip -o rapidxml-1.13.zip"
     ]
 )
 
@@ -235,7 +232,7 @@ GetDependency(
 
 # Get and compile libogg
 GetDependency(
-    "libogg",
+    "libogg-1.3.2",
     "",
     [
         "./configure --prefix=" + prefixDir,
@@ -244,14 +241,13 @@ GetDependency(
     ],
     [
         "curl -sLO http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz",
-        "tar xf libogg-1.3.2.tar.gz",
-        "mv libogg-1.3.2 libogg"
+        "tar xf libogg-1.3.2.tar.gz"
     ]
 )
 
 # Get and compile libvorbis
 GetDependency(
-    "libvorbis",
+    "libvorbis-1.3.5",
     "",
     [
         "./configure --prefix=" + prefixDir,
@@ -260,8 +256,7 @@ GetDependency(
     ],
     [
         "curl -sLO http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.5.tar.gz",
-        "tar xf libvorbis-1.3.5.tar.gz",
-        "mv libvorbis-1.3.5 libvorbis"
+        "tar xf libvorbis-1.3.5.tar.gz"
     ]
 )
 
@@ -285,7 +280,7 @@ GetDependency(
 
 # Get and compile OpenAL Soft
 GetDependency(
-    "freetype2",
+    "freetype-2.6",
     "",
     [
         "./configure --prefix=" + prefixDir,
@@ -294,8 +289,7 @@ GetDependency(
     ],
     [
         "curl -sLO http://download.savannah.gnu.org/releases/freetype/freetype-2.6.tar.gz",
-        "tar xf freetype-2.6.tar.gz",
-        "mv freetype-2.6 freetype2"
+        "tar xf freetype-2.6.tar.gz"
     ]
 )
 
@@ -342,7 +336,7 @@ if platform.linux_distribution()[0] == "Ubuntu":
 
 # Get and compile SDL2
 GetDependency(
-    "SDL2",
+    "SDL2-2.0.3",
     "",
     [
         "./autogen.sh",
@@ -352,15 +346,14 @@ GetDependency(
     ],
     [
         "curl -sLO https://www.libsdl.org/release/SDL2-2.0.3.tar.gz",
-        "tar xf SDL2-2.0.3.tar.gz",
-        "mv SDL2-2.0.3 SDL2"
+        "tar xf SDL2-2.0.3.tar.gz"
     ]
 )
 
 
 # Get and compile zlib (needed by libpng, needed by SDL2_image)
 GetDependency(
-    "zlib",
+    "zlib-1.2.8",
     "",
     [
         "./configure --prefix=" + prefixDir,
@@ -369,14 +362,13 @@ GetDependency(
     ],
     [
         "curl -sLO http://zlib.net/zlib-1.2.8.tar.gz",
-        "tar xf zlib-1.2.8.tar.gz",
-        "mv zlib-1.2.8 zlib"
+        "tar xf zlib-1.2.8.tar.gz"
     ]
 )
 
 # Get and compile libpng (needed by SDL2_image)
 GetDependency(
-    "libpng",
+    "libpng-1.2.52",
     "",
     [
         "./configure --prefix=" + prefixDir,
@@ -385,14 +377,13 @@ GetDependency(
     ],
     [
         "curl -sLO http://download.sourceforge.net/libpng/libpng-1.2.52.tar.gz",
-        "tar xf libpng-1.2.52.tar.gz",
-        "mv libpng-1.2.52 libpng"
+        "tar xf libpng-1.2.52.tar.gz"
     ]
 )
 
 # Get and compile libjpeg (needed by SDL2_image)
 GetDependency(
-    "libjpeg",
+    "jpeg-9a",
     "",
     [
         "./configure --prefix=" + prefixDir,
@@ -401,14 +392,13 @@ GetDependency(
     ],
     [
         "curl -sLO http://www.ijg.org/files/jpegsrc.v9a.tar.gz",
-        "tar xf jpegsrc.v9a.tar.gz",
-        "mv jpeg-9a libjpeg"
+        "tar xf jpegsrc.v9a.tar.gz"
     ]
 )
 
 # Get and compile libtiff (needed by SDL2_image)
 GetDependency(
-    "libtiff",
+    "tiff-4.0.6",
     "",
     [
         "./configure --prefix=" + prefixDir,
@@ -417,8 +407,7 @@ GetDependency(
     ],
     [
         "curl -sLO ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.6.tar.gz",
-        "tar xf tiff-4.0.6.tar.gz",
-        "mv tiff-4.0.6 libtiff"
+        "tar xf tiff-4.0.6.tar.gz"
     ]
 )
 
@@ -430,7 +419,7 @@ if platform.linux_distribution()[0] == "Ubuntu":
 
 # Get and compile SDL2_image
 GetDependency(
-    "SDL2_image",
+    "SDL2_image-2.0.0",
     "",
     [
         "./autogen.sh",
@@ -443,8 +432,7 @@ GetDependency(
     ],
     [
         "curl -sLO https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz",
-        "tar xf SDL2_image-2.0.0.tar.gz",
-        "mv SDL2_image-2.0.0 SDL2_image"
+        "tar xf SDL2_image-2.0.0.tar.gz"
     ]
 )
 
