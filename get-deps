@@ -261,6 +261,21 @@ GetDependency(
 )
 
 
+# Get and compile FreeType
+GetDependency(
+    "freetype-2.6",
+    download = [
+        "curl -sLO http://download.savannah.gnu.org/releases/freetype/freetype-2.6.tar.gz",
+        "tar xf freetype-2.6.tar.gz"
+    ],
+    compileLinux = [
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ]
+)
+
+
 # Get and compile libogg
 GetDependency(
     "libogg-1.3.2",
@@ -307,58 +322,9 @@ GetDependency(
 )
 
 
-# Get and compile OpenAL Soft
-GetDependency(
-    "freetype-2.6",
-    download = [
-        "curl -sLO http://download.savannah.gnu.org/releases/freetype/freetype-2.6.tar.gz",
-        "tar xf freetype-2.6.tar.gz"
-    ],
-    compileLinux = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ]
-)
-
-
-# SWIG is difficult to compile without installing some dependencies
 if platform.linux_distribution()[0] == "Ubuntu":
     print("Install these dependencies:")
-    print("sudo apt-get install build-essential libtool libpcre3-dev perl-byacc")
-    print("sudo apt-get install yodl")
-    print("")
-
-# Get and compile PCRE (for SWIG)
-#GetDependency(
-#    "pcre",
-#    "https://gitlab.com/tortoisegit/pcre.git",
-#    [
-#        "./autogen.sh",
-#        "./configure",
-#        "make"
-#    ]
-#)
-
-# Get and compile SWIG
-GetDependency(
-    "SWIG",
-    gitUrl = "https://github.com/swig/swig.git",
-    compileLinux = [
-        "./autogen.sh",
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ]
-)
-
-
-# These are not something I want to even try to compile myself...
-if platform.linux_distribution()[0] == "Ubuntu":
-    print("Install these dependencies:")
-    print("sudo apt-get install libtool")
-    print("sudo apt-get install libgles2-mesa-dev")
-    print("#sudo apt-get install libgle3-dev")
+    print("sudo apt-get install automake")
     print("#sudo apt-get install libdbus-1-dev libibus-1.0-dev")
     print("")
 
@@ -434,10 +400,9 @@ GetDependency(
     ]
 )
 
-# These are not something I want to even try to compile myself...
 if platform.linux_distribution()[0] == "Ubuntu":
     print("Install these dependencies:")
-    print("sudo apt-get install libtool")
+    print("sudo apt-get install automake")
     print("")
 
 # Get and compile SDL2_image
@@ -458,6 +423,7 @@ GetDependency(
     ]
 )
 
+
 # Get Qt
 GetDependency(
     "Qt",
@@ -471,3 +437,33 @@ GetDependency(
     ]
 )
 
+
+# SWIG is difficult to compile without installing some dependencies
+if platform.linux_distribution()[0] == "Ubuntu":
+    print("Install these dependencies:")
+    print("sudo apt-get install automake libpcre3-dev byacc")
+    print("sudo apt-get install yodl")
+    print("")
+
+# Get and compile PCRE (for SWIG)
+#GetDependency(
+#    "pcre",
+#    "https://gitlab.com/tortoisegit/pcre.git",
+#    [
+#        "./autogen.sh",
+#        "./configure",
+#        "make"
+#    ]
+#)
+
+# Get and compile SWIG
+GetDependency(
+    "SWIG",
+    gitUrl = "https://github.com/swig/swig.git",
+    compileLinux = [
+        "./autogen.sh",
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ]
+)
