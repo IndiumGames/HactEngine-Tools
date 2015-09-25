@@ -18,6 +18,7 @@
 import argparse
 import multiprocessing
 import os
+import posixpath
 import platform
 #import re
 import subprocess
@@ -61,14 +62,18 @@ args = parser.parse_args()
 make_jobs = "-j" + str(multiprocessing.cpu_count())
 
 # The directory containing this script
-scriptDir = os.path.dirname(os.path.realpath(__file__))
+scriptDir = posixpath.dirname(posixpath.realpath(__file__))
 
+if platform.system() == "Windows":
+    scriptDir = scriptDir.replace("\\", "/")
+    #scriptDir = scriptDir.replace("C:/", "/c/")
+    scriptDir = scriptDir.replace(" ", "\\ ")
 
 # The directory to use as the temporary directory
 tempDir = scriptDir + "/temp"
 
 # Create temp directory if it doesn't exist
-if not os.path.exists(tempDir):
+if not posixpath.exists(tempDir):
     os.makedirs(tempDir)
 
 
@@ -76,8 +81,14 @@ if not os.path.exists(tempDir):
 prefixDir = scriptDir + "/prefix"
 
 # Create prefix directory if it doesn't exist
-if not os.path.exists(prefixDir):
+if not posixpath.exists(prefixDir):
     os.makedirs(prefixDir)
+
+
+print("Script: " + scriptDir)
+print("Temp:   " + tempDir)
+print("Prefix: " + prefixDir)
+print("")
 
 
 #!
@@ -112,7 +123,7 @@ def GetDependency(directory,
                   compileLinux = None,
                   compileMac = None,
                   compileWindows = None):
-    if os.path.exists(tempDir + "/" + directory):
+    if posixpath.exists(tempDir + "/" + directory):
         print("### Skipping " + directory + " because directory exists: temp/" + directory)
     else:
         print("### " + directory)
@@ -268,7 +279,7 @@ GetDependency(
         "curl -sLO http://download.savannah.gnu.org/releases/freetype/freetype-2.6.tar.gz",
         "tar xf freetype-2.6.tar.gz"
     ],
-    compileLinux = [
+    compile = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -283,7 +294,7 @@ GetDependency(
         "curl -sLO http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz",
         "tar xf libogg-1.3.2.tar.gz"
     ],
-    compileLinux = [
+    compile = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -297,7 +308,7 @@ GetDependency(
         "curl -sLO http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.5.tar.gz",
         "tar xf libvorbis-1.3.5.tar.gz"
     ],
-    compileLinux = [
+    compile = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -314,7 +325,7 @@ if platform.linux_distribution()[0] == "Ubuntu":
 GetDependency(
     "openal-soft",
     gitUrl = "http://repo.or.cz/openal-soft.git",
-    compileLinux = [
+    compile = [
         "cd build; cmake -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
         "cd build; make " + make_jobs,
         "cd build; make install"
@@ -335,7 +346,7 @@ GetDependency(
         "curl -sLO https://www.libsdl.org/release/SDL2-2.0.3.tar.gz",
         "tar xf SDL2-2.0.3.tar.gz"
     ],
-    compileLinux = [
+    compile = [
         "./autogen.sh",
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
@@ -351,7 +362,7 @@ GetDependency(
         "curl -sLO http://zlib.net/zlib-1.2.8.tar.gz",
         "tar xf zlib-1.2.8.tar.gz"
     ],
-    compileLinux = [
+    compile = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -365,7 +376,7 @@ GetDependency(
         "curl -sLO http://download.sourceforge.net/libpng/libpng-1.2.52.tar.gz",
         "tar xf libpng-1.2.52.tar.gz"
     ],
-    compileLinux = [
+    compile = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -379,7 +390,7 @@ GetDependency(
         "curl -sLO http://www.ijg.org/files/jpegsrc.v9a.tar.gz",
         "tar xf jpegsrc.v9a.tar.gz"
     ],
-    compileLinux = [
+    compile = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -393,7 +404,7 @@ GetDependency(
         "curl -sLO ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.6.tar.gz",
         "tar xf tiff-4.0.6.tar.gz"
     ],
-    compileLinux = [
+    compile = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -412,7 +423,7 @@ GetDependency(
         "curl -sLO https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz",
         "tar xf SDL2_image-2.0.0.tar.gz"
     ],
-    compileLinux = [
+    compile = [
         "./autogen.sh",
         "PATH=\"$PATH:" + prefixDir + "/bin\" "
         + "CFLAGS=\"-I" + prefixDir + "/include\" "
