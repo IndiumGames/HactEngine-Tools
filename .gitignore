@@ -9,11 +9,11 @@
 # Ignore core dumps
 core
 
-# Ignore prefix directory
-prefix/
+# Ignore prefix directories
+prefix*
 
-# Ignore temp directory
-temp/
+# Ignore temp directories
+temp*
 
 # Ignore logs
 logs/
