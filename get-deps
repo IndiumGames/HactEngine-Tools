@@ -63,8 +63,10 @@ elif os.name == "posix":
         print("MSYS2 detected")
         PLATFORM_WINDOWS = True
         sys.exit(
-            "! MSYS2 not supported, please install MINGW64:"
-            + "! pacman -S mingw-w64-x86_64-toolchain"
+            "! MSYS2 not supported, please install MINGW64 or MINGW32:"
+            + "! pacman -S mingw-w64-x86_64-toolchain\n"
+            + "!   OR\n"
+            + "! pacman -S mingw-w64-i686-toolchain"
         )
     elif "MINGW64" in platform.system():
         print("MSYS2 + MINGW64 detected")
@@ -72,6 +74,13 @@ elif os.name == "posix":
         
         print("Install these dependencies: ")
         print("    pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-libtool")
+        print("    pacman -S autoconf automake diffutils git make python tar tmux unzip")
+    elif "MINGW32" in platform.system():
+        print("MSYS2 + MINGW32 detected")
+        PLATFORM_WINDOWS = True
+        
+        print("Install these dependencies: ")
+        print("    pacman -S mingw-w64-i686-cmake mingw-w64-i686-libtool")
         print("    pacman -S autoconf automake diffutils git make python tar tmux unzip")
     else:
         print("Unsupported POSIX platform")
