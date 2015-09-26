@@ -20,7 +20,6 @@ import multiprocessing
 import os
 import posixpath
 import platform
-#import re
 import subprocess
 import sys
 
@@ -32,16 +31,54 @@ print("Linux distribution: " + platform.linux_distribution()[0])
 print("CPU cores:          " + str(multiprocessing.cpu_count()))
 print("")
 
+PLATFORM_LINUX   = False
+PLATFORM_OSX     = False
+PLATFORM_WINDOWS = False
+
 
 if platform.system() == "Linux":
-    print("Linux detected!")
+    print("Linux detected")
+    PLATFORM_LINUX = True
+    
+    if platform.linux_distribution()[0] == "Ubuntu":
+        print("Install these dependencies: ")
+        print("    sudo apt-get install automake cmake curl git libtool libpcre3-dev byacc yodl")
 elif platform.system() == "OS X":
-    sys.exit("! OS X not supported")
+    print("OS X detected")
+    PLATFORM_OSX = True
+    sys.exit("! OS X not supported (yet)")
 elif platform.system() == "Windows":
-    print("Windows detected!")
-    #sys.exit("! Windows not supported")
+    print("Windows detected")
+    PLATFORM_WINDOWS = True
+    sys.exit(
+        "! Native Windows not supported, please install MSYS2:\n"
+        + "! https://msys2.github.io/\n"
+        + "! If you already have MSYS2 installed, make sure you're running with the correct Python:\n"
+        + "! /bin/python ./get-deps"
+    )
+elif os.name == "posix":
+    print("POSIX platform detected")
+    
+    if "MSYS" in platform.system():
+        print("MSYS2 detected")
+        PLATFORM_WINDOWS = True
+        sys.exit(
+            "! MSYS2 not supported, please install MINGW64:"
+            + "! pacman -S mingw-w64-x86_64-toolchain"
+        )
+    elif "MINGW64" in platform.system():
+        print("MSYS2 + MINGW64 detected")
+        PLATFORM_WINDOWS = True
+        
+        print("Install these dependencies: ")
+        print("    pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-libtool")
+        print("    pacman -S autoconf automake diffutils git make python tar tmux unzip")
+    else:
+        print("Unsupported POSIX platform")
+        sys.exit("! Unsupported platform!")
 else:
-    sys.exit("! Unsupported system!")
+    print("Unknown platform!")
+    sys.exit("! Unsupported platform!")
 
 print("")
 
@@ -64,10 +101,8 @@ make_jobs = "-j" + str(multiprocessing.cpu_count())
 # The directory containing this script
 scriptDir = posixpath.dirname(posixpath.realpath(__file__))
 
-if platform.system() == "Windows":
-    scriptDir = scriptDir.replace("\\", "/")
-    #scriptDir = scriptDir.replace("C:/", "/c/")
-    scriptDir = scriptDir.replace(" ", "\\ ")
+#scriptDir = scriptDir.replace("\\", "/")
+#scriptDir = scriptDir.replace("C:/", "/")
 
 # The directory to use as the temporary directory
 tempDir = scriptDir + "/temp"
@@ -89,6 +124,9 @@ print("Script: " + scriptDir)
 print("Temp:   " + tempDir)
 print("Prefix: " + prefixDir)
 print("")
+
+
+#sys.exit()
 
 
 #!
@@ -117,24 +155,72 @@ def GitShallowClone(url, directory):
 #! Get dependency.
 #!
 def GetDependency(directory,
-                  gitUrl = None,
+                  git = None,
+                  gitLinux = None,
+                  gitOsX = None,
+                  gitWindows = None,
                   download = None,
+                  downloadLinux = None,
+                  downloadOsX = None,
+                  downloadWindows = None,
                   compile = None,
                   compileLinux = None,
-                  compileMac = None,
+                  compileOsX = None,
                   compileWindows = None):
     if posixpath.exists(tempDir + "/" + directory):
         print("### Skipping " + directory + " because directory exists: temp/" + directory)
     else:
         print("### " + directory)
         
-        print("    ### Download " + directory)
+        if PLATFORM_LINUX and gitLinux:
+            print("    ### Download " + directory)
+            GitShallowClone(gitLinux, directory)
+        elif PLATFORM_OSX and gitOsX:
+            print("    ### Download " + directory)
+            GitShallowClone(gitOsX, directory)
+        elif PLATFORM_WINDOWS and gitWindows:
+            print("    ### Download " + directory)
+            GitShallowClone(gitWindows, directory)
+        elif git:
+            print("    ### Download " + directory)
+            GitShallowClone(git, directory)
         
-        if gitUrl:
-            # Get GNU Readline
-            GitShallowClone(gitUrl, directory)
+        if downloadLinux and PLATFORM_LINUX:
+            for command in downloadLinux:
+                print("    ### Download " + directory)
+                print("        ### Running Linux download command: " + command)
+                
+                output = subprocess.check_output(
+                    command,
+                    cwd = tempDir,
+                    shell = True
+                )
+                #print output
+        elif downloadOsX and PLATFORM_OSX:
+            for command in downloadOsX:
+                print("    ### Download " + directory)
+                print("        ### Running OS X download command: " + command)
+                
+                output = subprocess.check_output(
+                    command,
+                    cwd = tempDir,
+                    shell = True
+                )
+                #print output
+        elif downloadWindows and PLATFORM_WINDOWS:
+            for command in downloadWindows:
+                print("    ### Download " + directory)
+                print("        ### Running Windows download command: " + command)
+                
+                output = subprocess.check_output(
+                    command,
+                    cwd = tempDir,
+                    shell = True
+                )
+                #print output
         elif download:
             for command in download:
+                print("    ### Download " + directory)
                 print("        ### Running download command: " + command)
                 
                 output = subprocess.check_output(
@@ -145,21 +231,9 @@ def GetDependency(directory,
                 #print output
         
         if not args.no_compile:
-            print("    ### Compile " + directory)
-            
-            if compile:
-                for command in compile:
-                    print("        ### Running compile command: " + command)
-                    
-                    output = subprocess.check_output(
-                        command,
-                        cwd = tempDir + "/" + directory,
-                        shell = True
-                    )
-                    #print output
-            
-            if compileLinux and platform.system() == "Linux":
+            if compileLinux and PLATFORM_LINUX:
                 for command in compileLinux:
+                    print("    ### Compile " + directory)
                     print("        ### Running Linux compile command: " + command)
                     
                     output = subprocess.check_output(
@@ -168,8 +242,9 @@ def GetDependency(directory,
                         shell = True
                     )
                     #print output
-            elif compileMac and platform.system() == "OS X":
-                for command in compileMac:
+            elif compileOsX and PLATFORM_OSX:
+                for command in compileOsX:
+                    print("    ### Compile " + directory)
                     print("        ### Running OS X compile command: " + command)
                     
                     output = subprocess.check_output(
@@ -178,9 +253,21 @@ def GetDependency(directory,
                         shell = True
                     )
                     #print output
-            elif compileWindows and platform.system() == "Windows":
+            elif compileWindows and PLATFORM_WINDOWS:
                 for command in compileWindows:
+                    print("    ### Compile " + directory)
                     print("        ### Running Windows compile command: " + command)
+                    
+                    output = subprocess.check_output(
+                        command,
+                        cwd = tempDir + "/" + directory,
+                        shell = True
+                    )
+                    #print output
+            elif compile:
+                for command in compile:
+                    print("    ### Compile " + directory)
+                    print("        ### Running compile command: " + command)
                     
                     output = subprocess.check_output(
                         command,
@@ -195,7 +282,7 @@ def GetDependency(directory,
 # Get and compile Termcap (needed by GNU Readline, needed by Lua)
 GetDependency(
     "termcap-1.3.1",
-    download = [
+    downloadLinux = [
         "curl -sLO http://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz",
         "tar xf termcap-1.3.1.tar.gz"
     ],
@@ -209,7 +296,7 @@ GetDependency(
 # Get and compile GNU Readline (for Lua)
 GetDependency(
     "readline",
-    gitUrl = "git://git.savannah.gnu.org/readline.git",
+    gitLinux = "git://git.savannah.gnu.org/readline.git",
     compileLinux = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
@@ -231,16 +318,43 @@ GetDependency(
         + "C_INCLUDE_PATH=\"$C_INCLUDE_PATH:" + prefixDir + "/include\" "
         + "make " + make_jobs + " linux MYLIBS=-ltermcap",
         "make install INSTALL_TOP=\"" + prefixDir + "\""
+    ],
+    compileWindows = [
+        "make mingw",
+        "make install INSTALL_TOP=\"" + prefixDir + "\"",
+        "cp src/lua53.dll " + prefixDir + "/bin/"
     ]
+    # Alternative version, if the above doesn't work
+    #compileWindows = [
+    #    "cd src; "
+    #    + "make "
+    #    + "LUA_A=lua53.dll "
+    #    + "LUA_T=lua.exe "
+    #    + "AR=\"gcc -shared -o\" "
+    #    + "RANLIB=\"strip --strip-unneeded\" "
+    #    + "MYCFLAGS=\"-DLUA_DL_DLL -DLUA_BUILD_AS_DLL\" "
+    #    + "MYLIBS= "
+    #    + "MYLDFLAGS=-s "
+    #    + "lua.exe; "
+    #    + "make "
+    #    + "LUAC_T=luac.exe "
+    #    + "luac.exe",
+    #    "cd src; "
+    #    + "mkdir -p " + prefixDir + "/bin/ " + prefixDir + "/lib/; "
+    #    + "cp lua.exe " + prefixDir + "/bin/; "
+    #    + "cp luac.exe " + prefixDir + "/bin/; "
+    #    + "cp lua53.dll " + prefixDir + "/bin/; "
+    #    + "cp liblua.a " + prefixDir + "/lib/"
+    #]
 )
 
 
 # Get and compile Luacheck
 GetDependency(
     "luacheck",
-    gitUrl = "https://github.com/mpeterv/luacheck.git",
+    git = "https://github.com/mpeterv/luacheck.git",
     compile = [
-        "PATH=\"$PATH:" + prefixDir + "/bin\" ./install.lua " + prefixDir
+        "PATH=\"" + prefixDir + "/bin:$PATH\" ./install.lua " + prefixDir
     ]
 )
 
@@ -248,11 +362,11 @@ GetDependency(
 # Get GLM
 GetDependency(
     "GLM",
-    gitUrl = "https://github.com/g-truc/glm.git"
+    git = "https://github.com/g-truc/glm.git"
 )
 
 
-# Get rapidxml
+# Get RapidXML
 GetDependency(
     "rapidxml-1.13",
     download = [
@@ -279,8 +393,17 @@ GetDependency(
         "curl -sLO http://download.savannah.gnu.org/releases/freetype/freetype-2.6.tar.gz",
         "tar xf freetype-2.6.tar.gz"
     ],
-    compile = [
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileWindows = [
+        "./configure "
+        + "--host=x86_64-w64-mingw32 "
+        + "--target=x86_64-w64-mingw32 "
+        + "--build=x86_64-w64-mingw32 "
+        + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ]
@@ -294,8 +417,17 @@ GetDependency(
         "curl -sLO http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz",
         "tar xf libogg-1.3.2.tar.gz"
     ],
-    compile = [
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileWindows = [
+        "./configure "
+        + "--host=x86_64-w64-mingw32 "
+        + "--target=x86_64-w64-mingw32 "
+        + "--build=x86_64-w64-mingw32 "
+        + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ]
@@ -308,8 +440,17 @@ GetDependency(
         "curl -sLO http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.5.tar.gz",
         "tar xf libvorbis-1.3.5.tar.gz"
     ],
-    compile = [
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileWindows = [
+        "./configure "
+        + "--host=x86_64-w64-mingw32 "
+        + "--target=x86_64-w64-mingw32 "
+        + "--build=x86_64-w64-mingw32 "
+        + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ]
@@ -324,11 +465,25 @@ if platform.linux_distribution()[0] == "Ubuntu":
 # Get and compile OpenAL Soft
 GetDependency(
     "openal-soft",
-    gitUrl = "http://repo.or.cz/openal-soft.git",
-    compile = [
+    git = "http://repo.or.cz/openal-soft.git",
+    compileLinux = [
         "cd build; cmake -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
         "cd build; make " + make_jobs,
         "cd build; make install"
+    ],
+    compileWindows = [
+        "cd build; cmake -G \"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
+        "cd build; make " + make_jobs,
+        "cd build; make install"
+    ]
+)
+
+# Get and compile OpenAL Soft binaries (Windows)
+GetDependency(
+    "openal-soft-1.16.0-bin",
+    downloadWindows = [
+        "curl -sLO http://kcat.strangesoft.net/openal-soft-1.16.0-bin.zip",
+        "unzip -o openal-soft-1.16.0-bin.zip"
     ]
 )
 
@@ -346,9 +501,19 @@ GetDependency(
         "curl -sLO https://www.libsdl.org/release/SDL2-2.0.3.tar.gz",
         "tar xf SDL2-2.0.3.tar.gz"
     ],
-    compile = [
+    compileLinux = [
         "./autogen.sh",
         "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileWindows = [
+        "./autogen.sh",
+        "./configure "
+        + "--host=x86_64-w64-mingw32 "
+        + "--target=x86_64-w64-mingw32 "
+        + "--build=x86_64-w64-mingw32 "
+        + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ]
@@ -362,10 +527,28 @@ GetDependency(
         "curl -sLO http://zlib.net/zlib-1.2.8.tar.gz",
         "tar xf zlib-1.2.8.tar.gz"
     ],
-    compile = [
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
+    ],
+    #compileWindows = [
+    #    "./configure "
+    #    + "--host=x86_64-w64-mingw32 "
+    #    + "--target=x86_64-w64-mingw32 "
+    #    + "--build=x86_64-w64-mingw32 "
+    #    + "--prefix=" + prefixDir,
+    #    "make " + make_jobs,
+    #    "make install"
+    #]
+    compileWindows = [
+        "make "
+        + "-f win32/Makefile.gcc "
+        + "BINARY_PATH=" + prefixDir + "/bin "
+        + "INCLUDE_PATH=" + prefixDir + "/include "
+        + "LIBRARY_PATH=" + prefixDir + "/lib "
+        + "install",
+        "cp zlib1.dll " + prefixDir + "/bin"
     ]
 )
 
@@ -376,8 +559,17 @@ GetDependency(
         "curl -sLO http://download.sourceforge.net/libpng/libpng-1.2.52.tar.gz",
         "tar xf libpng-1.2.52.tar.gz"
     ],
-    compile = [
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileWindows = [
+        "./configure "
+        + "--host=x86_64-w64-mingw32 "
+        + "--target=x86_64-w64-mingw32 "
+        + "--build=x86_64-w64-mingw32 "
+        + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ]
@@ -390,8 +582,17 @@ GetDependency(
         "curl -sLO http://www.ijg.org/files/jpegsrc.v9a.tar.gz",
         "tar xf jpegsrc.v9a.tar.gz"
     ],
-    compile = [
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileWindows = [
+        "./configure "
+        + "--host=x86_64-w64-mingw32 "
+        + "--target=x86_64-w64-mingw32 "
+        + "--build=x86_64-w64-mingw32 "
+        + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ]
@@ -404,8 +605,17 @@ GetDependency(
         "curl -sLO ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.6.tar.gz",
         "tar xf tiff-4.0.6.tar.gz"
     ],
-    compile = [
+    compileLinux = [
         "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileWindows = [
+        "./configure "
+        + "--host=x86_64-w64-mingw32 "
+        + "--target=x86_64-w64-mingw32 "
+        + "--build=x86_64-w64-mingw32 "
+        + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ]
@@ -423,12 +633,25 @@ GetDependency(
         "curl -sLO https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz",
         "tar xf SDL2_image-2.0.0.tar.gz"
     ],
-    compile = [
+    compileLinux = [
         "./autogen.sh",
         "PATH=\"$PATH:" + prefixDir + "/bin\" "
         + "CFLAGS=\"-I" + prefixDir + "/include\" "
         + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
         + "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileWindows = [
+        "./autogen.sh",
+        "PATH=\"$PATH:" + prefixDir + "/bin\" "
+        + "CFLAGS=\"-I" + prefixDir + "/include\" "
+        + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
+        + "./configure "
+        + "--host=x86_64-w64-mingw32 "
+        + "--target=x86_64-w64-mingw32 "
+        + "--build=x86_64-w64-mingw32 "
+        + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ]
@@ -438,13 +661,22 @@ GetDependency(
 # Get Qt
 GetDependency(
     "Qt",
-    download = [
-        "curl -sLo qt-installer.run http://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run",
-        "chmod a+x qt-installer.run",
-        "touch Qt"
+    downloadLinux = [
+        "curl -sLO http://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run",
+        "chmod a+x qt-unified-linux-x64-online.run",
+        "mkdir Qt",
+        "mv qt-unified-linux-x64-online.run Qt"
+    ],
+    downloadWindows = [
+        "curl -sLO http://download.qt.io/official_releases/online_installers/qt-unified-windows-x86-online.exe",
+        "mkdir Qt",
+        "mv qt-unified-windows-x86-online.exe Qt"
     ],
     compileLinux = [
-        "./qt-installer.run"
+        "./qt-unified-linux-x64-online.run"
+    ],
+    compileWindows = [
+        "./qt-unified-windows-x86-online.exe"
     ]
 )
 
@@ -452,8 +684,11 @@ GetDependency(
 # SWIG is difficult to compile without installing some dependencies
 if platform.linux_distribution()[0] == "Ubuntu":
     print("Install these dependencies:")
-    print("sudo apt-get install automake libpcre3-dev byacc")
-    print("sudo apt-get install yodl")
+    print("sudo apt-get install automake bison libpcre3-dev")
+    print("")
+elif PLATFORM_WINDOWS:
+    print("Install these dependencies:")
+    print("pacman -S bison mingw-w64-x86_64-pcre")
     print("")
 
 # Get and compile PCRE (for SWIG)
@@ -469,11 +704,25 @@ if platform.linux_distribution()[0] == "Ubuntu":
 
 # Get and compile SWIG
 GetDependency(
-    "SWIG",
-    gitUrl = "https://github.com/swig/swig.git",
+    "swig-3.0.7",
+    #git = "https://github.com/swig/swig.git",
+    download = [
+        "curl -sLO http://prdownloads.sourceforge.net/swig/swig-3.0.7.tar.gz",
+        "tar xf swig-3.0.7.tar.gz"
+    ],
     compileLinux = [
         "./autogen.sh",
         "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileWindows = [
+        "./autogen.sh",
+        "./configure "
+        + "--host=x86_64-w64-mingw32 "
+        + "--target=x86_64-w64-mingw32 "
+        + "--build=x86_64-w64-mingw32 "
+        + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ]
