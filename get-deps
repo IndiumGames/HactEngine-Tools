@@ -195,7 +195,7 @@ def GetDependency(directory,
                   compileWindows32 = None,
                   compileWindows64 = None):
     if posixpath.exists(tempDir + "/" + directory):
-        print("### Skipping " + directory + " because directory exists: temp/" + directory)
+        print("### Skipping " + directory + " because directory exists: " tempDir + "/" + directory)
     else:
         print("### " + directory)
         
@@ -219,8 +219,9 @@ def GetDependency(directory,
             GitShallowClone(git, directory)
         
         if downloadLinux and PLATFORM_LINUX:
+            print("    ### Download Linux " + directory)
+            
             for command in downloadLinux:
-                print("    ### Download Linux " + directory)
                 print("        ### Running Linux download command: " + command)
                 
                 output = subprocess.check_output(
@@ -230,8 +231,9 @@ def GetDependency(directory,
                 )
                 #print output
         elif downloadOsX and PLATFORM_OSX:
+            print("    ### Download OS X" + directory)
+            
             for command in downloadOsX:
-                print("    ### Download OS X" + directory)
                 print("        ### Running OS X download command: " + command)
                 
                 output = subprocess.check_output(
@@ -241,8 +243,9 @@ def GetDependency(directory,
                 )
                 #print output
         elif downloadWindows64 and PLATFORM_WINDOWS_64:
+            print("    ### Download Windows 64-bit " + directory)
+            
             for command in downloadWindows64:
-                print("    ### Download Windows 64-bit " + directory)
                 print("        ### Running Windows 64-bit download command: " + command)
                 
                 output = subprocess.check_output(
@@ -252,8 +255,9 @@ def GetDependency(directory,
                 )
                 #print output
         elif downloadWindows32 and PLATFORM_WINDOWS_32:
+            print("    ### Download Windows 32-bit " + directory)
+            
             for command in downloadWindows32:
-                print("    ### Download Windows 32-bit " + directory)
                 print("        ### Running Windows 32-bit download command: " + command)
                 
                 output = subprocess.check_output(
@@ -263,8 +267,9 @@ def GetDependency(directory,
                 )
                 #print output
         elif downloadWindows and PLATFORM_WINDOWS:
+            print("    ### Download Windows " + directory)
+            
             for command in downloadWindows:
-                print("    ### Download Windows " + directory)
                 print("        ### Running Windows download command: " + command)
                 
                 output = subprocess.check_output(
@@ -274,8 +279,9 @@ def GetDependency(directory,
                 )
                 #print output
         elif download:
+            print("    ### Download " + directory)
+            
             for command in download:
-                print("    ### Download " + directory)
                 print("        ### Running download command: " + command)
                 
                 output = subprocess.check_output(
@@ -287,8 +293,9 @@ def GetDependency(directory,
         
         if not args.no_compile:
             if compileLinux and PLATFORM_LINUX:
+                print("    ### Compile " + directory)
+                
                 for command in compileLinux:
-                    print("    ### Compile " + directory)
                     print("        ### Running Linux compile command: " + command)
                     
                     output = subprocess.check_output(
@@ -298,8 +305,9 @@ def GetDependency(directory,
                     )
                     #print output
             elif compileOsX and PLATFORM_OSX:
+                print("    ### Compile " + directory)
+                
                 for command in compileOsX:
-                    print("    ### Compile " + directory)
                     print("        ### Running OS X compile command: " + command)
                     
                     output = subprocess.check_output(
@@ -309,8 +317,9 @@ def GetDependency(directory,
                     )
                     #print output
             elif compileWindows64 and PLATFORM_WINDOWS_64:
+                print("    ### Compile " + directory)
+                
                 for command in compileWindows64:
-                    print("    ### Compile " + directory)
                     print("        ### Running Windows 64-bit compile command: " + command)
                     
                     output = subprocess.check_output(
@@ -320,8 +329,9 @@ def GetDependency(directory,
                     )
                     #print output
             elif compileWindows32 and PLATFORM_WINDOWS_32:
+                print("    ### Compile " + directory)
+                
                 for command in compileWindows32:
-                    print("    ### Compile " + directory)
                     print("        ### Running Windows 32-bit compile command: " + command)
                     
                     output = subprocess.check_output(
@@ -331,8 +341,9 @@ def GetDependency(directory,
                     )
                     #print output
             elif compileWindows and PLATFORM_WINDOWS:
+                print("    ### Compile " + directory)
+                
                 for command in compileWindows:
-                    print("    ### Compile " + directory)
                     print("        ### Running Windows compile command: " + command)
                     
                     output = subprocess.check_output(
@@ -342,8 +353,9 @@ def GetDependency(directory,
                     )
                     #print output
             elif compile:
+                print("    ### Compile " + directory)
+                
                 for command in compile:
-                    print("    ### Compile " + directory)
                     print("        ### Running compile command: " + command)
                     
                     output = subprocess.check_output(
@@ -477,18 +489,18 @@ GetDependency(
     ],
     compileWindows64 = [
         "./configure "
-        + "--host=x86_64-w64-mingw32 "
-        + "--target=x86_64-w64-mingw32 "
         + "--build=x86_64-w64-mingw32 "
+        + "--host=x86_64-w64-mingw32 "
+        #+ "--target=x86_64-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ],
     compileWindows32 = [
         "./configure "
-        + "--host=i686-w64-mingw32 "
-        + "--target=i686-w64-mingw32 "
         + "--build=i686-w64-mingw32 "
+        + "--host=i686-w64-mingw32 "
+        #+ "--target=i686-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -510,18 +522,18 @@ GetDependency(
     ],
     compileWindows64 = [
         "./configure "
-        + "--host=x86_64-w64-mingw32 "
-        + "--target=x86_64-w64-mingw32 "
         + "--build=x86_64-w64-mingw32 "
+        + "--host=x86_64-w64-mingw32 "
+        #+ "--target=x86_64-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ],
     compileWindows32 = [
         "./configure "
-        + "--host=i686-w64-mingw32 "
-        + "--target=i686-w64-mingw32 "
         + "--build=i686-w64-mingw32 "
+        + "--host=i686-w64-mingw32 "
+        #+ "--target=i686-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -542,18 +554,18 @@ GetDependency(
     ],
     compileWindows64 = [
         "./configure "
-        + "--host=x86_64-w64-mingw32 "
-        + "--target=x86_64-w64-mingw32 "
         + "--build=x86_64-w64-mingw32 "
+        + "--host=x86_64-w64-mingw32 "
+        #+ "--target=x86_64-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ],
     compileWindows32 = [
         "./configure "
-        + "--host=i686-w64-mingw32 "
-        + "--target=i686-w64-mingw32 "
         + "--build=i686-w64-mingw32 "
+        + "--host=i686-w64-mingw32 "
+        #+ "--target=i686-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -614,9 +626,9 @@ GetDependency(
     compileWindows64 = [
         "./autogen.sh",
         "./configure "
-        + "--host=x86_64-w64-mingw32 "
-        + "--target=x86_64-w64-mingw32 "
         + "--build=x86_64-w64-mingw32 "
+        + "--host=x86_64-w64-mingw32 "
+        #+ "--target=x86_64-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -624,9 +636,9 @@ GetDependency(
     compileWindows32 = [
         "./autogen.sh",
         "./configure "
-        + "--host=i686-w64-mingw32 "
-        + "--target=i686-w64-mingw32 "
         + "--build=i686-w64-mingw32 "
+        + "--host=i686-w64-mingw32 "
+        #+ "--target=i686-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -648,9 +660,9 @@ GetDependency(
     ],
     #compileWindows64 = [
     #    "./configure "
-    #    + "--host=x86_64-w64-mingw32 "
-    #    + "--target=x86_64-w64-mingw32 "
     #    + "--build=x86_64-w64-mingw32 "
+    #    + "--host=x86_64-w64-mingw32 "
+    #    #+ "--target=x86_64-w64-mingw32 "
     #    + "--prefix=" + prefixDir,
     #    "make " + make_jobs,
     #    "make install"
@@ -680,18 +692,18 @@ GetDependency(
     ],
     compileWindows64 = [
         "./configure "
-        + "--host=x86_64-w64-mingw32 "
-        + "--target=x86_64-w64-mingw32 "
         + "--build=x86_64-w64-mingw32 "
+        + "--host=x86_64-w64-mingw32 "
+        #+ "--target=x86_64-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ],
     compileWindows32 = [
         "./configure "
-        + "--host=i686-w64-mingw32 "
-        + "--target=i686-w64-mingw32 "
         + "--build=i686-w64-mingw32 "
+        + "--host=i686-w64-mingw32 "
+        #+ "--target=i686-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -712,18 +724,18 @@ GetDependency(
     ],
     compileWindows64 = [
         "./configure "
-        + "--host=x86_64-w64-mingw32 "
-        + "--target=x86_64-w64-mingw32 "
         + "--build=x86_64-w64-mingw32 "
+        + "--host=x86_64-w64-mingw32 "
+        #+ "--target=x86_64-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ],
     compileWindows32 = [
         "./configure "
-        + "--host=i686-w64-mingw32 "
-        + "--target=i686-w64-mingw32 "
         + "--build=i686-w64-mingw32 "
+        + "--host=i686-w64-mingw32 "
+        #+ "--target=i686-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -744,18 +756,18 @@ GetDependency(
     ],
     compileWindows64 = [
         "./configure "
-        + "--host=x86_64-w64-mingw32 "
-        + "--target=x86_64-w64-mingw32 "
         + "--build=x86_64-w64-mingw32 "
+        + "--host=x86_64-w64-mingw32 "
+        #+ "--target=x86_64-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ],
     compileWindows32 = [
         "./configure "
-        + "--host=i686-w64-mingw32 "
-        + "--target=i686-w64-mingw32 "
         + "--build=i686-w64-mingw32 "
+        + "--host=i686-w64-mingw32 "
+        #+ "--target=i686-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -789,9 +801,9 @@ GetDependency(
         + "CFLAGS=\"-I" + prefixDir + "/include\" "
         + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
         + "./configure "
-        + "--host=x86_64-w64-mingw32 "
-        + "--target=x86_64-w64-mingw32 "
         + "--build=x86_64-w64-mingw32 "
+        + "--host=x86_64-w64-mingw32 "
+        #+ "--target=x86_64-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -802,9 +814,9 @@ GetDependency(
         + "CFLAGS=\"-I" + prefixDir + "/include\" "
         + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
         + "./configure "
-        + "--host=i686-w64-mingw32 "
-        + "--target=i686-w64-mingw32 "
         + "--build=i686-w64-mingw32 "
+        + "--host=i686-w64-mingw32 "
+        #+ "--target=i686-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -873,9 +885,9 @@ GetDependency(
     compileWindows64 = [
         "./autogen.sh",
         "./configure "
-        + "--host=x86_64-w64-mingw32 "
-        + "--target=x86_64-w64-mingw32 "
         + "--build=x86_64-w64-mingw32 "
+        + "--host=x86_64-w64-mingw32 "
+        #+ "--target=x86_64-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -883,9 +895,9 @@ GetDependency(
     compileWindows32 = [
         "./autogen.sh",
         "./configure "
-        + "--host=i686-w64-mingw32 "
-        + "--target=i686-w64-mingw32 "
         + "--build=i686-w64-mingw32 "
+        + "--host=i686-w64-mingw32 "
+        #+ "--target=i686-w64-mingw32 "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
