@@ -44,7 +44,7 @@ if platform.system() == "Linux":
     
     if platform.linux_distribution()[0] == "Ubuntu":
         print("Install these dependencies: ")
-        print("    sudo apt-get install automake cmake curl git libtool libpcre3-dev byacc yodl")
+        print("    sudo apt-get install automake cmake curl git libtool")
 elif platform.system() == "OS X":
     print("OS X detected")
     PLATFORM_OSX = True
@@ -579,11 +579,6 @@ GetDependency(
 )
 
 
-if platform.linux_distribution()[0] == "Ubuntu":
-    print("Install these dependencies:")
-    print("sudo apt-get install cmake")
-    print("")
-
 # Get and compile OpenAL Soft
 GetDependency(
     "openal-soft",
@@ -609,12 +604,6 @@ GetDependency(
     ]
 )
 
-
-if platform.linux_distribution()[0] == "Ubuntu":
-    print("Install these dependencies:")
-    print("sudo apt-get install automake")
-    print("#sudo apt-get install libdbus-1-dev libibus-1.0-dev")
-    print("")
 
 # Get and compile SDL2
 GetDependency(
@@ -784,11 +773,6 @@ GetDependency(
     ]
 )
 
-if platform.linux_distribution()[0] == "Ubuntu":
-    print("Install these dependencies:")
-    print("sudo apt-get install automake")
-    print("")
-
 # Get and compile SDL2_image
 GetDependency(
     "SDL2_image-2.0.0",
@@ -833,12 +817,6 @@ GetDependency(
     ]
 )
 
-
-# SWIG is difficult to compile without installing some dependencies
-if platform.linux_distribution()[0] == "Ubuntu":
-    print("Install these dependencies:")
-    print("sudo apt-get install automake bison libpcre3-dev")
-    print("")
 
 # Get and compile PCRE (needed by SWIG)
 GetDependency(
