@@ -43,8 +43,11 @@ if platform.system() == "Linux":
     PLATFORM_LINUX = True
     
     if platform.linux_distribution()[0] == "Ubuntu":
-        print("Install these dependencies: ")
-        print("    sudo apt-get install automake cmake curl git libtool")
+        print("Install these dependencies:")
+        print("    sudo apt-get install automake build-essential cmake curl git libtool")
+    elif platform.linux_distribution()[0] == "Fedora":
+        print("Install these dependencies:")
+        print("    sudo yum install automake cmake gcc gcc-c++ libtool")
 elif platform.system() == "OS X":
     print("OS X detected")
     PLATFORM_OSX = True
@@ -64,9 +67,9 @@ elif os.name == "posix":
         print("MSYS2 detected")
         sys.exit(
             "! MSYS2 not supported, please install MINGW64 or MINGW32:"
-            + "! pacman -S mingw-w64-x86_64-toolchain   (on 64-bit Windows)\n"
+            + "! pacman -S mingw-w64-x86_64-toolchain   (for 64-bit builds)\n"
             + "!   OR\n"
-            + "! pacman -S mingw-w64-i686-toolchain   (on 32-bit Windows)"
+            + "! pacman -S mingw-w64-i686-toolchain     (for 32-bit builds)"
         )
     elif "MINGW64" in platform.system():
         print("MSYS2 + MINGW64 detected")
@@ -75,10 +78,10 @@ elif os.name == "posix":
         
         print("Install these dependencies: ")
         print("    pacman -S autoconf automake diffutils git make python tar tmux unzip")
-        print("    pacman -S mingw-w64-x86_64-toolchain                        (on 64-bit Windows)")
-        print("    pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-libtool   (on 64-bit Windows)")
-        print("    pacman -S mingw-w64-i686-toolchain                          (on 32-bit Windows)")
-        print("    pacman -S mingw-w64-i686-cmake mingw-w64-i686-libtool       (on 32-bit Windows)")
+        print("    pacman -S mingw-w64-x86_64-toolchain                        (for 64-bit builds)")
+        print("    pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-libtool   (for 64-bit builds)")
+        print("    pacman -S mingw-w64-i686-toolchain                          (for 32-bit builds)")
+        print("    pacman -S mingw-w64-i686-cmake mingw-w64-i686-libtool       (for 32-bit builds)")
     elif "MINGW32" in platform.system():
         print("MSYS2 + MINGW32 detected")
         PLATFORM_WINDOWS    = True
@@ -86,10 +89,10 @@ elif os.name == "posix":
         
         print("Install these dependencies: ")
         print("    pacman -S autoconf automake diffutils git make python tar tmux unzip")
-        print("    pacman -S mingw-w64-x86_64-toolchain                        (on 64-bit Windows)")
-        print("    pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-libtool   (on 64-bit Windows)")
-        print("    pacman -S mingw-w64-i686-toolchain                          (on 32-bit Windows)")
-        print("    pacman -S mingw-w64-i686-cmake mingw-w64-i686-libtool       (on 32-bit Windows)")
+        print("    pacman -S mingw-w64-x86_64-toolchain                        (for 64-bit builds)")
+        print("    pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-libtool   (for 64-bit builds)")
+        print("    pacman -S mingw-w64-i686-toolchain                          (for 32-bit builds)")
+        print("    pacman -S mingw-w64-i686-cmake mingw-w64-i686-libtool       (for 32-bit builds)")
     else:
         print("Unsupported POSIX platform")
         sys.exit("! Unsupported platform!")
