@@ -64,9 +64,9 @@ elif os.name == "posix":
         print("MSYS2 detected")
         sys.exit(
             "! MSYS2 not supported, please install MINGW64 or MINGW32:"
-            + "! pacman -S mingw-w64-x86_64-toolchain\n"
+            + "! pacman -S mingw-w64-x86_64-toolchain   (on 64-bit Windows)\n"
             + "!   OR\n"
-            + "! pacman -S mingw-w64-i686-toolchain"
+            + "! pacman -S mingw-w64-i686-toolchain   (on 32-bit Windows)"
         )
     elif "MINGW64" in platform.system():
         print("MSYS2 + MINGW64 detected")
@@ -74,16 +74,22 @@ elif os.name == "posix":
         PLATFORM_WINDOWS_64 = True
         
         print("Install these dependencies: ")
-        print("    pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-libtool")
         print("    pacman -S autoconf automake diffutils git make python tar tmux unzip")
+        print("    pacman -S mingw-w64-x86_64-toolchain                        (on 64-bit Windows)")
+        print("    pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-libtool   (on 64-bit Windows)")
+        print("    pacman -S mingw-w64-i686-toolchain                          (on 32-bit Windows)")
+        print("    pacman -S mingw-w64-i686-cmake mingw-w64-i686-libtool       (on 32-bit Windows)")
     elif "MINGW32" in platform.system():
         print("MSYS2 + MINGW32 detected")
         PLATFORM_WINDOWS    = True
         PLATFORM_WINDOWS_32 = True
         
         print("Install these dependencies: ")
-        print("    pacman -S mingw-w64-i686-cmake mingw-w64-i686-libtool")
         print("    pacman -S autoconf automake diffutils git make python tar tmux unzip")
+        print("    pacman -S mingw-w64-x86_64-toolchain                        (on 64-bit Windows)")
+        print("    pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-libtool   (on 64-bit Windows)")
+        print("    pacman -S mingw-w64-i686-toolchain                          (on 32-bit Windows)")
+        print("    pacman -S mingw-w64-i686-cmake mingw-w64-i686-libtool       (on 32-bit Windows)")
     else:
         print("Unsupported POSIX platform")
         sys.exit("! Unsupported platform!")
