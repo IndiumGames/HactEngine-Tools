@@ -195,7 +195,7 @@ def GetDependency(directory,
                   compileWindows32 = None,
                   compileWindows64 = None):
     if posixpath.exists(tempDir + "/" + directory):
-        print("### Skipping " + directory + " because directory exists: " tempDir + "/" + directory)
+        print("### Skipping " + directory + " because directory exists: " + tempDir + "/" + directory)
     else:
         print("### " + directory)
         
