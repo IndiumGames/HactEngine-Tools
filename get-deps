@@ -832,6 +832,85 @@ GetDependency(
 )
 
 
+# SWIG is difficult to compile without installing some dependencies
+if platform.linux_distribution()[0] == "Ubuntu":
+    print("Install these dependencies:")
+    print("sudo apt-get install automake bison libpcre3-dev")
+    print("")
+
+# Get and compile PCRE (needed by SWIG)
+GetDependency(
+    "pcre-8.37",
+    download = [
+        "curl -sLO ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.37.tar.gz",
+        "tar xf pcre-8.37.tar.gz"
+    ],
+    compileLinux = [
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileWindows64 = [
+        "./configure "
+        + "--build=x86_64-w64-mingw32 "
+        + "--host=x86_64-w64-mingw32 "
+        #+ "--target=x86_64-w64-mingw32 "
+        + "--prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileWindows32 = [
+        "./configure "
+        + "--build=i686-w64-mingw32 "
+        + "--host=i686-w64-mingw32 "
+        #+ "--target=i686-w64-mingw32 "
+        + "--prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ]
+)
+
+# Get and compile SWIG
+GetDependency(
+    "swig-3.0.7",
+    #git = "https://github.com/swig/swig.git",
+    download = [
+        "curl -sLO http://prdownloads.sourceforge.net/swig/swig-3.0.7.tar.gz",
+        "tar xf swig-3.0.7.tar.gz"
+    ],
+    compileLinux = [
+        "./autogen.sh",
+        "./configure "
+        + "--with-pcre-prefix=" + prefixDir + " "
+        + "--prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileWindows64 = [
+        "./autogen.sh",
+        "./configure "
+        + "--build=x86_64-w64-mingw32 "
+        + "--host=x86_64-w64-mingw32 "
+        #+ "--target=x86_64-w64-mingw32 "
+        + "--with-pcre-prefix=" + prefixDir + " "
+        + "--prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileWindows32 = [
+        "./autogen.sh",
+        "./configure "
+        + "--build=i686-w64-mingw32 "
+        + "--host=i686-w64-mingw32 "
+        #+ "--target=i686-w64-mingw32 "
+        + "--with-pcre-prefix=" + prefixDir + " "
+        + "--prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ]
+)
+
+
 # Get Qt
 GetDependency(
     "Qt",
@@ -847,67 +926,9 @@ GetDependency(
         "mv qt-unified-windows-x86-online.exe Qt"
     ],
     compileLinux = [
-        "./qt-unified-linux-x64-online.run"
+        "./qt-unified-linux-x64-online.run; exit 0"
     ],
     compileWindows = [
-        "./qt-unified-windows-x86-online.exe"
-    ]
-)
-
-
-# SWIG is difficult to compile without installing some dependencies
-if platform.linux_distribution()[0] == "Ubuntu":
-    print("Install these dependencies:")
-    print("sudo apt-get install automake bison libpcre3-dev")
-    print("")
-elif PLATFORM_WINDOWS:
-    print("Install these dependencies:")
-    print("pacman -S bison mingw-w64-x86_64-pcre")
-    print("")
-
-# Get and compile PCRE (for SWIG)
-#GetDependency(
-#    "pcre",
-#    "https://gitlab.com/tortoisegit/pcre.git",
-#    [
-#        "./autogen.sh",
-#        "./configure",
-#        "make"
-#    ]
-#)
-
-# Get and compile SWIG
-GetDependency(
-    "swig-3.0.7",
-    #git = "https://github.com/swig/swig.git",
-    download = [
-        "curl -sLO http://prdownloads.sourceforge.net/swig/swig-3.0.7.tar.gz",
-        "tar xf swig-3.0.7.tar.gz"
-    ],
-    compileLinux = [
-        "./autogen.sh",
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows64 = [
-        "./autogen.sh",
-        "./configure "
-        + "--build=x86_64-w64-mingw32 "
-        + "--host=x86_64-w64-mingw32 "
-        #+ "--target=x86_64-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows32 = [
-        "./autogen.sh",
-        "./configure "
-        + "--build=i686-w64-mingw32 "
-        + "--host=i686-w64-mingw32 "
-        #+ "--target=i686-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
+        "./qt-unified-windows-x86-online.exe; exit 0"
     ]
 )
