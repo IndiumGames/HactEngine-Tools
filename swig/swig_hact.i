@@ -113,7 +113,7 @@ namespace std {
 %extend OrderedContainer<Thread> {
     Thread* Emplace(const std::string &initialScript,
                     const float &yieldTime = 0.01f,
-                    const bool &yield = false) {
+                    const bool &yield = true) {
         return $self->Emplace(initialScript, yieldTime, yield);
     }
 };
