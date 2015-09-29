@@ -5,38 +5,36 @@
 
 %{
     // Includes
-    #include "../../src/audio.h"
-    #include "../../src/audiomanager.h"
-    #include "../../src/chronotime.h"
-    #include "../../src/container.h"
-    #include "../../src/editor.h"
-    #include "../../src/editorinput.h"
-    #include "../../src/editorwindow.h"
-    #include "../../src/element.h"
-    #include "../../src/entity.h"
-    #include "../../src/event.h"
-    #include "../../src/gameengine.h"
-    #include "../../src/gameengineconfig.h"
-    #include "../../src/gamewindow.h"
-    #include "../../src/hierarchy.h"
-    #include "../../src/input.h"
-    #include "../../src/log.h"
-    #include "../../src/mesh.h"
-    #include "../../src/openglcontext.h"
-    //#include "../../src/openglfunctions.h"
-    #include "../../src/property.h"
-    //#include "../../src/qtshaderprogram.h"
-    #include "../../src/resourcemanager.h"
-    #include "../../src/resourceutil.h"
-    #include "../../src/scriptingengine.h"
-    #include "../../src/shaderobject.h"
-    #include "../../src/shaderprogram.h"
-    #include "../../src/text.h"
-    #include "../../src/texture.h"
-    #include "../../src/thread.h"
-    #include "../../src/util.h"
-    #include "../../src/xmlelement.h"
-    #include "../../src/xmlutils.h"
+    #include "src/audio.h"
+    #include "src/audiomanager.h"
+    #include "src/chronotime.h"
+    #include "src/container.h"
+    #include "src/editor.h"
+    #include "src/editorinput.h"
+    #include "src/editorwindow.h"
+    #include "src/element.h"
+    #include "src/entity.h"
+    #include "src/event.h"
+    #include "src/gameengine.h"
+    #include "src/gameengineconfig.h"
+    #include "src/gamewindow.h"
+    #include "src/hierarchy.h"
+    #include "src/input.h"
+    #include "src/log.h"
+    #include "src/mesh.h"
+    #include "src/openglcontext.h"
+    #include "src/property.h"
+    #include "src/resourcemanager.h"
+    #include "src/resourceutil.h"
+    #include "src/scriptingengine.h"
+    #include "src/shaderobject.h"
+    #include "src/shaderprogram.h"
+    #include "src/text.h"
+    #include "src/texture.h"
+    #include "src/thread.h"
+    #include "src/util.h"
+    #include "src/xmlelement.h"
+    #include "src/xmlutils.h"
 %}
 
 
@@ -76,24 +74,24 @@ namespace std {
 
 
 // Element
-%include "../../src/element.h"
+%include "src/element.h"
 
 // Hierarchy
-%include "../../src/hierarchy.h"
+%include "src/hierarchy.h"
 %template(EditorHierarchy)      Hierarchy<Editor, OrderedContainer<Editor>>;
 %template(EntityHierarchy)      Hierarchy<Entity, Container<Entity>>;
 %template(XmlElementHierarchy)  Hierarchy<XmlElement, OrderedContainer<XmlElement>>;
 
 
 // Audio and AudioManager
-%include "../../src/audio.h"
-%include "../../src/audiomanager.h"
+%include "src/audio.h"
+%include "src/audiomanager.h"
 
 // ChronoTime
-%include "../../src/chronotime.h"
+%include "src/chronotime.h"
 
 // Container
-%include "../../src/container.h"
+%include "src/container.h"
 
 %template(EntityContainer)        Container<Entity>;
 %template(PropertyContainer)      Container<Property>;
@@ -121,73 +119,67 @@ namespace std {
 };
 
 // Editor, EditorInput and EditorWindow
-%include "../../src/editor.h"
-%include "../../src/editorinput.h"
-%include "../../src/editorwindow.h"
+%include "src/editor.h"
+%include "src/editorinput.h"
+%include "src/editorwindow.h"
 
 // Entity
-%include "../../src/entity.h"
+%include "src/entity.h"
 
 // Event
-%include "../../src/event.h"
+%include "src/event.h"
 
 // GameEngine
-%include "../../src/gameengine.h"
+%include "src/gameengine.h"
 
 // GameEngineConfig
-%include "../../src/gameengineconfig.h"
+%include "src/gameengineconfig.h"
 
 // GameWindow
-%include "../../src/gamewindow.h"
+%include "src/gamewindow.h"
 
 // Input
-%include "../../src/input.h"
+%include "src/input.h"
 
 // Logging
-%include "../../src/log.h"
+%include "src/log.h"
 
 // Mesh
-%include "../../src/mesh.h"
+%include "src/mesh.h"
 
 // OpenGlContext
-%include "../../src/openglcontext.h"
-
-// OpenGlFunctions
-//%include "../../src/openglfunctions.h"
+%include "src/openglcontext.h"
 
 // Property
-%include "../../src/property.h"
-
-// QtShaderProgram
-//%include "../../src/qtshaderprogram.h"
+%include "src/property.h"
 
 // ResourceManager
-%include "../../src/resourcemanager.h"
+%include "src/resourcemanager.h"
 
 // ResourceUtil
-%include "../../src/resourceutil.h"
+%include "src/resourceutil.h"
 
 // ScriptingEngine
-%include "../../src/scriptingengine.h"
+%include "src/scriptingengine.h"
 
 // ShaderObject and ShaderProgram
-%include "../../src/shaderobject.h"
-%include "../../src/shaderprogram.h"
+%include "src/shaderobject.h"
+%include "src/shaderprogram.h"
 
 // Text
-//%include "../../src/text.h"
+//%include "src/text.h"
 
 // Texture
-%include "../../src/texture.h"
+%include "src/texture.h"
 
 // Thread
-%include "../../src/thread.h"
+%include "src/thread.h"
 
 // Util
-%include "../../src/util.h"
+%include "src/util.h"
 
 // XmlElement and XmlUtils
-%include "../../src/xmlelement.h"
-%include "../../src/xmlutils.h"
+%include "src/xmlelement.h"
+%include "src/xmlutils.h"
 
 #endif // defined SWIG

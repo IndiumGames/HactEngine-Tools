@@ -4,7 +4,7 @@
 %module GL
 
 %{
-#include <QOpenGLFunctions>
+#include "src/hact_gl.h"
 %}
 
 // OpenGL typedefs, defines and functions
