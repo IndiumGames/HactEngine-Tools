@@ -11,6 +11,7 @@
 
 import argparse
 import filecmp
+import glob
 import os
 import posixpath
 import shutil
@@ -36,6 +37,11 @@ parser.add_argument(
 args = parser.parse_args()
 
 
+inputFile  = args.inputFile
+outputFile = inputFile.replace(".i", "_wrap.cxx")
+
+dependencyFiles = map(glob.glob, args.dependencyFiles)
+
 swigCommand = [
     "swig",
     "-DHACT_EDITORS",
@@ -46,8 +52,8 @@ swigCommand = [
     "-v",
     "-no-old-metatable-bindings",
     "-o",
-    args.inputFile.replace(".i", "_wrap.cxx"),
-    args.inputFile
+    outputFile,
+    inputFile
 ]
 
 
@@ -60,7 +66,7 @@ if not posixpath.exists(cacheDir):
     os.makedirs(cacheDir)
     
     print("Create cache dir, run necessary")
-elif not posixpath.exists(args.inputFile.replace(".i", "_wrap.cxx")):
+elif not posixpath.exists(outputFile):
     # The output file doesn't exist yet
     runNecessary = True
     
