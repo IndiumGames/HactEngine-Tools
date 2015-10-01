@@ -43,6 +43,11 @@ args = parser.parse_args()
 inputFile  = args.inputFile
 outputFile = inputFile.replace(".i", "_wrap.cxx")
 
+if args.release:
+    outputFile = "../../build/Release/" + outputFile
+else:
+    outputFile = "../../build/Debug/" + outputFile
+
 swigCommand = [
     "swig",
     "-I../..",
@@ -119,8 +124,8 @@ for dependencyFile in args.dependencyFiles:
 
 
 if runNecessary:
-    print("Running SWIG!")
+    print("Running SWIG for " + inputFile)
     subprocess.call(swigCommand)
 else:
-    print("Running SWIG is not necessary")
+    print("Running SWIG is not necessary for " + inputFile)
 
