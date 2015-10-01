@@ -19,6 +19,12 @@ tag = subprocess.getoutput(
     ["git", "describe", "--exact-match"]
 )
 
+print("****************")
+print(branch)
+print("****************")
+print(tag)
+print("****************")
+
 if tag:
     print("Building release: " + tag)
 else:
