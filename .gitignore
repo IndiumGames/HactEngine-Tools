@@ -3,6 +3,9 @@
 *.autosave
 *.temp
 
+# Ignore makefiles
+Makefile
+
 # Ignore automatically generated files from SWIG
 *wrap.cxx
 
