@@ -7,6 +7,11 @@
 import subprocess
 
 
+subprocess.check_output(
+    ["git", "submodule", "update", "--init", "--recursive", "--remote"]
+)
+
+
 # Get current Git branch name
 branch = None
 try:
@@ -18,7 +23,9 @@ except subprocess.CalledProcessError:
     pass
 
 if branch == "HEAD":
+    print("")
     print("DETACHED HEAD!")
+    print("")
 
 # Get currect Git commit tag
 tag = None
