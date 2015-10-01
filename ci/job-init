@@ -17,6 +17,9 @@ try:
 except subprocess.CalledProcessError:
     pass
 
+if branch == "HEAD":
+    print("DETACHED HEAD!")
+
 # Get currect Git commit tag
 tag = None
 try:
