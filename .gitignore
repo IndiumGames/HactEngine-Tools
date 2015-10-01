@@ -22,3 +22,6 @@ temp*
 logs/
 *.log
 
+# Ignore SWIG cache
+swig/.swig-cache/
+
