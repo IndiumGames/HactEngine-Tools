@@ -13,7 +13,8 @@ print("")
 
 # Run Premake
 subprocess.check_call(
-    ["./configure"]
+    ["./configure"],
+    cwd = "."
 )
 
 print("")
@@ -22,7 +23,8 @@ print("")
 
 # Build
 subprocess.check_call(
-    ["make", "-j8"]
+    ["make", "-j8"],
+    cwd = "."
 )
 
 print("")
