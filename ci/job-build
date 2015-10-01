@@ -26,6 +26,20 @@ subprocess.check_call(
     cwd = "build"
 )
 
+
+# FIXME: Somehow a second run of configure fixes things (maybe?)
+
+# Run Premake
+subprocess.check_call(
+    ["./configure"]
+)
+
+# Build
+subprocess.check_call(
+    ["make", "-j8"],
+    cwd = "build"
+)
+
 print("")
 print("[DONE BUILDING]")
 print("")
