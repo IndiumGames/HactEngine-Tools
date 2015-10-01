@@ -4,6 +4,7 @@
 # Initialize and display information about the job and environment.
 #
 
+import os
 import subprocess
 import sys
 
