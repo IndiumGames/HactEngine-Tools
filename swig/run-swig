@@ -21,6 +21,12 @@ import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
+    "--release",
+    help = "Generate code for release build",
+    action = "store_true",
+    default = False
+)
+parser.add_argument(
     "inputFile",
     help = "SWIG input file to use (required)"
 )
@@ -37,13 +43,8 @@ args = parser.parse_args()
 inputFile  = args.inputFile
 outputFile = inputFile.replace(".i", "_wrap.cxx")
 
-cacheDir = ".swig-cache/" + inputFile
-
-dependencyFiles = map(glob.glob, args.dependencyFiles)
-
 swigCommand = [
     "swig",
-    "-DHACT_EDITORS",
     "-I../..",
     "-I../../thirdparty",
     "-c++",
@@ -54,6 +55,14 @@ swigCommand = [
     outputFile,
     inputFile
 ]
+
+cacheDir = ".swig-cache/Release_" + inputFile
+
+if not args.release:
+    swigCommand.insert(1, "-DHACT_EDITORS")
+    cacheDir = ".swig-cache/Debug_" + inputFile
+
+dependencyFiles = map(glob.glob, args.dependencyFiles)
 
 
 # If this becomes true, SWIG needs to run
