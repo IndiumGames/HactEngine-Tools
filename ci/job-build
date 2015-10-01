@@ -4,19 +4,21 @@
 # Build the job
 #
 
-import os
 import subprocess
-import sys
 
 
 print("")
-print("[BUILDING]")
+print("[CONFIGURE]")
 print("")
 
 # Run Premake
 subprocess.check_call(
     ["./configure"]
 )
+
+print("")
+print("[BUILDING]")
+print("")
 
 # Build
 subprocess.check_call(

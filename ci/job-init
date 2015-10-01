@@ -4,9 +4,7 @@
 # Initialize and display information about the job and environment.
 #
 
-import os
 import subprocess
-import sys
 
 
 # Get current Git branch name
@@ -41,7 +39,7 @@ else:
     print("No tag on current commit, so this is not a release version")
 
 # Checkout the corrent branch in submodules
-branch = subprocess.check_output(
+subprocess.check_call(
     "git submodule foreach --recursive 'git checkout " + branch + " || git checkout master'",
     stderr = open(os.devnull, 'w'),
     shell = True
@@ -71,5 +69,7 @@ print("")
 subprocess.check_call(
     ["qmake", "--version"]
 )
+print("")
+print("")
 print("")
 
