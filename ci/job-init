@@ -26,13 +26,8 @@ else:
 
 # Checkout the corrent branch in submodules
 branch = subprocess.check_output(
-    [
-        "git",
-        "submodule",
-        "foreach",
-        "--recursive",
-        "git checkout " + branch + " || git checkout master"
-    ]
+    "git submodule foreach --recursive 'git checkout " + branch + " || git checkout master'",
+    shell = True
 )
 
 print("")
