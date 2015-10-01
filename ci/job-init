@@ -10,12 +10,12 @@ import sys
 
 
 # Get current Git branch name
-branch = subprocess.output(
+branch = subprocess.getoutput(
     ["git", "rev-parse", "--abbrev-ref", "HEAD"]
 )
 
 # Get currect Git commit tag
-tag = subprocess.output(
+tag = subprocess.getoutput(
     ["git", "describe", "--exact-match"]
 )
 
