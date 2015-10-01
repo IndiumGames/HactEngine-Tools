@@ -9,11 +9,8 @@ import subprocess
 import sys
 
 
-# Add Qt to path
-os.environ["PATH"] = "/usr/local/Qt-5.4.1/bin:$PATH"
-
 # Get current Git branch name
-branch = subprocess.check_output(
+branch = subprocess.call(
     ["git", "rev-parse", "--abbrev-ref", "HEAD"]
 )
 
@@ -60,8 +57,7 @@ subprocess.check_call(
 )
 print("")
 subprocess.check_call(
-    ["qmake", "--version"],
-    env = os.environ
+    ["qmake", "--version"]
 )
 print("")
 

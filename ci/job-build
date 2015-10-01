@@ -9,9 +9,6 @@ import subprocess
 import sys
 
 
-# Add Qt to path
-os.environ["PATH"] = "/usr/local/Qt-5.4.1/bin:$PATH"
-
 print("")
 print("[BUILDING]")
 print("")
