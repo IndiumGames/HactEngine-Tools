@@ -7,11 +7,6 @@
 import subprocess
 
 
-subprocess.check_output(
-    ["git", "submodule", "update", "--init", "--recursive", "--remote"]
-)
-
-
 # Get current Git branch name
 branch = None
 try:
