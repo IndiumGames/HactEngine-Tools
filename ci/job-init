@@ -1,0 +1,67 @@
+#!/usr/bin/env python
+
+#
+# Initialize and display information about the job and environment.
+#
+
+import os
+import subprocess
+import sys
+
+
+# Add Qt to path
+os.environ["PATH"] = "/usr/local/Qt-5.4.1/bin:$PATH"
+
+# Get current Git branch name
+branch = subprocess.check_output(
+    ["git", "rev-parse", "--abbrev-ref", "HEAD"]
+)
+
+# Get currect Git commit tag
+tag = subprocess.check_output(
+    ["git", "describe", "--exact-match"]
+)
+
+if tag:
+    print("Building release: " + tag)
+else:
+    print("No tag on current commit, so this is not a release version")
+
+# Checkout the corrent branch in submodules
+branch = subprocess.check_output(
+    [
+        "git",
+        "submodule",
+        "foreach",
+        "--recursive",
+        "'git checkout " + branch + " || git checkout master'"
+    ]
+)
+
+print("")
+print("")
+
+print("[COMMIT MESSAGE]")
+subprocess.check_call(
+    ["git", "log", "--format=%B", "-n", "1", "HEAD"]
+)
+print("")
+
+print("[VERSION INFO]")
+print("")
+subprocess.check_call(
+    ["g++", "--version"]
+)
+subprocess.check_call(
+    ["lua", "-v"]
+)
+subprocess.check_call(
+    ["swig", "-version"]
+)
+print("")
+subprocess.check_call(
+    ["qmake", "--version"],
+    env = os.environ
+)
+print("")
+
