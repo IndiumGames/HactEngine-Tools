@@ -31,13 +31,7 @@ branch = subprocess.check_output(
         "submodule",
         "foreach",
         "--recursive",
-        "'git",
-        "checkout",
-        branch,
-        "||",
-        "git",
-        "checkout",
-        "master'"
+        "git checkout " + branch + " || git checkout master"
     ]
 )
 
