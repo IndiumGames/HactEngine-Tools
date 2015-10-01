@@ -5,6 +5,7 @@
 #
 
 import subprocess
+import sys
 
 
 print("[INIT]")
@@ -20,9 +21,7 @@ except subprocess.CalledProcessError:
     pass
 
 if branch == "HEAD":
-    print("")
-    print("DETACHED HEAD!")
-    print("")
+    sys.exit("DETACHED HEAD!")
 
 # Get currect Git commit tag
 tag = None
