@@ -22,12 +22,12 @@ fi
 
 
 # Run SWIG
-../bin/linux/bin/swig -I../.. -I../../thirdparty -c++ -lua -v -no-old-metatable-bindings -o swig_hact_wrap.temp swig_hact.i
-../bin/linux/bin/swig -I../.. -I../../thirdparty -c++ -lua -v -no-old-metatable-bindings -o swig_glm_wrap.temp swig_glm.i
-../bin/linux/bin/swig -I../.. -I../../thirdparty -c++ -lua -v -no-old-metatable-bindings -o swig_opengl_wrap.temp swig_opengl.i
-#../bin/linux/bin/swig -DHACT_EDITORS -I../.. -I../../thirdparty -c++ -lua -v -no-old-metatable-bindings -o swig_hact_wrap.temp swig_hact.i
-#../bin/linux/bin/swig -DHACT_EDITORS -I../.. -I../../thirdparty -c++ -lua -v -no-old-metatable-bindings -o swig_glm_wrap.temp swig_glm.i
-#../bin/linux/bin/swig -DHACT_EDITORS -I../.. -I../../thirdparty -c++ -lua -v -no-old-metatable-bindings -o swig_opengl_wrap.temp swig_opengl.i
+#../bin/linux/bin/swig -I../.. -I../../thirdparty -c++ -lua -v -no-old-metatable-bindings -o swig_hact_wrap.temp swig_hact.i
+#../bin/linux/bin/swig -I../.. -I../../thirdparty -c++ -lua -v -no-old-metatable-bindings -o swig_glm_wrap.temp swig_glm.i
+#../bin/linux/bin/swig -I../.. -I../../thirdparty -c++ -lua -v -no-old-metatable-bindings -o swig_opengl_wrap.temp swig_opengl.i
+../bin/linux/bin/swig -DHACT_EDITORS -I../.. -I../../thirdparty -c++ -lua -v -no-old-metatable-bindings -o swig_hact_wrap.temp swig_hact.i
+../bin/linux/bin/swig -DHACT_EDITORS -I../.. -I../../thirdparty -c++ -lua -v -no-old-metatable-bindings -o swig_glm_wrap.temp swig_glm.i
+../bin/linux/bin/swig -DHACT_EDITORS -I../.. -I../../thirdparty -c++ -lua -v -no-old-metatable-bindings -o swig_opengl_wrap.temp swig_opengl.i
 
 
 # 'swig_hact_wrap.cxx'
