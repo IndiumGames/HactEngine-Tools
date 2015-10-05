@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 
-#
-# Get and compile dependencies for HactEngine.
-#
-# This script will download and compile most of the dependencies needed for
-# HactEngine's development. It even downloads the Qt installer for you.
-#
-# Some of the dependencies are "header only" or otherwise do not require
-# installing, but they are downloaded as well.
-#
-# There are some tools which HactEngine does not directly depend on, but are
-# required to compile the engine's dependencies. If these are small and simple
-# to compile (like GNU Readline), they are downloaded and compiled as well.
-#
+"""
+Get and compile dependencies for HactEngine.
 
+This script will download and compile most of the dependencies needed for
+HactEngine's development. It even downloads the Qt installer for you.
+
+Some of the dependencies are "header only" or otherwise do not require
+installing, but they are downloaded as well.
+
+There are some tools which HactEngine does not directly depend on, but are
+required to compile the engine's dependencies. If these are small and simple
+to compile (like GNU Readline), they are downloaded and compiled as well.
+"""
+
+# pylint: disable=C0103
 
 import argparse
 import multiprocessing
@@ -22,6 +23,7 @@ import posixpath
 import platform
 import subprocess
 import sys
+
 
 print("System info")
 print("===========")
@@ -44,7 +46,9 @@ if platform.system() == "Linux":
     
     if platform.linux_distribution()[0] == "Ubuntu":
         print("Install these dependencies:")
-        print("    sudo apt-get install automake build-essential cmake curl git libtool")
+        print(
+            "    sudo apt-get install automake build-essential cmake curl git libtool"
+        )
     elif platform.linux_distribution()[0] == "Fedora":
         print("Install these dependencies:")
         print("    sudo yum install automake cmake gcc gcc-c++ libtool")
@@ -159,13 +163,14 @@ print("")
 #sys.exit()
 
 
-#!
-#! Do a shallow Git clone.
-#!
-#! :param url:        URL to clone from.
-#! :param directory:  Directory to clone into (relative to temp dir).
-#!
 def GitShallowClone(url, directory):
+    """
+    Do a shallow Git clone.
+    
+    :param url:        URL to clone from.
+    :param directory:  Directory to clone into (relative to temp dir).
+    """
+    
     command = "git clone --depth=1 --branch=master " + url + " " + directory
     
     print("        ### Running download command: " + command)
@@ -181,9 +186,6 @@ def GitShallowClone(url, directory):
     return output
 
 
-#!
-#! Get dependency.
-#!
 def GetDependency(directory,
                   git = None,
                   gitLinux = None,
@@ -203,6 +205,10 @@ def GetDependency(directory,
                   compileWindows = None,
                   compileWindows32 = None,
                   compileWindows64 = None):
+    """
+    Get dependency.
+    """
+    
     if posixpath.exists(tempDir + "/" + directory):
         print("### Skipping " + directory + " because directory exists: " + tempDir + "/" + directory)
     else:
@@ -233,72 +239,66 @@ def GetDependency(directory,
             for command in downloadLinux:
                 print("        ### Running Linux download command: " + command)
                 
-                output = subprocess.check_output(
+                subprocess.check_output(
                     command,
                     cwd = tempDir,
                     shell = True
                 )
-                #print output
         elif downloadOsX and PLATFORM_OSX:
             print("    ### Download OS X" + directory)
             
             for command in downloadOsX:
                 print("        ### Running OS X download command: " + command)
                 
-                output = subprocess.check_output(
+                subprocess.check_output(
                     command,
                     cwd = tempDir,
                     shell = True
                 )
-                #print output
         elif downloadWindows64 and PLATFORM_WINDOWS_64:
             print("    ### Download Windows 64-bit " + directory)
             
             for command in downloadWindows64:
                 print("        ### Running Windows 64-bit download command: " + command)
                 
-                output = subprocess.check_output(
+                subprocess.check_output(
                     command,
                     cwd = tempDir,
                     shell = True
                 )
-                #print output
         elif downloadWindows32 and PLATFORM_WINDOWS_32:
             print("    ### Download Windows 32-bit " + directory)
             
             for command in downloadWindows32:
                 print("        ### Running Windows 32-bit download command: " + command)
                 
-                output = subprocess.check_output(
+                subprocess.check_output(
                     command,
                     cwd = tempDir,
                     shell = True
                 )
-                #print output
         elif downloadWindows and PLATFORM_WINDOWS:
             print("    ### Download Windows " + directory)
             
             for command in downloadWindows:
                 print("        ### Running Windows download command: " + command)
                 
-                output = subprocess.check_output(
+                subprocess.check_output(
                     command,
                     cwd = tempDir,
                     shell = True
                 )
-                #print output
         elif download:
             print("    ### Download " + directory)
             
             for command in download:
                 print("        ### Running download command: " + command)
                 
-                output = subprocess.check_output(
+                subprocess.check_output(
                     command,
                     cwd = tempDir,
                     shell = True
                 )
-                #print output
         
         if not args.no_compile:
             if compileLinux and PLATFORM_LINUX:
@@ -307,72 +307,66 @@ def GetDependency(directory,
                 for command in compileLinux:
                     print("        ### Running Linux compile command: " + command)
                     
-                    output = subprocess.check_output(
+                    subprocess.check_output(
                         command,
                         cwd = tempDir + "/" + directory,
                         shell = True
                     )
-                    #print output
             elif compileOsX and PLATFORM_OSX:
                 print("    ### Compile " + directory)
                 
                 for command in compileOsX:
                     print("        ### Running OS X compile command: " + command)
                     
-                    output = subprocess.check_output(
+                    subprocess.check_output(
                         command,
                         cwd = tempDir + "/" + directory,
                         shell = True
                     )
-                    #print output
             elif compileWindows64 and PLATFORM_WINDOWS_64:
                 print("    ### Compile " + directory)
                 
                 for command in compileWindows64:
                     print("        ### Running Windows 64-bit compile command: " + command)
                     
-                    output = subprocess.check_output(
+                    subprocess.check_output(
                         command,
                         cwd = tempDir + "/" + directory,
                         shell = True
                     )
-                    #print output
             elif compileWindows32 and PLATFORM_WINDOWS_32:
                 print("    ### Compile " + directory)
                 
                 for command in compileWindows32:
                     print("        ### Running Windows 32-bit compile command: " + command)
                     
-                    output = subprocess.check_output(
+                    subprocess.check_output(
                         command,
                         cwd = tempDir + "/" + directory,
                         shell = True
                     )
-                    #print output
             elif compileWindows and PLATFORM_WINDOWS:
                 print("    ### Compile " + directory)
                 
                 for command in compileWindows:
                     print("        ### Running Windows compile command: " + command)
                     
-                    output = subprocess.check_output(
+                    subprocess.check_output(
                         command,
                         cwd = tempDir + "/" + directory,
                         shell = True
                     )
-                    #print output
             elif compile:
                 print("    ### Compile " + directory)
                 
                 for command in compile:
                     print("        ### Running compile command: " + command)
                     
-                    output = subprocess.check_output(
+                    subprocess.check_output(
                         command,
                         cwd = tempDir + "/" + directory,
                         shell = True
                     )
-                    #print output
     
     print("")
 
@@ -381,15 +375,18 @@ def GetDependency(directory,
 GetDependency(
     "premake-5.0.0-alpha5",
     downloadLinux = [
-        "curl -sLo premake-5.0.0-alpha5.tar.gz https://github.com/premake/premake-core/releases/download/v5.0.0-alpha5/premake-5.0.0-alpha5-linux.tar.gz",
+        "curl -sLo premake-5.0.0-alpha5.tar.gz "
+        + "https://github.com/premake/premake-core/releases/download/v5.0.0-alpha5/premake-5.0.0-alpha5-linux.tar.gz",
         "tar xf premake-5.0.0-alpha5.tar.gz"
     ],
     downloadOsX = [
-        "curl -sLo premake-5.0.0-alpha5.tar.gz https://github.com/premake/premake-core/releases/download/v5.0.0-alpha5/premake-5.0.0-alpha5-macosx.tar.gz",
+        "curl -sLo premake-5.0.0-alpha5.tar.gz "
+        + "https://github.com/premake/premake-core/releases/download/v5.0.0-alpha5/premake-5.0.0-alpha5-macosx.tar.gz",
         "tar xf premake-5.0.0-alpha5.tar.gz"
     ],
     downloadWindows = [
-        "curl -sLo premake-5.0.0-alpha5.zip https://github.com/premake/premake-core/releases/download/v5.0.0-alpha5/premake-5.0.0-alpha5-windows.zip",
+        "curl -sLo premake-5.0.0-alpha5.zip "
+        + "https://github.com/premake/premake-core/releases/download/v5.0.0-alpha5/premake-5.0.0-alpha5-windows.zip",
         "unzip -o premake-5.0.0-alpha5.zip"
     ]
 )

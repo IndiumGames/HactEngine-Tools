@@ -4,8 +4,6 @@
 Initialize and display information about the job and environment.
 """
 
-# pylint: disable=C0103
-
 import os
 import subprocess
 import sys
