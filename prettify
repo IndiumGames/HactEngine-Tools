@@ -114,6 +114,10 @@ if not args.skip_lua:
                     + glob.glob(rootDir + "/*/*/*/*.lua")
                     + glob.glob(rootDir + "/*/*/*/*/*.lua")
                     + glob.glob(rootDir + "/*/*/*/*/*/*.lua")):
+        # Don't prettify thirdparty code
+        if luaFile.startswith(rootDir + "/tools/bin"):
+            continue
+        
         tempFile = luaFile + ".fix"
         
         if posixpath.exists(tempFile):
