@@ -1,0 +1,129 @@
+#!/usr/bin/env python
+
+"""
+Prettify C++ and Lua code.
+"""
+
+import argparse
+import glob
+import os
+import posixpath
+import re
+import shutil
+import subprocess
+import sys
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--skip-cpp",
+    help = "Skip C++ prettifying",
+    action = "store_true",
+    default = False
+)
+parser.add_argument(
+    "--skip-lua",
+    help = "Skip Lua prettifying",
+    action = "store_true",
+    default = False
+)
+args = parser.parse_args()
+
+
+# The directory containing this script
+scriptDir = posixpath.dirname(posixpath.realpath(__file__))
+
+
+if not args.skip_cpp:
+    # C++ source directory
+    srcDir = scriptDir + "/../src"
+    
+    # Regular expressions
+    cppHeaderRegex = re.compile(".*\\.h$")
+    cppSourceRegex = re.compile(".*\\.cpp$")
+    
+    # Loop over C++ files
+    for cppFile in os.listdir(srcDir):
+        if cppHeaderRegex.match(cppFile):
+            # Run Uncrustify
+            subprocess.check_call(
+                [
+                    "uncrustify",
+                    "--no-backup",
+                    "-c",
+                    scriptDir + "/uncrustify/uncrustify_header.cfg",
+                    cppFile
+                ],
+                cwd = srcDir
+            )
+        elif cppSourceRegex.match(cppFile):
+            # Run Uncrustify
+            subprocess.check_call(
+                [
+                    "uncrustify",
+                    "--no-backup",
+                    "-c",
+                    scriptDir + "/uncrustify/uncrustify.cfg",
+                    cppFile
+                ],
+                cwd = srcDir
+            )
+        
+        tempFile = srcDir + "/" + cppFile + ".fix"
+        
+        if posixpath.exists(tempFile):
+            sys.exit("Temporary file already exists: " + tempFile)
+        
+        # Fix some missing Uncrustify features
+        subprocess.check_call(
+            [
+                "lua",
+                scriptDir + "/uncrustify/uncrustify_fixes.lua",
+                cppFile
+            ],
+            cwd = srcDir,
+            stdout = open(tempFile, mode = "a")
+        )
+        
+        # Re-indent empty lines
+        subprocess.check_call(
+            [
+                "lua",
+                scriptDir + "/reindent_file.lua",
+                tempFile
+            ],
+            cwd = srcDir,
+            stdout = open(srcDir + "/" + cppFile, mode = "w")
+        )
+        
+        # Remove temporary file
+        os.remove(tempFile)
+
+
+if not args.skip_lua:
+    # Prettify Lua files
+    for luaFile in glob.glob(scriptDir + "/../**/*.lua"):
+        tempFile = luaFile + ".fix"
+        
+        if posixpath.exists(tempFile):
+            sys.exit("Temporary file already exists: " + tempFile)
+        
+        # Re-indent empty lines
+        subprocess.check_call(
+            [
+                "lua",
+                scriptDir + "/reindent_file.lua",
+                luaFile
+            ],
+            cwd = posixpath.dirname(luaFile),
+            stdout = open(tempFile, mode = "a")
+        )
+        
+        # Get current permissions
+        permissions = os.stat(luaFile).st_mode
+        
+        # Move temporary file over original
+        shutil.move(tempFile, luaFile)
+        
+        # Restore old permissions
+        os.chmod(luaFile, permissions)
