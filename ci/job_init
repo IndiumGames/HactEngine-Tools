@@ -36,8 +36,8 @@ except subprocess.CalledProcessError:
 
 print("")
 print("")
-print("Branch: " + branch)
-print("Tag:    " + tag)
+print("Branch: " + str(branch))
+print("Tag:    " + str(tag))
 print("")
 print("")
 
