@@ -15,7 +15,8 @@ print("[INIT]")
 branch = None
 try:
     branch = subprocess.check_output(
-        ["git", "rev-parse", "--abbrev-ref", "HEAD"]
+        ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+        stderr = open(os.devnull, 'w')
     )
     branch = branch.decode().rstrip()
 except subprocess.CalledProcessError:
@@ -28,7 +29,8 @@ if branch == "HEAD":
 tag = None
 try:
     tag = subprocess.check_output(
-        ["git", "describe", "--exact-match"]
+        ["git", "describe", "--exact-match"],
+        stderr = open(os.devnull, 'w')
     )
     tag = tag.decode().rstrip()
 except subprocess.CalledProcessError:
