@@ -34,16 +34,13 @@ try:
 except subprocess.CalledProcessError:
     pass
 
-print("****************")
-print(branch)
-print("****************")
-print(tag)
-print("****************")
+print("")
+print("")
+print("Branch: " + branch)
+print("Tag:    " + tag)
+print("")
+print("")
 
-if tag:
-    print("Building release: " + tag)
-else:
-    print("No tag on current commit, so this is not a release version")
 
 # Checkout the corrent branch in submodules
 subprocess.check_call(
@@ -57,8 +54,10 @@ print("")
 print("")
 
 print("[COMMIT MESSAGE]")
-subprocess.check_call(
-    ["git", "log", "--format=%B", "-n", "1", "HEAD"]
+print(
+    subprocess.check_output(
+        ["git", "log", "--format=%B", "-n", "1", "HEAD"]
+    )
 )
 print("")
 
