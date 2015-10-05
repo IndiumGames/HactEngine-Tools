@@ -44,60 +44,62 @@ if not args.skip_cpp:
     
     # Loop over C++ files
     for cppFile in os.listdir(srcDir):
-        if cppHeaderRegex.match(cppFile):
-            # Run Uncrustify
+        if cppHeaderRegex.match(cppFile) or cppSourceRegex.match(cppFile):
+            if cppHeaderRegex.match(cppFile):
+                # Run Uncrustify
+                subprocess.check_call(
+                    [
+                        "uncrustify",
+                        "--no-backup",
+                        "-c",
+                        scriptDir + "/uncrustify/uncrustify_header.cfg",
+                        cppFile
+                    ],
+                    cwd = srcDir
+                )
+            elif cppSourceRegex.match(cppFile):
+                # Run Uncrustify
+                subprocess.check_call(
+                    [
+                        "uncrustify",
+                        "--no-backup",
+                        "-c",
+                        scriptDir + "/uncrustify/uncrustify.cfg",
+                        cppFile
+                    ],
+                    cwd = srcDir
+                )
+            
+            # Temporary file
+            tempFile = srcDir + "/" + cppFile + ".fix"
+            
+            if posixpath.exists(tempFile):
+                sys.exit("Temporary file already exists: " + tempFile)
+            
+            # Fix some missing Uncrustify features
             subprocess.check_call(
                 [
-                    "uncrustify",
-                    "--no-backup",
-                    "-c",
-                    scriptDir + "/uncrustify/uncrustify_header.cfg",
+                    "lua",
+                    scriptDir + "/uncrustify/uncrustify_fixes.lua",
                     cppFile
                 ],
-                cwd = srcDir
+                cwd = srcDir,
+                stdout = open(tempFile, mode = "a")
             )
-        elif cppSourceRegex.match(cppFile):
-            # Run Uncrustify
+            
+            # Re-indent empty lines
             subprocess.check_call(
                 [
-                    "uncrustify",
-                    "--no-backup",
-                    "-c",
-                    scriptDir + "/uncrustify/uncrustify.cfg",
-                    cppFile
+                    "lua",
+                    scriptDir + "/reindent_file.lua",
+                    tempFile
                 ],
-                cwd = srcDir
+                cwd = srcDir,
+                stdout = open(srcDir + "/" + cppFile, mode = "w")
             )
-        
-        tempFile = srcDir + "/" + cppFile + ".fix"
-        
-        if posixpath.exists(tempFile):
-            sys.exit("Temporary file already exists: " + tempFile)
-        
-        # Fix some missing Uncrustify features
-        subprocess.check_call(
-            [
-                "lua",
-                scriptDir + "/uncrustify/uncrustify_fixes.lua",
-                cppFile
-            ],
-            cwd = srcDir,
-            stdout = open(tempFile, mode = "a")
-        )
-        
-        # Re-indent empty lines
-        subprocess.check_call(
-            [
-                "lua",
-                scriptDir + "/reindent_file.lua",
-                tempFile
-            ],
-            cwd = srcDir,
-            stdout = open(srcDir + "/" + cppFile, mode = "w")
-        )
-        
-        # Remove temporary file
-        os.remove(tempFile)
+            
+            # Remove temporary file
+            os.remove(tempFile)
 
 
 if not args.skip_lua:
