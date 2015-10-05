@@ -118,6 +118,8 @@ if not args.skip_lua:
         if luaFile.startswith(rootDir + "/tools/bin"):
             continue
         
+        print("Prettyfying Lua file: " + luaFile)
+        
         tempFile = luaFile + ".fix"
         
         if posixpath.exists(tempFile):
