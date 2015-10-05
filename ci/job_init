@@ -70,7 +70,10 @@ subprocess.check_call(
     ["swig", "-version"]
 )
 print("")
-subprocess.call(
-    ["qmake", "--version"]
-)
+try:
+    subprocess.call(
+        ["qmake", "--version"]
+    )
+except OSError:
+    pass
 print("")
