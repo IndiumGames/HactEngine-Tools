@@ -36,12 +36,9 @@ try:
 except subprocess.CalledProcessError:
     pass
 
-print("")
-print("")
+
 print("Branch: " + str(branch))
 print("Tag:    " + str(tag))
-print("")
-print("")
 
 
 # Checkout the corrent branch in submodules
