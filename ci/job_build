@@ -12,27 +12,13 @@ print("[CONFIGURE]")
 print("")
 
 # Run Premake
-subprocess.call(
+subprocess.check_call(
     ["./configure"]
 )
 
 print("")
 print("[BUILDING]")
 print("")
-
-# Build
-subprocess.call(
-    ["make", "-j8"],
-    cwd = "build"
-)
-
-
-# FIXME: Somehow a second run of configure fixes things (maybe?)
-
-# Run Premake
-subprocess.check_call(
-    ["./configure"]
-)
 
 # Build
 subprocess.check_call(
