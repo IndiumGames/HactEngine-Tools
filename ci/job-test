@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-#
-# Build the job
-#
+"""
+Build the job
+"""
 
 import subprocess
 
@@ -20,4 +20,3 @@ subprocess.check_call(
 print("")
 print("[DONE RUNNING TESTS]")
 print("")
-

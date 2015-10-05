@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
-#
-# Initialize and display information about the job and environment.
-#
+"""
+Initialize and display information about the job and environment.
+"""
+
+# pylint: disable=C0103
 
 import os
 import subprocess
