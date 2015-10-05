@@ -33,10 +33,13 @@ args = parser.parse_args()
 # The directory containing this script
 scriptDir = posixpath.dirname(posixpath.realpath(__file__))
 
+# Root directory
+rootDir = posixpath.realpath(scriptDir + "/..")
+
 
 if not args.skip_cpp:
     # C++ source directory
-    srcDir = scriptDir + "/../src"
+    srcDir = rootDir + "/src"
     
     # Regular expressions
     cppHeaderRegex = re.compile(".*\\.h$")
@@ -104,7 +107,13 @@ if not args.skip_cpp:
 
 if not args.skip_lua:
     # Prettify Lua files
-    for luaFile in glob.glob(scriptDir + "/../**/*.lua"):
+    # NOTE: Python 3.5+ has ** for globs...
+    for luaFile in (glob.glob(rootDir + "/*.lua")
+                    + glob.glob(rootDir + "/*/*.lua")
+                    + glob.glob(rootDir + "/*/*/*.lua")
+                    + glob.glob(rootDir + "/*/*/*/*.lua")
+                    + glob.glob(rootDir + "/*/*/*/*/*.lua")
+                    + glob.glob(rootDir + "/*/*/*/*/*/*.lua")):
         tempFile = luaFile + ".fix"
         
         if posixpath.exists(tempFile):
