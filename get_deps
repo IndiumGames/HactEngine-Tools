@@ -371,7 +371,7 @@ def GetDependency(directory,
 
 # Get Premake (binaries only)
 GetDependency(
-    "premake-5.0.0-alpha5",
+    "premake5",
     downloadLinux = [
         "curl -sLo premake-5.0.0-alpha5.tar.gz "
         + "https://github.com/premake/premake-core/releases/download/v5.0.0-alpha5/premake-5.0.0-alpha5-linux.tar.gz",
@@ -433,7 +433,7 @@ GetDependency(
         "tar xf lua-5.3.1.tar.gz"
     ],
     compileLinux = [
-        "PATH=\"$PATH:" + prefixDir + "/bin\" "
+        "PATH=\"" + prefixDir + "/bin:$PATH\" "
         + "LIBRARY_PATH=\"$LIBRARY_PATH:" + prefixDir + "/lib/\" "
         + "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:" + prefixDir + "/lib\" "
         + "C_INCLUDE_PATH=\"$C_INCLUDE_PATH:" + prefixDir + "/include\" "
@@ -441,7 +441,7 @@ GetDependency(
         "make install INSTALL_TOP=\"" + prefixDir + "\""
     ],
     compileWindows = [
-        "make mingw",
+        "make " + make_jobs + " mingw",
         "make install INSTALL_TOP=\"" + prefixDir + "\"",
         "cp src/lua53.dll " + prefixDir + "/bin/"
     ]
