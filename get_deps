@@ -928,17 +928,17 @@ GetDependency(
         "tar xf pcre-8.37.tar.gz"
     ],
     compileLinux = [
-        "./configure --prefix=" + prefixDir,
+        "./configure --disable-shared --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ],
     compileOsX = [
-        "./configure --prefix=" + prefixDir,
+        "./configure --disable-shared --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ],
     compileWindows64 = [
-        "./configure "
+        "./configure --disable-shared "
         + "--build=x86_64-w64-mingw32 "
         + "--host=x86_64-w64-mingw32 "
         #+ "--target=x86_64-w64-mingw32 "
@@ -947,7 +947,7 @@ GetDependency(
         "make install"
     ],
     compileWindows32 = [
-        "./configure "
+        "./configure --disable-shared "
         + "--build=i686-w64-mingw32 "
         + "--host=i686-w64-mingw32 "
         #+ "--target=i686-w64-mingw32 "
