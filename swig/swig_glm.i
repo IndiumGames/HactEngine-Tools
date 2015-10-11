@@ -24,7 +24,7 @@
 %include <glm/detail/precision.hpp>
 %include <glm/detail/_swizzle_func.hpp>
 %include <glm/detail/type_vec.hpp>
-%include "swig_glm/detail/type_mat.hpp"
+%include <glm/detail/type_mat.hpp> // Modified
 
 // Rename operator functions
 %rename(_operator_add) glm::detail::operator+;
@@ -38,15 +38,15 @@
 * MATRIX TYPES *
 ***************/
 
-%include "swig_glm/detail/type_mat2x2.hpp"
-%include "swig_glm/detail/type_mat2x3.hpp"
-%include "swig_glm/detail/type_mat2x4.hpp"
-%include "swig_glm/detail/type_mat3x2.hpp"
-%include "swig_glm/detail/type_mat3x3.hpp"
-%include "swig_glm/detail/type_mat3x4.hpp"
-%include "swig_glm/detail/type_mat4x2.hpp"
-%include "swig_glm/detail/type_mat4x3.hpp"
-%include "swig_glm/detail/type_mat4x4.hpp"
+%include <glm/detail/type_mat2x2.hpp> // Modified
+%include <glm/detail/type_mat2x3.hpp> // Modified
+%include <glm/detail/type_mat2x4.hpp> // Modified
+%include <glm/detail/type_mat3x2.hpp> // Modified
+%include <glm/detail/type_mat3x3.hpp> // Modified
+%include <glm/detail/type_mat3x4.hpp> // Modified
+%include <glm/detail/type_mat4x2.hpp> // Modified
+%include <glm/detail/type_mat4x3.hpp> // Modified
+%include <glm/detail/type_mat4x4.hpp> // Modified
 
 %define GLM_MATRIX(lua_type, glm_class, glm_type, glm_precision)
     %extend glm_class {
@@ -110,9 +110,9 @@ GLM_MATRIX(mat4x4, glm::detail::tmat4x4, float, glm::highp)
 * VECTOR TYPES *
 ***************/
 
-%include "swig_glm/detail/type_vec2.hpp"
-%include "swig_glm/detail/type_vec3.hpp"
-%include "swig_glm/detail/type_vec4.hpp"
+%include <glm/detail/type_vec2.hpp> // Modified
+%include <glm/detail/type_vec3.hpp> // Modified
+%include <glm/detail/type_vec4.hpp> // Modified
 
 %define GLM_VECTOR(lua_type, glm_class, glm_type, glm_precision)
     %extend glm_class {
@@ -609,7 +609,7 @@ namespace glm {
     
     
     // <glm/gtc/quaternion.hpp>
-    %include "swig_glm/gtc/quaternion.hpp"
+    %include <glm/gtc/quaternion.hpp> // Modified
     
     %extend glm::detail::tquat {
         // [] is replaced by __getitem__ & __setitem__
