@@ -53,10 +53,12 @@ namespace detail
 
 		GLM_FUNC_DECL GLM_CONSTEXPR length_t length() const;
 
+#if !defined SWIG
 		template <typename U, precision Q>
 		friend tvec4<U, Q> operator/(tmat4x4<U, Q> const & m, tvec4<U, Q> const & v);
 		template <typename U, precision Q>
 		friend tvec4<U, Q> operator/(tvec4<U, Q> const & v, tmat4x4<U, Q> const & m);
+#endif //!defined SWIG
 
 	private:
 		/// @cond DETAIL
@@ -234,6 +236,7 @@ namespace detail
 		T const & s,
 		tmat4x4<T, P> const & m);
 
+#if !defined SWIG
 	template <typename T, precision P>
 	GLM_FUNC_DECL typename tmat4x4<T, P>::col_type operator/ (
 		tmat4x4<T, P> const & m,
@@ -243,6 +246,7 @@ namespace detail
 	GLM_FUNC_DECL typename tmat4x4<T, P>::row_type operator/ (
 		typename tmat4x4<T, P>::col_type & v,
 		tmat4x4<T, P> const & m);
+#endif //!defined SWIG
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat4x4<T, P> operator/ (

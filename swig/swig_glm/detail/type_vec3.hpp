@@ -117,8 +117,10 @@ GLM_SWIZZLE_GEN_VEC_FROM_VEC3(T, P, detail::tvec3, detail::tvec2, detail::tvec3,
 		//////////////////////////////////////
 		// Explicit basic constructors
 
+#if !defined SWIG
 		GLM_FUNC_DECL explicit tvec3(
 			ctor);
+#endif //!defined SWIG
 		GLM_FUNC_DECL explicit tvec3(
 			T const & s);
 		GLM_FUNC_DECL tvec3(
