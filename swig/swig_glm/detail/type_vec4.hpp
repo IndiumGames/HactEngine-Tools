@@ -50,7 +50,9 @@ namespace detail
 		//////////////////////////////////////
 		// Implementation detail
 
-//!		enum ctor{_null};
+#if !defined SWIG
+		enum ctor{_null};
+#endif //!defined SWIG
 
 		typedef tvec4<T, P> type;
 		typedef tvec4<bool, P> bool_type;
@@ -65,37 +67,41 @@ namespace detail
 		//////////////////////////////////////
 		// Data
 
-//!#		if(GLM_HAS_ANONYMOUS_UNION && defined(GLM_SWIZZLE))
-//!			union
-//!			{
-//!				struct { T r, g, b, a; };
-//!				struct { T s, t, p, q; };
-//!				struct { T x, y, z, w;};
-//!
-//!				_GLM_SWIZZLE4_2_MEMBERS(T, P, tvec2, x, y, z, w)
-//!				_GLM_SWIZZLE4_2_MEMBERS(T, P, tvec2, r, g, b, a)
-//!				_GLM_SWIZZLE4_2_MEMBERS(T, P, tvec2, s, t, p, q)
-//!				_GLM_SWIZZLE4_3_MEMBERS(T, P, tvec3, x, y, z, w)
-//!				_GLM_SWIZZLE4_3_MEMBERS(T, P, tvec3, r, g, b, a)
-//!				_GLM_SWIZZLE4_3_MEMBERS(T, P, tvec3, s, t, p, q)
-//!				_GLM_SWIZZLE4_4_MEMBERS(T, P, tvec4, x, y, z, w)
-//!				_GLM_SWIZZLE4_4_MEMBERS(T, P, tvec4, r, g, b, a)
-//!				_GLM_SWIZZLE4_4_MEMBERS(T, P, tvec4, s, t, p, q)
-//!			};
-//!#		else
-//!			union { T x, r, s; };
-			T x, r, s;
-//!			union { T y, g, t; };
-			T y, g, t;
-//!			union { T z, b, p; };
-			T z, b, p;
-//!			union { T w, a, q; };
-			T w, a, q;
+#if !defined SWIG
+#		if(GLM_HAS_ANONYMOUS_UNION && defined(GLM_SWIZZLE))
+			union
+			{
+				struct { T r, g, b, a; };
+				struct { T s, t, p, q; };
+				struct { T x, y, z, w;};
 
-//!#			ifdef GLM_SWIZZLE
+				_GLM_SWIZZLE4_2_MEMBERS(T, P, tvec2, x, y, z, w)
+				_GLM_SWIZZLE4_2_MEMBERS(T, P, tvec2, r, g, b, a)
+				_GLM_SWIZZLE4_2_MEMBERS(T, P, tvec2, s, t, p, q)
+				_GLM_SWIZZLE4_3_MEMBERS(T, P, tvec3, x, y, z, w)
+				_GLM_SWIZZLE4_3_MEMBERS(T, P, tvec3, r, g, b, a)
+				_GLM_SWIZZLE4_3_MEMBERS(T, P, tvec3, s, t, p, q)
+				_GLM_SWIZZLE4_4_MEMBERS(T, P, tvec4, x, y, z, w)
+				_GLM_SWIZZLE4_4_MEMBERS(T, P, tvec4, r, g, b, a)
+				_GLM_SWIZZLE4_4_MEMBERS(T, P, tvec4, s, t, p, q)
+			};
+#		else
+			union { T x, r, s; };
+			union { T y, g, t; };
+			union { T z, b, p; };
+			union { T w, a, q; };
+
+#			ifdef GLM_SWIZZLE
 				GLM_SWIZZLE_GEN_VEC_FROM_VEC4(T, P, detail::tvec4, detail::tvec2, detail::tvec3, detail::tvec4)
-//!#			endif
-//!#		endif//GLM_LANG
+#			endif
+#		endif//GLM_LANG
+#else //!defined SWIG
+T x, r, s;
+T y, g, t;
+T z, b, p;
+T w, a, q;
+GLM_SWIZZLE_GEN_VEC_FROM_VEC4(T, P, detail::tvec4, detail::tvec2, detail::tvec3, detail::tvec4)
+#endif //!defined SWIG
 
 		//////////////////////////////////////
 		// Accesses
@@ -114,8 +120,10 @@ namespace detail
 		//////////////////////////////////////
 		// Explicit basic constructors
 
-//!		GLM_FUNC_DECL explicit tvec4(
-//!			ctor);
+#if !defined SWIG
+		GLM_FUNC_DECL explicit tvec4(
+			ctor);
+#endif //!defined SWIG
 		GLM_FUNC_DECL explicit tvec4(
 			T const & s);
 		GLM_FUNC_DECL tvec4(

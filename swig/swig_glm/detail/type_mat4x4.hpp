@@ -41,7 +41,9 @@ namespace detail
 	template <typename T, precision P>
 	struct tmat4x4
 	{
-//!		enum ctor{_null};
+#if !defined SWIG
+		enum ctor{_null};
+#endif //!defined SWIG
 		typedef T value_type;
 		typedef std::size_t size_type;
 		typedef tvec4<T, P> col_type;
@@ -51,14 +53,15 @@ namespace detail
 
 		GLM_FUNC_DECL GLM_CONSTEXPR length_t length() const;
 
-//!		template <typename U, precision Q>
-//!		friend tvec4<U, Q> operator/(tmat4x4<U, Q> const & m, tvec4<U, Q> const & v);
-//!		template <typename U, precision Q>
-//!		friend tvec4<U, Q> operator/(tvec4<U, Q> const & v, tmat4x4<U, Q> const & m);
+		template <typename U, precision Q>
+		friend tvec4<U, Q> operator/(tmat4x4<U, Q> const & m, tvec4<U, Q> const & v);
+		template <typename U, precision Q>
+		friend tvec4<U, Q> operator/(tvec4<U, Q> const & v, tmat4x4<U, Q> const & m);
 
 	private:
 		/// @cond DETAIL
 		col_type value[4];
+		/// @endcond
 
 	public:
 		// Constructors
@@ -67,8 +70,10 @@ namespace detail
 		template <precision Q>
 		GLM_FUNC_DECL tmat4x4(tmat4x4<T, Q> const & m);
 
-//!		GLM_FUNC_DECL explicit tmat4x4(
-//!			ctor Null);
+#if !defined SWIG
+		GLM_FUNC_DECL explicit tmat4x4(
+			ctor Null);
+#endif //!defined SWIG
 		GLM_FUNC_DECL explicit tmat4x4(
 			T const & x);
 		GLM_FUNC_DECL tmat4x4(
@@ -229,15 +234,15 @@ namespace detail
 		T const & s,
 		tmat4x4<T, P> const & m);
 
-//!	template <typename T, precision P>
-//!	GLM_FUNC_DECL typename tmat4x4<T, P>::col_type operator/ (
-//!		tmat4x4<T, P> const & m,
-//!		typename tmat4x4<T, P>::row_type const & v);
+	template <typename T, precision P>
+	GLM_FUNC_DECL typename tmat4x4<T, P>::col_type operator/ (
+		tmat4x4<T, P> const & m,
+		typename tmat4x4<T, P>::row_type const & v);
 
-//!	template <typename T, precision P>
-//!	GLM_FUNC_DECL typename tmat4x4<T, P>::row_type operator/ (
-//!		typename tmat4x4<T, P>::col_type & v,
-//!		tmat4x4<T, P> const & m);
+	template <typename T, precision P>
+	GLM_FUNC_DECL typename tmat4x4<T, P>::row_type operator/ (
+		typename tmat4x4<T, P>::col_type & v,
+		tmat4x4<T, P> const & m);
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat4x4<T, P> operator/ (

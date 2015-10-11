@@ -49,7 +49,9 @@ namespace detail
 		//////////////////////////////////////
 		// Implementation detail
 
-//!		enum ctor{_null};
+#if !defined SWIG
+		enum ctor{_null};
+#endif //!defined SWIG
 
 		typedef tvec2<T, P> type;
 		typedef tvec2<bool, P> bool_type;
@@ -64,33 +66,37 @@ namespace detail
 		//////////////////////////////////////
 		// Data
 
-//!#		if(GLM_HAS_ANONYMOUS_UNION && defined(GLM_SWIZZLE))
-//!			union
-//!			{
-//!				struct{ T x, y; };
-//!				struct{ T r, g; };
-//!				struct{ T s, t; };
-//!
-//!				_GLM_SWIZZLE2_2_MEMBERS(T, P, tvec2, x, y)
-//!				_GLM_SWIZZLE2_2_MEMBERS(T, P, tvec2, r, g)
-//!				_GLM_SWIZZLE2_2_MEMBERS(T, P, tvec2, s, t)
-//!				_GLM_SWIZZLE2_3_MEMBERS(T, P, tvec3, x, y)
-//!				_GLM_SWIZZLE2_3_MEMBERS(T, P, tvec3, r, g)
-//!				_GLM_SWIZZLE2_3_MEMBERS(T, P, tvec3, s, t)
-//!				_GLM_SWIZZLE2_4_MEMBERS(T, P, tvec4, x, y)
-//!				_GLM_SWIZZLE2_4_MEMBERS(T, P, tvec4, r, g)
-//!				_GLM_SWIZZLE2_4_MEMBERS(T, P, tvec4, s, t)
-//!			};
-//!#		else
-//!			union {T x, r, s;};
-			T x, r, s;
-//!			union {T y, g, t;};
-			T y, g, t;
-			
-//!#			ifdef GLM_SWIZZLE
+#if !defined SWIG
+#		if(GLM_HAS_ANONYMOUS_UNION && defined(GLM_SWIZZLE))
+			union
+			{
+				struct{ T x, y; };
+				struct{ T r, g; };
+				struct{ T s, t; };
+
+				_GLM_SWIZZLE2_2_MEMBERS(T, P, tvec2, x, y)
+				_GLM_SWIZZLE2_2_MEMBERS(T, P, tvec2, r, g)
+				_GLM_SWIZZLE2_2_MEMBERS(T, P, tvec2, s, t)
+				_GLM_SWIZZLE2_3_MEMBERS(T, P, tvec3, x, y)
+				_GLM_SWIZZLE2_3_MEMBERS(T, P, tvec3, r, g)
+				_GLM_SWIZZLE2_3_MEMBERS(T, P, tvec3, s, t)
+				_GLM_SWIZZLE2_4_MEMBERS(T, P, tvec4, x, y)
+				_GLM_SWIZZLE2_4_MEMBERS(T, P, tvec4, r, g)
+				_GLM_SWIZZLE2_4_MEMBERS(T, P, tvec4, s, t)
+			};
+#		else
+			union {T x, r, s;};
+			union {T y, g, t;};
+
+#			ifdef GLM_SWIZZLE
 				GLM_SWIZZLE_GEN_VEC_FROM_VEC2(T, P, detail::tvec2, detail::tvec2, detail::tvec3, detail::tvec4)
-//!#			endif 
-//!#		endif
+#			endif 
+#		endif
+#else //!defined SWIG
+T x, r, s;
+T y, g, t;
+GLM_SWIZZLE_GEN_VEC_FROM_VEC2(T, P, detail::tvec2, detail::tvec2, detail::tvec3, detail::tvec4)
+#endif //!defined SWIG
 
 		//////////////////////////////////////
 		// Accesses
@@ -109,8 +115,10 @@ namespace detail
 		//////////////////////////////////////
 		// Explicit basic constructors
 
-//!		GLM_FUNC_DECL explicit tvec2(
-//!			ctor);
+#if !defined SWIG
+		GLM_FUNC_DECL explicit tvec2(
+			ctor);
+#endif //!defined SWIG
 		GLM_FUNC_DECL explicit tvec2(
 			T const & s);
 		GLM_FUNC_DECL tvec2(

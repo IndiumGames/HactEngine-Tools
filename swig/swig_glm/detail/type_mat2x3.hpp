@@ -41,7 +41,9 @@ namespace detail
 	template <typename T, precision P>
 	struct tmat2x3
 	{
-//!		enum ctor{_null};
+#if !defined SWIG
+		enum ctor{_null};
+#endif //!defined SWIG
 		typedef T value_type;
 		typedef std::size_t size_type;
 		typedef tvec3<T, P> col_type;
@@ -62,8 +64,10 @@ namespace detail
 		template <precision Q>
 		GLM_FUNC_DECL tmat2x3(tmat2x3<T, Q> const & m);
 
-//!		GLM_FUNC_DECL explicit tmat2x3(
-//!			ctor);
+#if !defined SWIG
+		GLM_FUNC_DECL explicit tmat2x3(
+			ctor);
+#endif //!defined SWIG
 		GLM_FUNC_DECL explicit tmat2x3(
 			T const & s);
 		GLM_FUNC_DECL tmat2x3(

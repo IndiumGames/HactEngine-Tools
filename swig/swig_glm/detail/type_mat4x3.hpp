@@ -41,7 +41,9 @@ namespace detail
 	template <typename T, precision P>
 	struct tmat4x3
 	{
-//!		enum ctor{_null};
+#if !defined SWIG
+		enum ctor{_null};
+#endif //!defined SWIG
 		typedef T value_type;
 		typedef std::size_t size_type;
 		typedef tvec3<T, P> col_type;
@@ -62,8 +64,10 @@ namespace detail
 		template <precision Q>
 		GLM_FUNC_DECL tmat4x3(tmat4x3<T, Q> const & m);
 
-//!		GLM_FUNC_DECL explicit tmat4x3(
-//!			ctor Null);
+#if !defined SWIG
+		GLM_FUNC_DECL explicit tmat4x3(
+			ctor Null);
+#endif //!defined SWIG
 		GLM_FUNC_DECL explicit tmat4x3(
 			T const & x);
 		GLM_FUNC_DECL tmat4x3(
@@ -182,10 +186,12 @@ namespace detail
 		typename tmat4x3<T, P>::col_type const & v,
 		tmat4x3<T, P> const & m);
 
-//!	template <typename T, precision P>
-//!	GLM_FUNC_DECL tmat2x3<T, P> operator* (
-//!		tmat4x3<T, P> const & m1,
-//!		tmat2x4<T, P> const & m2);
+#if !defined SWIG
+	template <typename T, precision P>
+	GLM_FUNC_DECL tmat2x3<T, P> operator* (
+		tmat4x3<T, P> const & m1,
+		tmat2x4<T, P> const & m2);
+#endif //!defined SWIG
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat3x3<T, P> operator* (

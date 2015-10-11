@@ -40,7 +40,9 @@ namespace detail
 	template <typename T, precision P>
 	struct tmat2x2
 	{
-//!		enum ctor{_null};
+#if !defined SWIG
+		enum ctor{_null};
+#endif //!defined SWIG
 		typedef T value_type;
 		typedef std::size_t size_type;
 		typedef tvec2<T, P> col_type;
@@ -50,10 +52,10 @@ namespace detail
 
 		GLM_FUNC_DECL GLM_CONSTEXPR length_t length() const;
 
-//!		template <typename U, precision Q>
-//!		friend tvec2<U, Q> operator/(tmat2x2<U, Q> const & m, tvec2<U, Q> const & v);
-//!		template <typename U, precision Q>
-//!		friend tvec2<U, Q> operator/(tvec2<U, Q> const & v, tmat2x2<U, Q> const & m);
+		template <typename U, precision Q>
+		friend tvec2<U, Q> operator/(tmat2x2<U, Q> const & m, tvec2<U, Q> const & v);
+		template <typename U, precision Q>
+		friend tvec2<U, Q> operator/(tvec2<U, Q> const & v, tmat2x2<U, Q> const & m);
 
 	private:
 		/// @cond DETAIL
@@ -68,8 +70,10 @@ namespace detail
 		template <precision Q>
 		GLM_FUNC_DECL tmat2x2(tmat2x2<T, Q> const & m);
 
-//!		GLM_FUNC_DECL explicit tmat2x2(
-//!			ctor Null);
+#if !defined SWIG
+		GLM_FUNC_DECL explicit tmat2x2(
+			ctor Null);
+#endif //!defined SWIG
 		GLM_FUNC_DECL explicit tmat2x2(
 			T const & x);
 		GLM_FUNC_DECL tmat2x2(
@@ -220,15 +224,15 @@ namespace detail
 		T const & s,
 		tmat2x2<T, P> const & m);
 
-//!	template <typename T, precision P>
-//!	GLM_FUNC_DECL typename tmat2x2<T, P>::col_type operator/ (
-//!		tmat2x2<T, P> const & m,
-//!		typename tmat2x2<T, P>::row_type const & v);
+	template <typename T, precision P>
+	GLM_FUNC_DECL typename tmat2x2<T, P>::col_type operator/ (
+		tmat2x2<T, P> const & m,
+		typename tmat2x2<T, P>::row_type const & v);
 
-//!	template <typename T, precision P>
-//!	GLM_FUNC_DECL typename tmat2x2<T, P>::row_type operator/ (
-//!		typename tmat2x2<T, P>::col_type const & v,
-//!		tmat2x2<T, P> const & m);
+	template <typename T, precision P>
+	GLM_FUNC_DECL typename tmat2x2<T, P>::row_type operator/ (
+		typename tmat2x2<T, P>::col_type const & v,
+		tmat2x2<T, P> const & m);
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat2x2<T, P> operator/ (

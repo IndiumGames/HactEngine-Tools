@@ -47,11 +47,13 @@ namespace detail
 	template <typename T, precision P> struct tmat4x3;
 	template <typename T, precision P> struct tmat4x4;
 
-//!	template <typename T, precision P, template <class, precision> class colType, template <class, precision> class rowType>
-//!	struct outerProduct_trait{};
+#if !defined SWIG
+	template <typename T, precision P, template <class, precision> class colType, template <class, precision> class rowType>
+	struct outerProduct_trait{};
 
-//!	template <template <class, precision> class matType, typename T, precision P>
-//!	struct compute_inverse{};
+	template <template <class, precision> class matType, typename T, precision P>
+	struct compute_inverse{};
+#endif //!defined SWIG
 }//namespace detail
 
 	/// @addtogroup core_precision

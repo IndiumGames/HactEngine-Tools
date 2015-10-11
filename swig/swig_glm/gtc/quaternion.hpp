@@ -57,8 +57,11 @@ namespace detail
 	template <typename T, precision P>
 	struct tquat
 	{
-//!		enum ctor{null};
+#if !defined SWIG
+		enum ctor{null};
+#endif //!defined SWIG
 
+                typedef T value_type;
 		typedef tvec4<bool, P> bool_type;
 
 	public:
@@ -178,13 +181,15 @@ namespace detail
 	GLM_FUNC_DECL detail::tquat<T, P> normalize(
 		detail::tquat<T, P> const & q);
 		
+#if !defined SWIG
 	/// Returns dot product of q1 and q2, i.e., q1[0] * q2[0] + q1[1] * q2[1] + ...
 	/// 
 	/// @see gtc_quaternion
-//!	template <typename T, precision P, template <typename, precision> class quatType>
-//!	GLM_FUNC_DECL T dot(
-//!		quatType<T, P> const & x,
-//!		quatType<T, P> const & y);
+	template <typename T, precision P, template <typename, precision> class quatType>
+	GLM_FUNC_DECL T dot(
+		quatType<T, P> const & x,
+		quatType<T, P> const & y);
+#endif //!defined SWIG
 
 	/// Spherical linear interpolation of two quaternions.
 	/// The interpolation is oriented and the rotation is performed at constant speed.
