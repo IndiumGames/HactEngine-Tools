@@ -1002,6 +1002,40 @@ GetDependency(
 )
 
 
+# Get and compile Uncrustify
+GetDependency(
+    "uncrustify",
+    git = "https://github.com/bengardner/uncrustify.git",
+    build = [
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    windows64 = {
+        "build": [
+            "./configure "
+            + "--build=x86_64-w64-mingw32 "
+            + "--host=x86_64-w64-mingw32 "
+            #+ "--target=x86_64-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows32 = {
+        "build": [
+            "./configure "
+            + "--build=i686-w64-mingw32 "
+            + "--host=i686-w64-mingw32 "
+            #+ "--target=i686-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
+)
+
+
 # Get Qt
 GetDependency(
     "Qt",
