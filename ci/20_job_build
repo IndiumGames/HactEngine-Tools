@@ -17,13 +17,21 @@ subprocess.check_call(
 )
 
 print("")
-print("[BUILDING]")
+print("[BUILDING HACTENGINE (DEBUG)]")
 print("")
 
 # Build
 subprocess.check_call(
-    ["make", "-j8"],
-    cwd = "build"
+    ["./make"]
+)
+
+print("")
+print("[BUILDING HACTENGINE (RELEASE)]")
+print("")
+
+# Build
+subprocess.check_call(
+    ["./make", "config=release"]
 )
 
 print("")
