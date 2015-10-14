@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+
+"""
+Run HactEngine.
+"""
+
+import atexit
+import os
+import subprocess
+
+
+print("")
+print("[RUNNING HACTENGINE (DEBUG)]")
+print("")
+
+# Create fake engine folder
+os.symlink(".", "engine")
+
+# Remove the temporary symlink at exit
+atexit.register(
+    lambda:
+        os.remove("engine")
+)
+
+# Run HactEngine (debug build)
+subprocess.call(
+    [
+        "timeout",
+        "--preserve-status",
+        "15s",
+        "./build/Debug/HactEngine"
+    ]
+)
+
+
+print("")
+print("[RUNNING HACTENGINE (RELEASE)]")
+print("")
+
+# Run HactEngine (release build)
+subprocess.call(
+    [
+        "timeout",
+        "--preserve-status",
+        "15s",
+        "./build/Release/HactEngine"
+    ]
+)
+
+print("")
+print("[DONE RUNNING HACTENGINE]")
+print("")
