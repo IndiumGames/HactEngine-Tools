@@ -50,10 +50,16 @@ if platform.system() == "Linux":
     elif platform.linux_distribution()[0] == "Fedora":
         print("Install these dependencies:")
         print("    sudo yum install automake cmake gcc gcc-c++ libtool")
-elif platform.system() == "OS X":
+elif platform.system() == "Darwin":
     print("OS X detected")
     PLATFORM_OSX = True
-    sys.exit("! OS X not supported (yet)")
+    
+    print("Install these dependencies:")
+    print(
+        "    xcodebuild -license\n"
+        "    xcode-select --install\n"
+        "    brew install autoconf automake"
+    )
 elif platform.system() == "Windows":
     print("Windows detected")
     sys.exit(
@@ -222,7 +228,7 @@ def GetDependency(directory,
             print("    ### Download Windows 64-bit " + directory)
             GitShallowClone(gitWindows64, directory)
         elif PLATFORM_WINDOWS_32 and gitWindows32:
-            print("    ### Download Windows 32-bit" + directory)
+            print("    ### Download Windows 32-bit " + directory)
             GitShallowClone(gitWindows32, directory)
         elif PLATFORM_WINDOWS and gitWindows:
             print("    ### Download Windows " + directory)
@@ -243,7 +249,7 @@ def GetDependency(directory,
                     shell = True
                 )
         elif downloadOsX and PLATFORM_OSX:
-            print("    ### Download OS X" + directory)
+            print("    ### Download OS X " + directory)
             
             for command in downloadOsX:
                 print("        ### Running OS X download command: " + command)
@@ -371,7 +377,7 @@ def GetDependency(directory,
 
 # Get Premake (binaries only)
 GetDependency(
-    "premake-5.0.0-alpha5",
+    "premake5",
     downloadLinux = [
         "curl -sLo premake-5.0.0-alpha5.tar.gz "
         + "https://github.com/premake/premake-core/releases/download/v5.0.0-alpha5/premake-5.0.0-alpha5-linux.tar.gz",
@@ -433,15 +439,19 @@ GetDependency(
         "tar xf lua-5.3.1.tar.gz"
     ],
     compileLinux = [
-        "PATH=\"$PATH:" + prefixDir + "/bin\" "
+        "PATH=\"" + prefixDir + "/bin:$PATH\" "
         + "LIBRARY_PATH=\"$LIBRARY_PATH:" + prefixDir + "/lib/\" "
         + "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:" + prefixDir + "/lib\" "
         + "C_INCLUDE_PATH=\"$C_INCLUDE_PATH:" + prefixDir + "/include\" "
         + "make " + make_jobs + " linux MYLIBS=-ltermcap",
         "make install INSTALL_TOP=\"" + prefixDir + "\""
     ],
+    compileOsX = [
+        "make " + make_jobs + " macosx",
+        "make install INSTALL_TOP=\"" + prefixDir + "\""
+    ],
     compileWindows = [
-        "make mingw",
+        "make " + make_jobs + " mingw",
         "make install INSTALL_TOP=\"" + prefixDir + "\"",
         "cp src/lua53.dll " + prefixDir + "/bin/"
     ]
@@ -519,6 +529,11 @@ GetDependency(
         "make " + make_jobs,
         "make install"
     ],
+    compileOsX = [
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
     compileWindows64 = [
         "./configure "
         + "--build=x86_64-w64-mingw32 "
@@ -548,6 +563,11 @@ GetDependency(
         "tar xf libogg-1.3.2.tar.gz"
     ],
     compileLinux = [
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileOsX = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -584,6 +604,11 @@ GetDependency(
         "make " + make_jobs,
         "make install"
     ],
+    compileOsX = [
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
     compileWindows64 = [
         "./configure "
         + "--build=x86_64-w64-mingw32 "
@@ -612,6 +637,11 @@ GetDependency(
     compileLinux = [
         "cd build; cmake -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
         "cd build; make " + make_jobs,
+        "cd build; make install"
+    ],
+    compileOsX = [
+        "cd build; cmake -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
+        "cd build; make",
         "cd build; make install"
     ],
     compileWindows = [
@@ -644,6 +674,21 @@ GetDependency(
         "make " + make_jobs,
         "make install"
     ],
+    compileOsX = [
+        "CC=" + tempDir + "/SDL2-2.0.3/build-scripts/gcc-fat.sh "
+        + "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    #compileOsX = [
+    #    "./autogen.sh",
+    #    "mkdir build",
+    #    "cd build; "
+    #    + "CC=" + tempDir + "/SDL2-2.0.3/build-scripts/gcc-fat.sh "
+    #    + "../configure --prefix=" + prefixDir,
+    #    "cd build; make " + make_jobs,
+    #    "cd build; make install"
+    #],
     compileWindows64 = [
         "./autogen.sh",
         "./configure "
@@ -675,6 +720,11 @@ GetDependency(
         "tar xf zlib-1.2.8.tar.gz"
     ],
     compileLinux = [
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileOsX = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -715,6 +765,13 @@ GetDependency(
         "make " + make_jobs,
         "make install"
     ],
+    compileOsX = [
+        "CPPFLAGS=\"-I" + prefixDir + "/include\" "
+        + "LDFLAGS=\"-L" + prefixDir + "/lib\" "
+        + "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
     compileWindows64 = [
         "./configure "
         + "--build=x86_64-w64-mingw32 "
@@ -743,6 +800,11 @@ GetDependency(
         "tar xf jpegsrc.v9a.tar.gz"
     ],
     compileLinux = [
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileOsX = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
@@ -779,6 +841,11 @@ GetDependency(
         "make " + make_jobs,
         "make install"
     ],
+    compileOsX = [
+        "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
     compileWindows64 = [
         "./configure "
         + "--build=x86_64-w64-mingw32 "
@@ -808,7 +875,16 @@ GetDependency(
     ],
     compileLinux = [
         "./autogen.sh",
-        "PATH=\"$PATH:" + prefixDir + "/bin\" "
+        "PATH=\"" + prefixDir + "/bin:$PATH\" "
+        + "CFLAGS=\"-I" + prefixDir + "/include\" "
+        + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
+        + "./configure --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileOsX = [
+        "./autogen.sh",
+        "PATH=\"" + prefixDir + "/bin:$PATH\" "
         + "CFLAGS=\"-I" + prefixDir + "/include\" "
         + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
         + "./configure --prefix=" + prefixDir,
@@ -817,7 +893,7 @@ GetDependency(
     ],
     compileWindows64 = [
         "./autogen.sh",
-        "PATH=\"$PATH:" + prefixDir + "/bin\" "
+        "PATH=\"" + prefixDir + "/bin:$PATH\" "
         + "CFLAGS=\"-I" + prefixDir + "/include\" "
         + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
         + "./configure "
@@ -830,7 +906,7 @@ GetDependency(
     ],
     compileWindows32 = [
         "./autogen.sh",
-        "PATH=\"$PATH:" + prefixDir + "/bin\" "
+        "PATH=\"" + prefixDir + "/bin:$PATH\" "
         + "CFLAGS=\"-I" + prefixDir + "/include\" "
         + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
         + "./configure "
@@ -852,12 +928,17 @@ GetDependency(
         "tar xf pcre-8.37.tar.gz"
     ],
     compileLinux = [
-        "./configure --prefix=" + prefixDir,
+        "./configure --disable-shared --prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileOsX = [
+        "./configure --disable-shared --prefix=" + prefixDir,
         "make " + make_jobs,
         "make install"
     ],
     compileWindows64 = [
-        "./configure "
+        "./configure --disable-shared "
         + "--build=x86_64-w64-mingw32 "
         + "--host=x86_64-w64-mingw32 "
         #+ "--target=x86_64-w64-mingw32 "
@@ -866,7 +947,7 @@ GetDependency(
         "make install"
     ],
     compileWindows32 = [
-        "./configure "
+        "./configure --disable-shared "
         + "--build=i686-w64-mingw32 "
         + "--host=i686-w64-mingw32 "
         #+ "--target=i686-w64-mingw32 "
@@ -886,7 +967,17 @@ GetDependency(
     ],
     compileLinux = [
         "./autogen.sh",
-        "./configure "
+        "PATH=\"" + prefixDir + "/bin:$PATH\" "
+        + "./configure "
+        + "--with-pcre-prefix=" + prefixDir + " "
+        + "--prefix=" + prefixDir,
+        "make " + make_jobs,
+        "make install"
+    ],
+    compileOsX = [
+        "./autogen.sh",
+        "PATH=\"" + prefixDir + "/bin:$PATH\" "
+        + "./configure "
         + "--with-pcre-prefix=" + prefixDir + " "
         + "--prefix=" + prefixDir,
         "make " + make_jobs,
@@ -926,6 +1017,11 @@ GetDependency(
         "mkdir Qt",
         "mv qt-unified-linux-x64-online.run Qt"
     ],
+    downloadOsX = [
+        "curl -sLO http://download.qt.io/official_releases/online_installers/qt-unified-mac-x64-online.dmg",
+        "mkdir Qt",
+        "mv qt-unified-mac-x64-online.dmg Qt"
+    ],
     downloadWindows = [
         "curl -sLO http://download.qt.io/official_releases/online_installers/qt-unified-windows-x86-online.exe",
         "mkdir Qt",
@@ -934,6 +1030,9 @@ GetDependency(
     compileLinux = [
         "./qt-unified-linux-x64-online.run; exit 0"
     ],
+    #compileOsX = [
+    #    "./qt-unified-mac-x64-online.dmg; exit 0"
+    #],
     compileWindows = [
         "./qt-unified-windows-x86-online.exe; exit 0"
     ]

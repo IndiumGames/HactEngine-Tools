@@ -3,6 +3,9 @@
 *.autosave
 *.temp
 
+# Ignore .DS_Store
+.DS_Store
+
 # Ignore makefiles
 Makefile
 
