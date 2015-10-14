@@ -14,6 +14,8 @@ required to compile the engine's dependencies. If these are small and simple
 to compile (like GNU Readline), they are downloaded and compiled as well.
 """
 
+# pylint: disable = C0302, R0913
+
 import argparse
 import multiprocessing
 import os
@@ -114,7 +116,7 @@ print("")
 # Available arguments
 parser = argparse.ArgumentParser("update-tools")
 parser.add_argument(
-    "--no-compile",
+    "--no-build",
     action="store_true",
     help="Only download, do not install tools"
 )
@@ -128,9 +130,6 @@ make_jobs = "-j" + str(multiprocessing.cpu_count())
 
 # The directory containing this script
 scriptDir = posixpath.dirname(posixpath.realpath(__file__))
-
-#scriptDir = scriptDir.replace("\\", "/")
-#scriptDir = scriptDir.replace("C:/", "/")
 
 # The directory to use as the temporary directory
 tempDir = scriptDir + "/temp"
@@ -190,109 +189,87 @@ def GitShallowClone(url, directory):
     return output
 
 
+def GetParameter(paramName, param, linux, osx, windows, windows32, windows64):
+    """
+    Get a parameter based on OS.
+    
+    :returns: The original parameter or an OS specific one.
+    """
+    
+    if PLATFORM_LINUX and linux:
+        param = linux.get(paramName, param)
+    elif PLATFORM_OSX and osx:
+        param = osx.get(paramName, param)
+    elif PLATFORM_WINDOWS_64 and windows64:
+        if windows:
+            param = windows.get(paramName, param)
+        
+        param = windows64.get(paramName, param)
+    elif PLATFORM_WINDOWS_32 and windows32:
+        if windows:
+            param = windows.get(paramName, param)
+        
+        param = windows32.get(paramName, param)
+    elif PLATFORM_WINDOWS and windows:
+        param = windows.get(paramName, param)
+    
+    return param
+
+
 def GetDependency(directory,
                   git = None,
-                  gitLinux = None,
-                  gitOsX = None,
-                  gitWindows = None,
-                  gitWindows32 = None,
-                  gitWindows64 = None,
                   download = None,
-                  downloadLinux = None,
-                  downloadOsX = None,
-                  downloadWindows = None,
-                  downloadWindows32 = None,
-                  downloadWindows64 = None,
-                  compile = None,
-                  compileLinux = None,
-                  compileOsX = None,
-                  compileWindows = None,
-                  compileWindows32 = None,
-                  compileWindows64 = None):
+                  build = None,
+                  linux = None,
+                  osx = None,
+                  windows = None,
+                  windows32 = None,
+                  windows64 = None):
     """
     Get dependency.
     """
     
     if posixpath.exists(tempDir + "/" + directory):
-        print("### Skipping " + directory + " because directory exists: " + tempDir + "/" + directory)
+        print(
+            "### Skipping " + directory + " because directory exists: "
+            + tempDir + "/" + directory
+        )
     else:
         print("### " + directory)
         
-        if PLATFORM_LINUX and gitLinux:
-            print("    ### Download Linux " + directory)
-            GitShallowClone(gitLinux, directory)
-        elif PLATFORM_OSX and gitOsX:
-            print("    ### Download OS X " + directory)
-            GitShallowClone(gitOsX, directory)
-        elif PLATFORM_WINDOWS_64 and gitWindows64:
-            print("    ### Download Windows 64-bit " + directory)
-            GitShallowClone(gitWindows64, directory)
-        elif PLATFORM_WINDOWS_32 and gitWindows32:
-            print("    ### Download Windows 32-bit " + directory)
-            GitShallowClone(gitWindows32, directory)
-        elif PLATFORM_WINDOWS and gitWindows:
-            print("    ### Download Windows " + directory)
-            GitShallowClone(gitWindows, directory)
-        elif git:
+        git = GetParameter(
+            "git",
+            git,
+            linux,
+            osx,
+            windows,
+            windows32,
+            windows64
+        )
+        download = GetParameter(
+            "download",
+            download,
+            linux,
+            osx,
+            windows,
+            windows32,
+            windows64
+        )
+        build = GetParameter(
+            "build",
+            build,
+            linux,
+            osx,
+            windows,
+            windows32,
+            windows64
+        )
+        
+        if git:
             print("    ### Download " + directory)
             GitShallowClone(git, directory)
         
-        if downloadLinux and PLATFORM_LINUX:
-            print("    ### Download Linux " + directory)
-            
-            for command in downloadLinux:
-                print("        ### Running Linux download command: " + command)
-                
-                subprocess.check_output(
-                    command,
-                    cwd = tempDir,
-                    shell = True
-                )
-        elif downloadOsX and PLATFORM_OSX:
-            print("    ### Download OS X " + directory)
-            
-            for command in downloadOsX:
-                print("        ### Running OS X download command: " + command)
-                
-                subprocess.check_output(
-                    command,
-                    cwd = tempDir,
-                    shell = True
-                )
-        elif downloadWindows64 and PLATFORM_WINDOWS_64:
-            print("    ### Download Windows 64-bit " + directory)
-            
-            for command in downloadWindows64:
-                print("        ### Running Windows 64-bit download command: " + command)
-                
-                subprocess.check_output(
-                    command,
-                    cwd = tempDir,
-                    shell = True
-                )
-        elif downloadWindows32 and PLATFORM_WINDOWS_32:
-            print("    ### Download Windows 32-bit " + directory)
-            
-            for command in downloadWindows32:
-                print("        ### Running Windows 32-bit download command: " + command)
-                
-                subprocess.check_output(
-                    command,
-                    cwd = tempDir,
-                    shell = True
-                )
-        elif downloadWindows and PLATFORM_WINDOWS:
-            print("    ### Download Windows " + directory)
-            
-            for command in downloadWindows:
-                print("        ### Running Windows download command: " + command)
-                
-                subprocess.check_output(
-                    command,
-                    cwd = tempDir,
-                    shell = True
-                )
-        elif download:
+        if download:
             print("    ### Download " + directory)
             
             for command in download:
@@ -304,73 +281,17 @@ def GetDependency(directory,
                     shell = True
                 )
         
-        if not args.no_compile:
-            if compileLinux and PLATFORM_LINUX:
-                print("    ### Compile " + directory)
+        if build and not args.no_build:
+            print("    ### Build " + directory)
+            
+            for command in build:
+                print("        ### Running build command: " + command)
                 
-                for command in compileLinux:
-                    print("        ### Running Linux compile command: " + command)
-                    
-                    subprocess.check_output(
-                        command,
-                        cwd = tempDir + "/" + directory,
-                        shell = True
-                    )
-            elif compileOsX and PLATFORM_OSX:
-                print("    ### Compile " + directory)
-                
-                for command in compileOsX:
-                    print("        ### Running OS X compile command: " + command)
-                    
-                    subprocess.check_output(
-                        command,
-                        cwd = tempDir + "/" + directory,
-                        shell = True
-                    )
-            elif compileWindows64 and PLATFORM_WINDOWS_64:
-                print("    ### Compile " + directory)
-                
-                for command in compileWindows64:
-                    print("        ### Running Windows 64-bit compile command: " + command)
-                    
-                    subprocess.check_output(
-                        command,
-                        cwd = tempDir + "/" + directory,
-                        shell = True
-                    )
-            elif compileWindows32 and PLATFORM_WINDOWS_32:
-                print("    ### Compile " + directory)
-                
-                for command in compileWindows32:
-                    print("        ### Running Windows 32-bit compile command: " + command)
-                    
-                    subprocess.check_output(
-                        command,
-                        cwd = tempDir + "/" + directory,
-                        shell = True
-                    )
-            elif compileWindows and PLATFORM_WINDOWS:
-                print("    ### Compile " + directory)
-                
-                for command in compileWindows:
-                    print("        ### Running Windows compile command: " + command)
-                    
-                    subprocess.check_output(
-                        command,
-                        cwd = tempDir + "/" + directory,
-                        shell = True
-                    )
-            elif compile:
-                print("    ### Compile " + directory)
-                
-                for command in compile:
-                    print("        ### Running compile command: " + command)
-                    
-                    subprocess.check_output(
-                        command,
-                        cwd = tempDir + "/" + directory,
-                        shell = True
-                    )
+                subprocess.check_output(
+                    command,
+                    cwd = tempDir + "/" + directory,
+                    shell = True
+                )
     
     print("")
 
@@ -378,21 +299,30 @@ def GetDependency(directory,
 # Get Premake (binaries only)
 GetDependency(
     "premake5",
-    downloadLinux = [
-        "curl -sLo premake-5.0.0-alpha5.tar.gz "
-        + "https://github.com/premake/premake-core/releases/download/v5.0.0-alpha5/premake-5.0.0-alpha5-linux.tar.gz",
-        "tar xf premake-5.0.0-alpha5.tar.gz"
-    ],
-    downloadOsX = [
-        "curl -sLo premake-5.0.0-alpha5.tar.gz "
-        + "https://github.com/premake/premake-core/releases/download/v5.0.0-alpha5/premake-5.0.0-alpha5-macosx.tar.gz",
-        "tar xf premake-5.0.0-alpha5.tar.gz"
-    ],
-    downloadWindows = [
-        "curl -sLo premake-5.0.0-alpha5.zip "
-        + "https://github.com/premake/premake-core/releases/download/v5.0.0-alpha5/premake-5.0.0-alpha5-windows.zip",
-        "unzip -o premake-5.0.0-alpha5.zip"
-    ]
+    linux = {
+        "download": [
+            "curl -sLo premake-5.0.0-alpha6.tar.gz "
+            + "https://github.com/premake/premake-core/releases/download/"
+            + "v5.0.0-alpha6/premake-5.0.0-alpha6-linux.tar.gz",
+            "tar xf premake-5.0.0-alpha6.tar.gz"
+        ]
+    },
+    osx = {
+        "download": [
+            "curl -sLo premake-5.0.0-alpha6.tar.gz "
+            + "https://github.com/premake/premake-core/releases/download/"
+            + "v5.0.0-alpha6/premake-5.0.0-alpha6-macosx.tar.gz",
+            "tar xf premake-5.0.0-alpha6.tar.gz"
+        ]
+    },
+    windows = {
+        "download": [
+            "curl -sLo premake-5.0.0-alpha6.zip "
+            + "https://github.com/premake/premake-core/releases/download/"
+            + "v5.0.0-alpha6/premake-5.0.0-alpha6-windows.zip",
+            "unzip -o premake-5.0.0-alpha6.zip"
+        ]
+    }
 )
 
 
@@ -409,26 +339,30 @@ GetDependency(
 # Get and compile Termcap (needed by GNU Readline, needed by Lua)
 GetDependency(
     "termcap-1.3.1",
-    downloadLinux = [
-        "curl -sLO http://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz",
-        "tar xf termcap-1.3.1.tar.gz"
-    ],
-    compileLinux = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ]
+    linux = {
+        "download": [
+            "curl -sLO http://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz",
+            "tar xf termcap-1.3.1.tar.gz"
+        ],
+        "build": [
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
 )
 
 # Get and compile GNU Readline (for Lua)
 GetDependency(
     "readline",
-    gitLinux = "git://git.savannah.gnu.org/readline.git",
-    compileLinux = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ]
+    linux = {
+        "git": "git://git.savannah.gnu.org/readline.git",
+        "build": [
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
 )
 
 # Get and compile Lua
@@ -438,45 +372,29 @@ GetDependency(
         "curl -sLO http://www.lua.org/ftp/lua-5.3.1.tar.gz",
         "tar xf lua-5.3.1.tar.gz"
     ],
-    compileLinux = [
-        "PATH=\"" + prefixDir + "/bin:$PATH\" "
-        + "LIBRARY_PATH=\"$LIBRARY_PATH:" + prefixDir + "/lib/\" "
-        + "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:" + prefixDir + "/lib\" "
-        + "C_INCLUDE_PATH=\"$C_INCLUDE_PATH:" + prefixDir + "/include\" "
-        + "make " + make_jobs + " linux MYLIBS=-ltermcap",
-        "make install INSTALL_TOP=\"" + prefixDir + "\""
-    ],
-    compileOsX = [
-        "make " + make_jobs + " macosx",
-        "make install INSTALL_TOP=\"" + prefixDir + "\""
-    ],
-    compileWindows = [
-        "make " + make_jobs + " mingw",
-        "make install INSTALL_TOP=\"" + prefixDir + "\"",
-        "cp src/lua53.dll " + prefixDir + "/bin/"
-    ]
-    # Alternative version, if the above doesn't work
-    #compileWindows = [
-    #    "cd src; "
-    #    + "make "
-    #    + "LUA_A=lua53.dll "
-    #    + "LUA_T=lua.exe "
-    #    + "AR=\"gcc -shared -o\" "
-    #    + "RANLIB=\"strip --strip-unneeded\" "
-    #    + "MYCFLAGS=\"-DLUA_DL_DLL -DLUA_BUILD_AS_DLL\" "
-    #    + "MYLIBS= "
-    #    + "MYLDFLAGS=-s "
-    #    + "lua.exe; "
-    #    + "make "
-    #    + "LUAC_T=luac.exe "
-    #    + "luac.exe",
-    #    "cd src; "
-    #    + "mkdir -p " + prefixDir + "/bin/ " + prefixDir + "/lib/; "
-    #    + "cp lua.exe " + prefixDir + "/bin/; "
-    #    + "cp luac.exe " + prefixDir + "/bin/; "
-    #    + "cp lua53.dll " + prefixDir + "/bin/; "
-    #    + "cp liblua.a " + prefixDir + "/lib/"
-    #]
+    linux = {
+        "build": [
+            "PATH=\"" + prefixDir + "/bin:$PATH\" "
+            + "LIBRARY_PATH=\"$LIBRARY_PATH:" + prefixDir + "/lib/\" "
+            + "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:" + prefixDir + "/lib\" "
+            + "C_INCLUDE_PATH=\"$C_INCLUDE_PATH:" + prefixDir + "/include\" "
+            + "make " + make_jobs + " linux MYLIBS=-ltermcap",
+            "make install INSTALL_TOP=\"" + prefixDir + "\""
+        ]
+    },
+    osx = {
+        "build": [
+            "make " + make_jobs + " macosx",
+            "make install INSTALL_TOP=\"" + prefixDir + "\""
+        ]
+    },
+    windows = {
+        "build": [
+            "make " + make_jobs + " mingw",
+            "make install INSTALL_TOP=\"" + prefixDir + "\"",
+            "cp src/lua53.dll " + prefixDir + "/bin/"
+        ]
+    }
 )
 
 
@@ -484,7 +402,7 @@ GetDependency(
 GetDependency(
     "luacheck",
     git = "https://github.com/mpeterv/luacheck.git",
-    compile = [
+    build = [
         "PATH=\"" + prefixDir + "/bin:$PATH\" ./install.lua " + prefixDir
     ]
 )
@@ -524,34 +442,42 @@ GetDependency(
         "curl -sLO http://download.savannah.gnu.org/releases/freetype/freetype-2.6.tar.gz",
         "tar xf freetype-2.6.tar.gz"
     ],
-    compileLinux = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileOsX = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows64 = [
-        "./configure "
-        + "--build=x86_64-w64-mingw32 "
-        + "--host=x86_64-w64-mingw32 "
-        #+ "--target=x86_64-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows32 = [
-        "./configure "
-        + "--build=i686-w64-mingw32 "
-        + "--host=i686-w64-mingw32 "
-        #+ "--target=i686-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ]
+    linux = {
+        "build": [
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    osx = {
+        "build": [
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows64 = {
+        "build": [
+            "./configure "
+            + "--build=x86_64-w64-mingw32 "
+            + "--host=x86_64-w64-mingw32 "
+            #+ "--target=x86_64-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows32 = {
+        "build": [
+            "./configure "
+            + "--build=i686-w64-mingw32 "
+            + "--host=i686-w64-mingw32 "
+            #+ "--target=i686-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
 )
 
 
@@ -562,34 +488,42 @@ GetDependency(
         "curl -sLO http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz",
         "tar xf libogg-1.3.2.tar.gz"
     ],
-    compileLinux = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileOsX = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows64 = [
-        "./configure "
-        + "--build=x86_64-w64-mingw32 "
-        + "--host=x86_64-w64-mingw32 "
-        #+ "--target=x86_64-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows32 = [
-        "./configure "
-        + "--build=i686-w64-mingw32 "
-        + "--host=i686-w64-mingw32 "
-        #+ "--target=i686-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ]
+    linux = {
+        "build": [
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    osx = {
+        "build": [
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows64 = {
+        "build": [
+            "./configure "
+            + "--build=x86_64-w64-mingw32 "
+            + "--host=x86_64-w64-mingw32 "
+            #+ "--target=x86_64-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows32 = {
+        "build": [
+            "./configure "
+            + "--build=i686-w64-mingw32 "
+            + "--host=i686-w64-mingw32 "
+            #+ "--target=i686-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
 )
 
 # Get and compile libvorbis
@@ -599,34 +533,42 @@ GetDependency(
         "curl -sLO http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.5.tar.gz",
         "tar xf libvorbis-1.3.5.tar.gz"
     ],
-    compileLinux = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileOsX = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows64 = [
-        "./configure "
-        + "--build=x86_64-w64-mingw32 "
-        + "--host=x86_64-w64-mingw32 "
-        #+ "--target=x86_64-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows32 = [
-        "./configure "
-        + "--build=i686-w64-mingw32 "
-        + "--host=i686-w64-mingw32 "
-        #+ "--target=i686-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ]
+    linux = {
+        "build": [
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    osx = {
+        "build": [
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows64 = {
+        "build": [
+            "./configure "
+            + "--build=x86_64-w64-mingw32 "
+            + "--host=x86_64-w64-mingw32 "
+            #+ "--target=x86_64-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows32 = {
+        "build": [
+            "./configure "
+            + "--build=i686-w64-mingw32 "
+            + "--host=i686-w64-mingw32 "
+            #+ "--target=i686-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
 )
 
 
@@ -634,30 +576,38 @@ GetDependency(
 GetDependency(
     "openal-soft",
     git = "http://repo.or.cz/openal-soft.git",
-    compileLinux = [
-        "cd build; cmake -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
-        "cd build; make " + make_jobs,
-        "cd build; make install"
-    ],
-    compileOsX = [
-        "cd build; cmake -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
-        "cd build; make",
-        "cd build; make install"
-    ],
-    compileWindows = [
-        "cd build; cmake -G \"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
-        "cd build; make " + make_jobs,
-        "cd build; make install"
-    ]
+    linux = {
+        "build": [
+            "cd build; cmake -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
+            "cd build; make " + make_jobs,
+            "cd build; make install"
+        ]
+    },
+    osx = {
+        "build": [
+            "cd build; cmake -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
+            "cd build; make",
+            "cd build; make install"
+        ]
+    },
+    windows = {
+        "build": [
+            "cd build; cmake -G \"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
+            "cd build; make " + make_jobs,
+            "cd build; make install"
+        ]
+    }
 )
 
 # Get and compile OpenAL Soft binaries (Windows)
 GetDependency(
     "openal-soft-1.16.0-bin",
-    downloadWindows = [
-        "curl -sLO http://kcat.strangesoft.net/openal-soft-1.16.0-bin.zip",
-        "unzip -o openal-soft-1.16.0-bin.zip"
-    ]
+    windows = {
+        "download": [
+            "curl -sLO http://kcat.strangesoft.net/openal-soft-1.16.0-bin.zip",
+            "unzip -o openal-soft-1.16.0-bin.zip"
+        ]
+    }
 )
 
 
@@ -668,47 +618,46 @@ GetDependency(
         "curl -sLO https://www.libsdl.org/release/SDL2-2.0.3.tar.gz",
         "tar xf SDL2-2.0.3.tar.gz"
     ],
-    compileLinux = [
-        "./autogen.sh",
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileOsX = [
-        "CC=" + tempDir + "/SDL2-2.0.3/build-scripts/gcc-fat.sh "
-        + "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    #compileOsX = [
-    #    "./autogen.sh",
-    #    "mkdir build",
-    #    "cd build; "
-    #    + "CC=" + tempDir + "/SDL2-2.0.3/build-scripts/gcc-fat.sh "
-    #    + "../configure --prefix=" + prefixDir,
-    #    "cd build; make " + make_jobs,
-    #    "cd build; make install"
-    #],
-    compileWindows64 = [
-        "./autogen.sh",
-        "./configure "
-        + "--build=x86_64-w64-mingw32 "
-        + "--host=x86_64-w64-mingw32 "
-        #+ "--target=x86_64-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows32 = [
-        "./autogen.sh",
-        "./configure "
-        + "--build=i686-w64-mingw32 "
-        + "--host=i686-w64-mingw32 "
-        #+ "--target=i686-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ]
+    linux = {
+        "build": [
+            "./autogen.sh",
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    osx = {
+        "build": [
+            "CC=" + tempDir + "/SDL2-2.0.3/build-scripts/gcc-fat.sh "
+            + "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows64 = {
+        "build": [
+            "./autogen.sh",
+            "./configure "
+            + "--build=x86_64-w64-mingw32 "
+            + "--host=x86_64-w64-mingw32 "
+            #+ "--target=x86_64-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows32 = {
+        "build": [
+            "./autogen.sh",
+            "./configure "
+            + "--build=i686-w64-mingw32 "
+            + "--host=i686-w64-mingw32 "
+            #+ "--target=i686-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
 )
 
 
@@ -719,34 +668,31 @@ GetDependency(
         "curl -sLO http://zlib.net/zlib-1.2.8.tar.gz",
         "tar xf zlib-1.2.8.tar.gz"
     ],
-    compileLinux = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileOsX = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    #compileWindows64 = [
-    #    "./configure "
-    #    + "--build=x86_64-w64-mingw32 "
-    #    + "--host=x86_64-w64-mingw32 "
-    #    #+ "--target=x86_64-w64-mingw32 "
-    #    + "--prefix=" + prefixDir,
-    #    "make " + make_jobs,
-    #    "make install"
-    #]
-    compileWindows = [
-        "make "
-        + "-f win32/Makefile.gcc "
-        + "BINARY_PATH=" + prefixDir + "/bin "
-        + "INCLUDE_PATH=" + prefixDir + "/include "
-        + "LIBRARY_PATH=" + prefixDir + "/lib "
-        + "install",
-        "cp zlib1.dll " + prefixDir + "/bin"
-    ]
+    linux = {
+        "build": [
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    osx = {
+        "build": [
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows = {
+        "build": [
+            "make "
+            + "-f win32/Makefile.gcc "
+            + "BINARY_PATH=" + prefixDir + "/bin "
+            + "INCLUDE_PATH=" + prefixDir + "/include "
+            + "LIBRARY_PATH=" + prefixDir + "/lib "
+            + "install",
+            "cp zlib1.dll " + prefixDir + "/bin"
+        ]
+    }
 )
 
 # Get and compile libpng (needed by SDL2_image)
@@ -758,38 +704,46 @@ GetDependency(
         "curl -sLO ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng16/libpng-1.6.18.tar.gz",
         "tar xf libpng-1.6.18.tar.gz"
     ],
-    compileLinux = [
-        "CPPFLAGS=\"-I" + prefixDir + "/include\" "
-        + "LDFLAGS=\"-L" + prefixDir + "/lib\" "
-        + "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileOsX = [
-        "CPPFLAGS=\"-I" + prefixDir + "/include\" "
-        + "LDFLAGS=\"-L" + prefixDir + "/lib\" "
-        + "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows64 = [
-        "./configure "
-        + "--build=x86_64-w64-mingw32 "
-        + "--host=x86_64-w64-mingw32 "
-        #+ "--target=x86_64-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows32 = [
-        "./configure "
-        + "--build=i686-w64-mingw32 "
-        + "--host=i686-w64-mingw32 "
-        #+ "--target=i686-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ]
+    linux = {
+        "build": [
+            "CPPFLAGS=\"-I" + prefixDir + "/include\" "
+            + "LDFLAGS=\"-L" + prefixDir + "/lib\" "
+            + "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    osx = {
+        "build": [
+            "CPPFLAGS=\"-I" + prefixDir + "/include\" "
+            + "LDFLAGS=\"-L" + prefixDir + "/lib\" "
+            + "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows64 = {
+        "build": [
+            "./configure "
+            + "--build=x86_64-w64-mingw32 "
+            + "--host=x86_64-w64-mingw32 "
+            #+ "--target=x86_64-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows32 = {
+        "build": [
+            "./configure "
+            + "--build=i686-w64-mingw32 "
+            + "--host=i686-w64-mingw32 "
+            #+ "--target=i686-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
 )
 
 # Get and compile libjpeg (needed by SDL2_image)
@@ -799,34 +753,42 @@ GetDependency(
         "curl -sLO http://www.ijg.org/files/jpegsrc.v9a.tar.gz",
         "tar xf jpegsrc.v9a.tar.gz"
     ],
-    compileLinux = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileOsX = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows64 = [
-        "./configure "
-        + "--build=x86_64-w64-mingw32 "
-        + "--host=x86_64-w64-mingw32 "
-        #+ "--target=x86_64-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows32 = [
-        "./configure "
-        + "--build=i686-w64-mingw32 "
-        + "--host=i686-w64-mingw32 "
-        #+ "--target=i686-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ]
+    linux = {
+        "build": [
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    osx = {
+        "build": [
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows64 = {
+        "build": [
+            "./configure "
+            + "--build=x86_64-w64-mingw32 "
+            + "--host=x86_64-w64-mingw32 "
+            #+ "--target=x86_64-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows32 = {
+        "build": [
+            "./configure "
+            + "--build=i686-w64-mingw32 "
+            + "--host=i686-w64-mingw32 "
+            #+ "--target=i686-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
 )
 
 # Get and compile libtiff (needed by SDL2_image)
@@ -836,34 +798,42 @@ GetDependency(
         "curl -sLO ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.6.tar.gz",
         "tar xf tiff-4.0.6.tar.gz"
     ],
-    compileLinux = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileOsX = [
-        "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows64 = [
-        "./configure "
-        + "--build=x86_64-w64-mingw32 "
-        + "--host=x86_64-w64-mingw32 "
-        #+ "--target=x86_64-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows32 = [
-        "./configure "
-        + "--build=i686-w64-mingw32 "
-        + "--host=i686-w64-mingw32 "
-        #+ "--target=i686-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ]
+    linux = {
+        "build": [
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    osx = {
+        "build": [
+            "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows64 = {
+        "build": [
+            "./configure "
+            + "--build=x86_64-w64-mingw32 "
+            + "--host=x86_64-w64-mingw32 "
+            #+ "--target=x86_64-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows32 = {
+        "build": [
+            "./configure "
+            + "--build=i686-w64-mingw32 "
+            + "--host=i686-w64-mingw32 "
+            #+ "--target=i686-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
 )
 
 # Get and compile SDL2_image
@@ -873,50 +843,58 @@ GetDependency(
         "curl -sLO https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz",
         "tar xf SDL2_image-2.0.0.tar.gz"
     ],
-    compileLinux = [
-        "./autogen.sh",
-        "PATH=\"" + prefixDir + "/bin:$PATH\" "
-        + "CFLAGS=\"-I" + prefixDir + "/include\" "
-        + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
-        + "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileOsX = [
-        "./autogen.sh",
-        "PATH=\"" + prefixDir + "/bin:$PATH\" "
-        + "CFLAGS=\"-I" + prefixDir + "/include\" "
-        + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
-        + "./configure --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows64 = [
-        "./autogen.sh",
-        "PATH=\"" + prefixDir + "/bin:$PATH\" "
-        + "CFLAGS=\"-I" + prefixDir + "/include\" "
-        + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
-        + "./configure "
-        + "--build=x86_64-w64-mingw32 "
-        + "--host=x86_64-w64-mingw32 "
-        #+ "--target=x86_64-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows32 = [
-        "./autogen.sh",
-        "PATH=\"" + prefixDir + "/bin:$PATH\" "
-        + "CFLAGS=\"-I" + prefixDir + "/include\" "
-        + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
-        + "./configure "
-        + "--build=i686-w64-mingw32 "
-        + "--host=i686-w64-mingw32 "
-        #+ "--target=i686-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ]
+    linux = {
+        "build": [
+            "./autogen.sh",
+            "PATH=\"" + prefixDir + "/bin:$PATH\" "
+            + "CFLAGS=\"-I" + prefixDir + "/include\" "
+            + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
+            + "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    osx = {
+        "build": [
+            "./autogen.sh",
+            "PATH=\"" + prefixDir + "/bin:$PATH\" "
+            + "CFLAGS=\"-I" + prefixDir + "/include\" "
+            + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
+            + "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows64 = {
+        "build": [
+            "./autogen.sh",
+            "PATH=\"" + prefixDir + "/bin:$PATH\" "
+            + "CFLAGS=\"-I" + prefixDir + "/include\" "
+            + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
+            + "./configure "
+            + "--build=x86_64-w64-mingw32 "
+            + "--host=x86_64-w64-mingw32 "
+            #+ "--target=x86_64-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows32 = {
+        "build": [
+            "./autogen.sh",
+            "PATH=\"" + prefixDir + "/bin:$PATH\" "
+            + "CFLAGS=\"-I" + prefixDir + "/include\" "
+            + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
+            + "./configure "
+            + "--build=i686-w64-mingw32 "
+            + "--host=i686-w64-mingw32 "
+            #+ "--target=i686-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
 )
 
 
@@ -927,34 +905,42 @@ GetDependency(
         "curl -sLO ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.37.tar.gz",
         "tar xf pcre-8.37.tar.gz"
     ],
-    compileLinux = [
-        "./configure --disable-shared --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileOsX = [
-        "./configure --disable-shared --prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows64 = [
-        "./configure --disable-shared "
-        + "--build=x86_64-w64-mingw32 "
-        + "--host=x86_64-w64-mingw32 "
-        #+ "--target=x86_64-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows32 = [
-        "./configure --disable-shared "
-        + "--build=i686-w64-mingw32 "
-        + "--host=i686-w64-mingw32 "
-        #+ "--target=i686-w64-mingw32 "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ]
+    linux = {
+        "build": [
+            "./configure --disable-shared --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    osx = {
+        "build": [
+            "./configure --disable-shared --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows64 = {
+        "build": [
+            "./configure --disable-shared "
+            + "--build=x86_64-w64-mingw32 "
+            + "--host=x86_64-w64-mingw32 "
+            #+ "--target=x86_64-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows32 = {
+        "build": [
+            "./configure --disable-shared "
+            + "--build=i686-w64-mingw32 "
+            + "--host=i686-w64-mingw32 "
+            #+ "--target=i686-w64-mingw32 "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
 )
 
 # Get and compile SWIG
@@ -965,75 +951,89 @@ GetDependency(
         "curl -sLO http://prdownloads.sourceforge.net/swig/swig-3.0.7.tar.gz",
         "tar xf swig-3.0.7.tar.gz"
     ],
-    compileLinux = [
-        "./autogen.sh",
-        "PATH=\"" + prefixDir + "/bin:$PATH\" "
-        + "./configure "
-        + "--with-pcre-prefix=" + prefixDir + " "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileOsX = [
-        "./autogen.sh",
-        "PATH=\"" + prefixDir + "/bin:$PATH\" "
-        + "./configure "
-        + "--with-pcre-prefix=" + prefixDir + " "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows64 = [
-        "./autogen.sh",
-        "./configure "
-        + "--build=x86_64-w64-mingw32 "
-        + "--host=x86_64-w64-mingw32 "
-        #+ "--target=x86_64-w64-mingw32 "
-        + "--with-pcre-prefix=" + prefixDir + " "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ],
-    compileWindows32 = [
-        "./autogen.sh",
-        "./configure "
-        + "--build=i686-w64-mingw32 "
-        + "--host=i686-w64-mingw32 "
-        #+ "--target=i686-w64-mingw32 "
-        + "--with-pcre-prefix=" + prefixDir + " "
-        + "--prefix=" + prefixDir,
-        "make " + make_jobs,
-        "make install"
-    ]
+    linux = {
+        "build": [
+            "./autogen.sh",
+            "PATH=\"" + prefixDir + "/bin:$PATH\" "
+            + "./configure "
+            + "--with-pcre-prefix=" + prefixDir + " "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    osx = {
+        "build": [
+            "./autogen.sh",
+            "PATH=\"" + prefixDir + "/bin:$PATH\" "
+            + "./configure "
+            + "--with-pcre-prefix=" + prefixDir + " "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows64 = {
+        "build": [
+            "./autogen.sh",
+            "./configure "
+            + "--build=x86_64-w64-mingw32 "
+            + "--host=x86_64-w64-mingw32 "
+            #+ "--target=x86_64-w64-mingw32 "
+            + "--with-pcre-prefix=" + prefixDir + " "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    },
+    windows32 = {
+        "build": [
+            "./autogen.sh",
+            "./configure "
+            + "--build=i686-w64-mingw32 "
+            + "--host=i686-w64-mingw32 "
+            #+ "--target=i686-w64-mingw32 "
+            + "--with-pcre-prefix=" + prefixDir + " "
+            + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
 )
 
 
 # Get Qt
 GetDependency(
     "Qt",
-    downloadLinux = [
-        "curl -sLO http://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run",
-        "chmod a+x qt-unified-linux-x64-online.run",
-        "mkdir Qt",
-        "mv qt-unified-linux-x64-online.run Qt"
-    ],
-    downloadOsX = [
-        "curl -sLO http://download.qt.io/official_releases/online_installers/qt-unified-mac-x64-online.dmg",
-        "mkdir Qt",
-        "mv qt-unified-mac-x64-online.dmg Qt"
-    ],
-    downloadWindows = [
-        "curl -sLO http://download.qt.io/official_releases/online_installers/qt-unified-windows-x86-online.exe",
-        "mkdir Qt",
-        "mv qt-unified-windows-x86-online.exe Qt"
-    ],
-    compileLinux = [
-        "./qt-unified-linux-x64-online.run; exit 0"
-    ],
-    #compileOsX = [
-    #    "./qt-unified-mac-x64-online.dmg; exit 0"
-    #],
-    compileWindows = [
-        "./qt-unified-windows-x86-online.exe; exit 0"
-    ]
+    linux = {
+        "download": [
+            "curl -sLO http://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run",
+            "chmod a+x qt-unified-linux-x64-online.run",
+            "mkdir Qt",
+            "mv qt-unified-linux-x64-online.run Qt"
+        ],
+        "build": [
+            "./qt-unified-linux-x64-online.run; exit 0"
+        ]
+    },
+    osx = {
+        "download": [
+            "curl -sLO http://download.qt.io/official_releases/online_installers/qt-unified-mac-x64-online.dmg",
+            "mkdir Qt",
+            "mv qt-unified-mac-x64-online.dmg Qt"
+        ]
+        #"build": [
+        #    "./qt-unified-mac-x64-online.dmg; exit 0"
+        #]
+    },
+    windows = {
+        "download": [
+            "curl -sLO http://download.qt.io/official_releases/online_installers/qt-unified-windows-x86-online.exe",
+            "mkdir Qt",
+            "mv qt-unified-windows-x86-online.exe Qt"
+        ],
+        "build": [
+            "./qt-unified-windows-x86-online.exe; exit 0"
+        ]
+    }
 )
