@@ -6,6 +6,7 @@ Run HactEngine.
 
 import atexit
 import os
+import platform
 import subprocess
 
 
@@ -22,10 +23,16 @@ atexit.register(
         os.remove("engine")
 )
 
+
+timeoutCommand="timeout"
+
+if platform.system() == "Darwin":
+    timeoutCommand="gtimeout"
+
 # Run HactEngine (debug build)
 subprocess.call(
     [
-        "timeout",
+        timeoutCommand,
         "--preserve-status",
         "15s",
         "./build/Debug/HactEngine"
@@ -40,7 +47,7 @@ print("")
 # Run HactEngine (release build)
 subprocess.call(
     [
-        "timeout",
+       timeoutCommand,
         "--preserve-status",
         "15s",
         "./build/Release/HactEngine"
