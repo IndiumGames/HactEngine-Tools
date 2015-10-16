@@ -14,6 +14,8 @@ print("")
 print("[RUNNING HACTENGINE (DEBUG)]")
 print("")
 
+print(os.getcwd())
+
 # Create fake engine folder
 os.symlink(".", "engine")
 
@@ -24,10 +26,10 @@ atexit.register(
 )
 
 
-timeoutCommand="timeout"
+timeoutCommand = "timeout"
 
 if platform.system() == "Darwin":
-    timeoutCommand="gtimeout"
+    timeoutCommand = "gtimeout"
 
 # Run HactEngine (debug build)
 subprocess.call(
