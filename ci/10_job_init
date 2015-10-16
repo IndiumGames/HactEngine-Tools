@@ -44,7 +44,7 @@ print("Tag:    " + str(tag))
 
 if branch == "HEAD":
     subprocess.check_call(
-        ["git", "submodule", "--recursive", "update"]
+        ["git", "submodule", "update", "--recursive"]
     )
 else:
     # Checkout the current branch in submodules
