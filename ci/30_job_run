@@ -14,8 +14,6 @@ print("")
 print("[RUNNING HACTENGINE (DEBUG)]")
 print("")
 
-print(os.getcwd())
-
 # Create fake engine folder
 os.symlink(".", "engine")
 

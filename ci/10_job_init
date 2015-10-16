@@ -6,10 +6,15 @@ Initialize and display information about the job and environment.
 
 import os
 import subprocess
-import sys
 
 
+print("")
 print("[INIT]")
+print("")
+
+print(os.getcwd())
+print("")
+
 
 # Get current Git branch name
 branch = None
