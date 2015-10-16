@@ -1036,6 +1036,25 @@ GetDependency(
 )
 
 
+# Get Gcovr
+GetDependency(
+    "gcovr-3.2",
+    download = [
+        "curl -sLo gcovr-3.2.tar.gz "
+        + "https://github.com/gcovr/gcovr/archive/3.2.tar.gz",
+        "tar xf gcovr-3.2.tar.gz"
+    ],
+    build = [
+        "python setup.py build",
+        "mkdir -p " + prefixDir + "/bin/",
+        "cp build/scripts-2.7/gcovr " + prefixDir + "/bin/"
+        #,
+        #"PYTHONPATH=" + prefixDir + "/lib/python2.7/site-packages "
+        #+ "python setup.py install --prefix=" + prefixDir
+    ]
+)
+
+
 # Get Qt
 GetDependency(
     "Qt",
