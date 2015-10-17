@@ -588,7 +588,7 @@ GetDependency(
     }
 )
 
-# Get and compile OpenAL Soft binaries (Windows)
+# Get OpenAL Soft binaries (Windows)
 GetDependency(
     "openal-soft-1.16.0-bin",
     windows = {
