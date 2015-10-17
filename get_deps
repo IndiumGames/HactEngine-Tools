@@ -134,23 +134,12 @@ scriptDir = posixpath.dirname(posixpath.realpath(__file__))
 # The directory to use as the temporary directory
 tempDir = scriptDir + "/temp"
 
-if PLATFORM_WINDOWS_64:
-    tempDir += "-x86_64"
-elif PLATFORM_WINDOWS_32:
-    tempDir += "-i686"
-
 # Create temp directory if it doesn't exist
 if not posixpath.exists(tempDir):
     os.makedirs(tempDir)
 
-
 # The prefix directory
 prefixDir = scriptDir + "/prefix"
-
-if PLATFORM_WINDOWS_64:
-    prefixDir += "-x86_64"
-elif PLATFORM_WINDOWS_32:
-    prefixDir += "-i686"
 
 # Create prefix directory if it doesn't exist
 if not posixpath.exists(prefixDir):
