@@ -582,7 +582,7 @@ GetDependency(
     windows = {
         "build": [
             "cd build; cmake -G \"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
-            "cd build; make " + make_jobs,
+            "cd build; make",
             "cd build; make install"
         ]
     }
