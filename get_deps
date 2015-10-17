@@ -1034,9 +1034,10 @@ GetDependency(
         "tar xf gcovr-3.2.tar.gz"
     ],
     build = [
-        "python setup.py build",
+        #"python setup.py build",
         "mkdir -p " + prefixDir + "/bin/",
-        "cp build/scripts-2.7/gcovr " + prefixDir + "/bin/"
+        #"cp build/scripts-2.7/gcovr " + prefixDir + "/bin/"
+        "cp scripts/gcovr " + prefixDir + "/bin/"
         #,
         #"PYTHONPATH=" + prefixDir + "/lib/python2.7/site-packages "
         #+ "python setup.py install --prefix=" + prefixDir
