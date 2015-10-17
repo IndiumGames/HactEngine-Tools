@@ -71,20 +71,34 @@ print(
 )
 
 print("[VERSION INFO]")
-subprocess.call(
-    ["g++", "--version"]
-)
-subprocess.call(
-    ["lua", "-v"]
-)
-subprocess.call(
-    ["swig", "-version"]
-)
+try:
+    subprocess.call(
+        ["g++", "--version"]
+    )
+except OSError:
+    pass
+
+try:
+    subprocess.call(
+        ["lua", "-v"]
+    )
+except OSError:
+    pass
+
+try:
+    subprocess.call(
+        ["swig", "-version"]
+    )
+except OSError:
+    pass
+
 print("")
+
 try:
     subprocess.call(
         ["qmake", "--version"]
     )
 except OSError:
     pass
+
 print("")
