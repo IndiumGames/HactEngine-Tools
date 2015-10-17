@@ -71,13 +71,13 @@ print(
 )
 
 print("[VERSION INFO]")
-subprocess.check_call(
+subprocess.call(
     ["g++", "--version"]
 )
-subprocess.check_call(
+subprocess.call(
     ["lua", "-v"]
 )
-subprocess.check_call(
+subprocess.call(
     ["swig", "-version"]
 )
 print("")
