@@ -22,7 +22,7 @@ print("")
 
 # Build
 subprocess.check_call(
-    ["./make"]
+    ["./compile"]
 )
 
 print("")
@@ -31,7 +31,7 @@ print("")
 
 # Build
 subprocess.check_call(
-    ["./make", "config=release"]
+    ["./compile", "config=release"]
 )
 
 print("")
