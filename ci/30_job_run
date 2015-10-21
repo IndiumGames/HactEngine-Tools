@@ -14,8 +14,9 @@ print("")
 print("[RUNNING HACTENGINE (DEBUG)]")
 print("")
 
-# Create fake engine folder
-os.symlink(".", "engine")
+if not os.path.exists("engine"):
+    # Create fake engine folder
+    os.symlink(".", "engine")
 
 # Remove the temporary symlink at exit
 atexit.register(
