@@ -49,13 +49,15 @@ print("Tag:    " + str(tag))
 
 if branch == "HEAD":
     subprocess.check_call(
-        ["git", "submodule", "update", "--recursive"]
+        "git submodule update --init --remote --recursive",
+        stderr = open(os.devnull, 'w'),
+        shell = True
     )
 else:
     # Checkout the current branch in submodules
     subprocess.check_call(
         "git submodule foreach --recursive "
-        + "'git checkout " + branch + " || git checkout master'",
+        + "'(git checkout " + branch + " || git checkout master); git pull'",
         stderr = open(os.devnull, 'w'),
         shell = True
     )
