@@ -17,21 +17,21 @@ subprocess.check_call(
 )
 
 print("")
-print("[BUILDING HACTENGINE (DEBUG)]")
-print("")
-
-# Build
-subprocess.check_call(
-    ["./compile"]
-)
-
-print("")
 print("[BUILDING HACTENGINE (RELEASE)]")
 print("")
 
 # Build
 subprocess.check_call(
     ["./compile", "config=release"]
+)
+
+print("")
+print("[BUILDING HACTENGINE (DEBUG)]")
+print("")
+
+# Build
+subprocess.check_call(
+    ["./compile", "config=debug"]
 )
 
 print("")
