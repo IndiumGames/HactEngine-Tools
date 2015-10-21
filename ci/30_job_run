@@ -18,13 +18,6 @@ if not os.path.exists("engine"):
     # Create fake engine folder
     os.symlink(".", "engine")
 
-# Remove the temporary symlink at exit
-atexit.register(
-    lambda:
-        if os.path.islink("engine"):
-            os.remove("engine")
-)
-
 
 timeoutCommand = "timeout"
 
