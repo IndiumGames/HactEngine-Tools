@@ -21,7 +21,8 @@ if not os.path.exists("engine"):
 # Remove the temporary symlink at exit
 atexit.register(
     lambda:
-        os.remove("engine")
+        if os.path.islink("engine"):
+            os.remove("engine")
 )
 
 
