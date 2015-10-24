@@ -40,6 +40,28 @@ PLATFORM_WINDOWS_32 = False
 PLATFORM_WINDOWS_64 = False
 
 
+# Available arguments
+parser = argparse.ArgumentParser("update-tools")
+parser.add_argument(
+    "--no-build",
+    action="store_true",
+    help="Only download, do not install tools"
+)
+parser.add_argument(
+    "--mingw64",
+    action="store_true",
+    help="Force MinGW64 in MSYS2"
+)
+parser.add_argument(
+    "--mingw32",
+    action="store_true",
+    help="Force MinGW32 in MSYS2"
+)
+
+# Parse arguments
+args = parser.parse_args()
+
+
 if platform.system() == "Linux":
     print("Linux detected")
     PLATFORM_LINUX = True
@@ -73,15 +95,7 @@ elif platform.system() == "Windows":
 elif os.name == "posix":
     print("POSIX platform detected")
     
-    if "MSYS" in platform.system():
-        print("MSYS2 detected")
-        sys.exit(
-            "! MSYS2 not supported, please install MINGW64 or MINGW32:\n"
-            + "! pacman -S mingw-w64-x86_64-toolchain   (for 64-bit builds)\n"
-            + "!   OR\n"
-            + "! pacman -S mingw-w64-i686-toolchain     (for 32-bit builds)"
-        )
-    elif "MINGW64" in platform.system():
+    if "MINGW64" in platform.system() or ("MSYS" in platform.system() and args.mingw64):
         print("MSYS2 + MINGW64 detected")
         PLATFORM_WINDOWS    = True
         PLATFORM_WINDOWS_64 = True
@@ -92,7 +106,7 @@ elif os.name == "posix":
         print("    pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-libtool   (for 64-bit builds)")
         print("    pacman -S mingw-w64-i686-toolchain                          (for 32-bit builds)")
         print("    pacman -S mingw-w64-i686-cmake mingw-w64-i686-libtool       (for 32-bit builds)")
-    elif "MINGW32" in platform.system():
+    elif "MINGW32" in platform.system() or ("MSYS" in platform.system() and args.mingw32):
         print("MSYS2 + MINGW32 detected")
         PLATFORM_WINDOWS    = True
         PLATFORM_WINDOWS_32 = True
@@ -103,6 +117,14 @@ elif os.name == "posix":
         print("    pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-libtool   (for 64-bit builds)")
         print("    pacman -S mingw-w64-i686-toolchain                          (for 32-bit builds)")
         print("    pacman -S mingw-w64-i686-cmake mingw-w64-i686-libtool       (for 32-bit builds)")
+    elif "MSYS" in platform.system():
+        print("MSYS2 detected")
+        sys.exit(
+            "! MSYS2 not supported, please install MINGW64 or MINGW32:\n"
+            + "! pacman -S mingw-w64-x86_64-toolchain   (for 64-bit builds)\n"
+            + "!   OR\n"
+            + "! pacman -S mingw-w64-i686-toolchain     (for 32-bit builds)"
+        )
     else:
         print("Unsupported POSIX platform")
         sys.exit("! Unsupported platform!")
@@ -111,18 +133,6 @@ else:
     sys.exit("! Unsupported platform!")
 
 print("")
-
-
-# Available arguments
-parser = argparse.ArgumentParser("update-tools")
-parser.add_argument(
-    "--no-build",
-    action="store_true",
-    help="Only download, do not install tools"
-)
-
-# Parse arguments
-args = parser.parse_args()
 
 
 # Amount of jobs to use when building
