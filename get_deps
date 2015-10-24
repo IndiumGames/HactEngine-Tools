@@ -76,7 +76,7 @@ elif os.name == "posix":
     if "MSYS" in platform.system():
         print("MSYS2 detected")
         sys.exit(
-            "! MSYS2 not supported, please install MINGW64 or MINGW32:"
+            "! MSYS2 not supported, please install MINGW64 or MINGW32:\n"
             + "! pacman -S mingw-w64-x86_64-toolchain   (for 64-bit builds)\n"
             + "!   OR\n"
             + "! pacman -S mingw-w64-i686-toolchain     (for 32-bit builds)"
