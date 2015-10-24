@@ -587,12 +587,14 @@ GetDependency(
 
 # Get and compile OpenAL Soft
 GetDependency(
-    "openal-soft-1.16.0",
-    download = [
-        "curl -sLO http://kcat.strangesoft.net/openal-releases/"
-        + "openal-soft-1.16.0.tar.bz2",
-        "tar xf openal-soft-1.16.0.tar.bz2"
-    ],
+    "openal-soft",
+    git = "http://repo.or.cz/openal-soft.git",
+    #"openal-soft-1.16.0",
+    #download = [
+    #    "curl -sLO http://kcat.strangesoft.net/openal-releases/"
+    #    + "openal-soft-1.16.0.tar.bz2",
+    #    "tar xf openal-soft-1.16.0.tar.bz2"
+    #],
     linux = {
         "build": [
             "cd build; cmake -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
