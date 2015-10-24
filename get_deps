@@ -67,7 +67,7 @@ elif platform.system() == "Windows":
     sys.exit(
         "! Native Windows not supported, please install MSYS2:\n"
         + "! https://msys2.github.io/\n"
-        + "! If you already have MSYS2 installed, make sure you're running with the correct Python:\n"
+        + "! If you already have MSYS2 installed, run with the correct Python:\n"
         + "! /bin/python ./get-deps"
     )
 elif os.name == "posix":
@@ -319,7 +319,8 @@ GetDependency(
 GetDependency(
     "glew-1.13.0",
     download = [
-        "curl -sLO https://sourceforge.net/projects/glew/files/glew/1.13.0/glew-1.13.0.tgz",
+        "curl -sLO https://sourceforge.net/projects/glew/files/glew/"
+        + "1.13.0/glew-1.13.0.tgz",
         "tar xf glew-1.13.0.tgz"
     ]
 )
@@ -343,9 +344,12 @@ GetDependency(
 
 # Get and compile GNU Readline (for Lua)
 GetDependency(
-    "readline",
+    "readline-6.3",
     linux = {
-        "git": "git://git.savannah.gnu.org/readline.git",
+        "download": [
+            "curl -sLO ftp://ftp.cwru.edu/pub/bash/readline-6.3.tar.gz",
+            "tar xf readline-6.3.tar.gz"
+        ],
         "build": [
             "./configure --prefix=" + prefixDir,
             "make " + make_jobs,
@@ -399,8 +403,14 @@ GetDependency(
 
 # Get GLM
 GetDependency(
-    "GLM",
-    git = "https://github.com/g-truc/glm.git"
+    "glm-0.9.7.1",
+    download = [
+        "curl -sLO https://github.com/g-truc/glm/releases/download/"
+        + "0.9.7.1/glm-0.9.7.1.zip",
+        "unzip -o glm-0.9.7.1.zip",
+        "mv glm glm-0.9.7.1"
+    ]
+    
 )
 
 
@@ -408,7 +418,8 @@ GetDependency(
 GetDependency(
     "rapidxml-1.13",
     download = [
-        "curl -sLO http://downloads.sourceforge.net/project/rapidxml/rapidxml/rapidxml%201.13/rapidxml-1.13.zip",
+        "curl -sLO http://downloads.sourceforge.net/project/rapidxml/"
+        + "rapidxml/rapidxml%201.13/rapidxml-1.13.zip",
         "unzip -o rapidxml-1.13.zip"
     ]
 )
@@ -416,20 +427,22 @@ GetDependency(
 
 # Get utf8cpp
 GetDependency(
-    "utf8cpp",
+    "utf8cpp-2.3.4",
     download = [
-        "curl -sLO http://downloads.sourceforge.net/project/utfcpp/utf8cpp_2x/Release%202.3.4/utf8_v2_3_4.zip",
-        "unzip -o utf8_v2_3_4.zip -d utf8cpp"
+        "curl -sLO http://downloads.sourceforge.net/project/utfcpp/"
+        + "utf8cpp_2x/Release%202.3.4/utf8_v2_3_4.zip",
+        "unzip -o utf8_v2_3_4.zip -d utf8cpp-2.3.4"
     ]
 )
 
 
 # Get and compile FreeType
 GetDependency(
-    "freetype-2.6",
+    "freetype-2.6.1",
     download = [
-        "curl -sLO http://download.savannah.gnu.org/releases/freetype/freetype-2.6.tar.gz",
-        "tar xf freetype-2.6.tar.gz"
+        "curl -sLO http://download.savannah.gnu.org/releases/freetype/"
+        + "freetype-2.6.1.tar.gz",
+        "tar xf freetype-2.6.1.tar.gz"
     ],
     linux = {
         "build": [
@@ -519,7 +532,8 @@ GetDependency(
 GetDependency(
     "libvorbis-1.3.5",
     download = [
-        "curl -sLO http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.5.tar.gz",
+        "curl -sLO http://downloads.xiph.org/releases/vorbis/"
+        + "libvorbis-1.3.5.tar.gz",
         "tar xf libvorbis-1.3.5.tar.gz"
     ],
     linux = {
@@ -563,8 +577,12 @@ GetDependency(
 
 # Get and compile OpenAL Soft
 GetDependency(
-    "openal-soft",
-    git = "http://repo.or.cz/openal-soft.git",
+    "openal-soft-1.16.0",
+    download = [
+        "curl -sLO http://kcat.strangesoft.net/openal-releases/"
+        + "openal-soft-1.16.0.tar.bz2",
+        "tar xf openal-soft-1.16.0.tar.bz2"
+    ],
     linux = {
         "build": [
             "cd build; cmake -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
@@ -581,7 +599,8 @@ GetDependency(
     },
     windows = {
         "build": [
-            "cd build; cmake -G \"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
+            "cd build; cmake -G \"MSYS Makefiles\" "
+            + "-DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " ..",
             "cd build; make",
             "cd build; make install"
         ]
@@ -688,9 +707,8 @@ GetDependency(
 GetDependency(
     "libpng-1.6.18",
     download = [
-        #"curl -sLO http://download.sourceforge.net/libpng/libpng-1.2.52.tar.gz",
-        #"tar xf libpng-1.2.52.tar.gz"
-        "curl -sLO ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng16/libpng-1.6.18.tar.gz",
+        "curl -sLO ftp://ftp.simplesystems.org/pub/libpng/png/src/"
+        + "libpng16/libpng-1.6.18.tar.gz",
         "tar xf libpng-1.6.18.tar.gz"
     ],
     linux = {
@@ -829,7 +847,8 @@ GetDependency(
 GetDependency(
     "SDL2_image-2.0.0",
     download = [
-        "curl -sLO https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz",
+        "curl -sLO https://www.libsdl.org/projects/SDL_image/release/"
+        + "SDL2_image-2.0.0.tar.gz",
         "tar xf SDL2_image-2.0.0.tar.gz"
     ],
     linux = {
@@ -891,7 +910,8 @@ GetDependency(
 GetDependency(
     "pcre-8.37",
     download = [
-        "curl -sLO ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.37.tar.gz",
+        "curl -sLO ftp://ftp.csx.cam.ac.uk/pub/software/programming/"
+        + "pcre/pcre-8.37.tar.gz",
         "tar xf pcre-8.37.tar.gz"
     ],
     linux = {
@@ -935,7 +955,6 @@ GetDependency(
 # Get and compile SWIG
 GetDependency(
     "swig-3.0.7",
-    #git = "https://github.com/swig/swig.git",
     download = [
         "curl -sLO http://prdownloads.sourceforge.net/swig/swig-3.0.7.tar.gz",
         "tar xf swig-3.0.7.tar.gz"
@@ -993,8 +1012,12 @@ GetDependency(
 
 # Get and compile Uncrustify
 GetDependency(
-    "uncrustify",
-    git = "https://github.com/bengardner/uncrustify.git",
+    "uncrustify-0.61",
+    download = [
+        "curl -sLO http://sourceforge.net/projects/uncrustify/files/uncrustify/"
+        + "uncrustify-0.61/uncrustify-0.61.tar.gz",
+        "tar xf uncrustify-0.61.tar.gz"
+    ],
     build = [
         "./configure --prefix=" + prefixDir,
         "make " + make_jobs,
@@ -1050,7 +1073,8 @@ GetDependency(
     "Qt",
     linux = {
         "download": [
-            "curl -sLO http://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run",
+            "curl -sLO http://download.qt.io/official_releases/"
+            + "online_installers/qt-unified-linux-x64-online.run",
             "chmod a+x qt-unified-linux-x64-online.run",
             "mkdir Qt",
             "mv qt-unified-linux-x64-online.run Qt"
@@ -1061,7 +1085,8 @@ GetDependency(
     },
     osx = {
         "download": [
-            "curl -sLO http://download.qt.io/official_releases/online_installers/qt-unified-mac-x64-online.dmg",
+            "curl -sLO http://download.qt.io/official_releases/"
+            + "online_installers/qt-unified-mac-x64-online.dmg",
             "mkdir Qt",
             "mv qt-unified-mac-x64-online.dmg Qt"
         ]
@@ -1071,7 +1096,8 @@ GetDependency(
     },
     windows = {
         "download": [
-            "curl -sLO http://download.qt.io/official_releases/online_installers/qt-unified-windows-x86-online.exe",
+            "curl -sLO http://download.qt.io/official_releases/"
+            + "online_installers/qt-unified-windows-x86-online.exe",
             "mkdir Qt",
             "mv qt-unified-windows-x86-online.exe Qt"
         ],
