@@ -62,6 +62,10 @@ parser.add_argument(
 args = parser.parse_args()
 
 
+# Configure flags on MSYS
+msysFlags = ""
+
+
 if platform.system() == "Linux":
     print("Linux detected")
     PLATFORM_LINUX = True
@@ -100,6 +104,10 @@ elif os.name == "posix":
         PLATFORM_WINDOWS    = True
         PLATFORM_WINDOWS_64 = True
         
+        msysFlags = "--build=x86_64-w64-mingw32 "
+                    + "--host=x86_64-w64-mingw32 "
+                    #+ "--target=x86_64-w64-mingw32 "
+        
         print("Install these dependencies: ")
         print("    pacman -S autoconf automake diffutils git make python tar tmux unzip")
         print("    pacman -S mingw-w64-x86_64-toolchain                        (for 64-bit builds)")
@@ -110,6 +118,10 @@ elif os.name == "posix":
         print("MSYS2 + MINGW32 detected")
         PLATFORM_WINDOWS    = True
         PLATFORM_WINDOWS_32 = True
+        
+        msysFlags = "--build=i686-w64-mingw32 "
+                    + "--host=i686-w64-mingw32 "
+                    #+ "--target=i686-w64-mingw32 "
         
         print("Install these dependencies: ")
         print("    pacman -S autoconf automake diffutils git make python tar tmux unzip")
@@ -468,23 +480,10 @@ GetDependency(
             "make install"
         ]
     },
-    windows64 = {
+    windows = {
         "build": [
             "./configure "
-            + "--build=x86_64-w64-mingw32 "
-            + "--host=x86_64-w64-mingw32 "
-            #+ "--target=x86_64-w64-mingw32 "
-            + "--prefix=" + prefixDir,
-            "make " + make_jobs,
-            "make install"
-        ]
-    },
-    windows32 = {
-        "build": [
-            "./configure "
-            + "--build=i686-w64-mingw32 "
-            + "--host=i686-w64-mingw32 "
-            #+ "--target=i686-w64-mingw32 "
+            + msysFlags
             + "--prefix=" + prefixDir,
             "make " + make_jobs,
             "make install"
@@ -514,23 +513,10 @@ GetDependency(
             "make install"
         ]
     },
-    windows64 = {
+    windows = {
         "build": [
             "./configure "
-            + "--build=x86_64-w64-mingw32 "
-            + "--host=x86_64-w64-mingw32 "
-            #+ "--target=x86_64-w64-mingw32 "
-            + "--prefix=" + prefixDir,
-            "make " + make_jobs,
-            "make install"
-        ]
-    },
-    windows32 = {
-        "build": [
-            "./configure "
-            + "--build=i686-w64-mingw32 "
-            + "--host=i686-w64-mingw32 "
-            #+ "--target=i686-w64-mingw32 "
+            + msysFlags
             + "--prefix=" + prefixDir,
             "make " + make_jobs,
             "make install"
@@ -560,23 +546,10 @@ GetDependency(
             "make install"
         ]
     },
-    windows64 = {
+    windows = {
         "build": [
             "./configure "
-            + "--build=x86_64-w64-mingw32 "
-            + "--host=x86_64-w64-mingw32 "
-            #+ "--target=x86_64-w64-mingw32 "
-            + "--prefix=" + prefixDir,
-            "make " + make_jobs,
-            "make install"
-        ]
-    },
-    windows32 = {
-        "build": [
-            "./configure "
-            + "--build=i686-w64-mingw32 "
-            + "--host=i686-w64-mingw32 "
-            #+ "--target=i686-w64-mingw32 "
+            + msysFlags
             + "--prefix=" + prefixDir,
             "make " + make_jobs,
             "make install"
@@ -654,25 +627,11 @@ GetDependency(
             "make install"
         ]
     },
-    windows64 = {
+    windows = {
         "build": [
             "./autogen.sh",
             "./configure "
-            + "--build=x86_64-w64-mingw32 "
-            + "--host=x86_64-w64-mingw32 "
-            #+ "--target=x86_64-w64-mingw32 "
-            + "--prefix=" + prefixDir,
-            "make " + make_jobs,
-            "make install"
-        ]
-    },
-    windows32 = {
-        "build": [
-            "./autogen.sh",
-            "./configure "
-            + "--build=i686-w64-mingw32 "
-            + "--host=i686-w64-mingw32 "
-            #+ "--target=i686-w64-mingw32 "
+            + msysFlags
             + "--prefix=" + prefixDir,
             "make " + make_jobs,
             "make install"
@@ -741,23 +700,10 @@ GetDependency(
             "make install"
         ]
     },
-    windows64 = {
+    windows = {
         "build": [
             "./configure "
-            + "--build=x86_64-w64-mingw32 "
-            + "--host=x86_64-w64-mingw32 "
-            #+ "--target=x86_64-w64-mingw32 "
-            + "--prefix=" + prefixDir,
-            "make " + make_jobs,
-            "make install"
-        ]
-    },
-    windows32 = {
-        "build": [
-            "./configure "
-            + "--build=i686-w64-mingw32 "
-            + "--host=i686-w64-mingw32 "
-            #+ "--target=i686-w64-mingw32 "
+            + msysFlags
             + "--prefix=" + prefixDir,
             "make " + make_jobs,
             "make install"
@@ -786,23 +732,10 @@ GetDependency(
             "make install"
         ]
     },
-    windows64 = {
+    windows = {
         "build": [
             "./configure "
-            + "--build=x86_64-w64-mingw32 "
-            + "--host=x86_64-w64-mingw32 "
-            #+ "--target=x86_64-w64-mingw32 "
-            + "--prefix=" + prefixDir,
-            "make " + make_jobs,
-            "make install"
-        ]
-    },
-    windows32 = {
-        "build": [
-            "./configure "
-            + "--build=i686-w64-mingw32 "
-            + "--host=i686-w64-mingw32 "
-            #+ "--target=i686-w64-mingw32 "
+            + msysFlags
             + "--prefix=" + prefixDir,
             "make " + make_jobs,
             "make install"
@@ -831,23 +764,10 @@ GetDependency(
             "make install"
         ]
     },
-    windows64 = {
+    windows = {
         "build": [
             "./configure "
-            + "--build=x86_64-w64-mingw32 "
-            + "--host=x86_64-w64-mingw32 "
-            #+ "--target=x86_64-w64-mingw32 "
-            + "--prefix=" + prefixDir,
-            "make " + make_jobs,
-            "make install"
-        ]
-    },
-    windows32 = {
-        "build": [
-            "./configure "
-            + "--build=i686-w64-mingw32 "
-            + "--host=i686-w64-mingw32 "
-            #+ "--target=i686-w64-mingw32 "
+            + msysFlags
             + "--prefix=" + prefixDir,
             "make " + make_jobs,
             "make install"
@@ -885,31 +805,14 @@ GetDependency(
             "make install"
         ]
     },
-    windows64 = {
+    windows = {
         "build": [
             "./autogen.sh",
             "PATH=\"" + prefixDir + "/bin:$PATH\" "
             + "CFLAGS=\"-I" + prefixDir + "/include\" "
             + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
             + "./configure "
-            + "--build=x86_64-w64-mingw32 "
-            + "--host=x86_64-w64-mingw32 "
-            #+ "--target=x86_64-w64-mingw32 "
-            + "--prefix=" + prefixDir,
-            "make " + make_jobs,
-            "make install"
-        ]
-    },
-    windows32 = {
-        "build": [
-            "./autogen.sh",
-            "PATH=\"" + prefixDir + "/bin:$PATH\" "
-            + "CFLAGS=\"-I" + prefixDir + "/include\" "
-            + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
-            + "./configure "
-            + "--build=i686-w64-mingw32 "
-            + "--host=i686-w64-mingw32 "
-            #+ "--target=i686-w64-mingw32 "
+            + msysFlags
             + "--prefix=" + prefixDir,
             "make " + make_jobs,
             "make install"
@@ -940,23 +843,10 @@ GetDependency(
             "make install"
         ]
     },
-    windows64 = {
+    windows = {
         "build": [
             "./configure --disable-shared "
-            + "--build=x86_64-w64-mingw32 "
-            + "--host=x86_64-w64-mingw32 "
-            #+ "--target=x86_64-w64-mingw32 "
-            + "--prefix=" + prefixDir,
-            "make " + make_jobs,
-            "make install"
-        ]
-    },
-    windows32 = {
-        "build": [
-            "./configure --disable-shared "
-            + "--build=i686-w64-mingw32 "
-            + "--host=i686-w64-mingw32 "
-            #+ "--target=i686-w64-mingw32 "
+            + msysFlags
             + "--prefix=" + prefixDir,
             "make " + make_jobs,
             "make install"
@@ -993,26 +883,11 @@ GetDependency(
             "make install"
         ]
     },
-    windows64 = {
+    windows = {
         "build": [
             "./autogen.sh",
             "./configure "
-            + "--build=x86_64-w64-mingw32 "
-            + "--host=x86_64-w64-mingw32 "
-            #+ "--target=x86_64-w64-mingw32 "
-            + "--with-pcre-prefix=" + prefixDir + " "
-            + "--prefix=" + prefixDir,
-            "make " + make_jobs,
-            "make install"
-        ]
-    },
-    windows32 = {
-        "build": [
-            "./autogen.sh",
-            "./configure "
-            + "--build=i686-w64-mingw32 "
-            + "--host=i686-w64-mingw32 "
-            #+ "--target=i686-w64-mingw32 "
+            + msysFlags
             + "--with-pcre-prefix=" + prefixDir + " "
             + "--prefix=" + prefixDir,
             "make " + make_jobs,
@@ -1035,23 +910,10 @@ GetDependency(
         "make " + make_jobs,
         "make install"
     ],
-    windows64 = {
+    windows = {
         "build": [
             "./configure "
-            + "--build=x86_64-w64-mingw32 "
-            + "--host=x86_64-w64-mingw32 "
-            #+ "--target=x86_64-w64-mingw32 "
-            + "--prefix=" + prefixDir,
-            "make " + make_jobs,
-            "make install"
-        ]
-    },
-    windows32 = {
-        "build": [
-            "./configure "
-            + "--build=i686-w64-mingw32 "
-            + "--host=i686-w64-mingw32 "
-            #+ "--target=i686-w64-mingw32 "
+            + msysFlags
             + "--prefix=" + prefixDir,
             "make " + make_jobs,
             "make install"
