@@ -104,9 +104,7 @@ elif os.name == "posix":
         PLATFORM_WINDOWS    = True
         PLATFORM_WINDOWS_64 = True
         
-        msysFlags = "--build=x86_64-w64-mingw32 "
-                    + "--host=x86_64-w64-mingw32 "
-                    #+ "--target=x86_64-w64-mingw32 "
+        msysFlags = "--build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 " #+ "--target=x86_64-w64-mingw32 "
         
         print("Install these dependencies: ")
         print("    pacman -S autoconf automake diffutils git make python tar tmux unzip")
@@ -119,9 +117,7 @@ elif os.name == "posix":
         PLATFORM_WINDOWS    = True
         PLATFORM_WINDOWS_32 = True
         
-        msysFlags = "--build=i686-w64-mingw32 "
-                    + "--host=i686-w64-mingw32 "
-                    #+ "--target=i686-w64-mingw32 "
+        msysFlags = "--build=i686-w64-mingw32 --host=i686-w64-mingw32 " #+ "--target=i686-w64-mingw32 "
         
         print("Install these dependencies: ")
         print("    pacman -S autoconf automake diffutils git make python tar tmux unzip")
