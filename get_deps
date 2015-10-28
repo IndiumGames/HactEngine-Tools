@@ -913,7 +913,8 @@ GetDependency(
     ],
     windows = {
         "build": [
-            "./configure "
+            "CFLAGS=\"-I$PWD/win32\" "
+            + "./configure "
             + msysFlags
             + "--prefix=" + prefixDir,
             "make " + make_jobs,
