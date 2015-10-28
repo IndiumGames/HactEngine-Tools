@@ -163,7 +163,7 @@ if not posixpath.exists(tempDir):
 prefixDir = scriptDir + "/prefix"
 
 if PLATFORM_WINDOWS_32:
-    tempDir += "32"
+    prefixDir += "32"
 
 # Create prefix directory if it doesn't exist
 if not posixpath.exists(prefixDir):
