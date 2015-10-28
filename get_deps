@@ -913,7 +913,7 @@ GetDependency(
     ],
     windows = {
         "build": [
-            "CFLAGS=\"-I$PWD/win32\" "
+            "CPPFLAGS=\"-I$PWD/win32\" "
             + "./configure "
             + msysFlags
             + "--prefix=" + prefixDir,
