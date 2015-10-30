@@ -3,8 +3,13 @@
 // Module name
 %module GL
 
+%begin %{
+    // Ignore warnings in release builds
+    #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+%}
+
 %{
-#include "src/hact_gl.h"
+    #include "src/hact_gl.h"
 %}
 
 // OpenGL typedefs, defines and functions
