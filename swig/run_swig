@@ -47,18 +47,34 @@ if args.release:
 else:
     outputFile = "../../build/Debug/" + outputFile
 
-swigCommand = [
-    "swig",
-    "-I../..",
-    "-I../../thirdparty",
-    "-c++",
-    "-lua",
-    "-v",
-    "-no-old-metatable-bindings",
-    "-o",
-    outputFile,
-    inputFile
-]
+if "swig_hact.i" in inputFile:
+    swigCommand = [
+        "swig",
+        "-I../..",
+        "-I../../thirdparty",
+        "-c++",
+        "-lua",
+        "-v",
+        "-no-old-metatable-bindings",
+        "-o",
+        outputFile,
+        inputFile
+    ]
+else:
+    swigCommand = [
+        "swig",
+        "-I../..",
+        "-I../../thirdparty",
+        "-c++",
+        "-lua",
+        "-v",
+        # TODO: Get this to work...
+        #"-nomoduleglobal",
+        "-no-old-metatable-bindings",
+        "-o",
+        outputFile,
+        inputFile
+    ]
 
 cacheDir = ".swig-cache/Release_" + inputFile
 
