@@ -82,7 +82,9 @@ if not args.release:
     swigCommand.insert(1, "-DHACT_EDITORS")
     cacheDir = ".swig-cache/Debug_" + inputFile
 
+# If any of these files have changed, SWIG needs to run again
 dependencyFiles = [glob.glob(pattern) for pattern in args.dependencyFiles]
+dependencyFiles = [dependencyFile for sublist in dependencyFiles for dependencyFile in sublist]
 
 
 # If this becomes true, SWIG needs to run
@@ -101,7 +103,7 @@ elif not posixpath.exists(outputFile):
     print("Output file doesn't exist, run necessary")
 
 # Loop over dependency files
-for dependencyFile in args.dependencyFiles:
+for dependencyFile in dependencyFiles:
     if not posixpath.exists(dependencyFile):
         sys.exit("Missing dependency file: " + dependencyFile)
     
