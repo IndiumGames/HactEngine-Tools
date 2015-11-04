@@ -84,7 +84,11 @@ if not args.release:
 
 # If any of these files have changed, SWIG needs to run again
 dependencyFiles = [glob.glob(pattern) for pattern in args.dependencyFiles]
-dependencyFiles = [dependencyFile for sublist in dependencyFiles for dependencyFile in sublist]
+
+# The above gives us a list of lists, which is flattened with this rather
+# uncomprehensible loop
+dependencyFiles = [dependencyFile for sublist in dependencyFiles
+                                  for dependencyFile in sublist]
 
 # Add the input file into the dependency file list
 dependencyFiles += [inputFile]
