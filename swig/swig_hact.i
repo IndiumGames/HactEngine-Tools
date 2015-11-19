@@ -182,12 +182,4 @@ namespace std {
 %include "src/xmlelement.h"
 %include "src/xmlutils.h"
 
-
-/******************************************************************************/
-// SDL_Event types
-// TODO: Move this to an "SDL" module
-
-%include "thirdparty/SDL2/SDL_event_types.h"
-/******************************************************************************/
-
 #endif // defined SWIG
