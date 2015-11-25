@@ -53,17 +53,12 @@ if args.release:
 else:
     outputFile = "../../build/Debug/" + outputFile
 
-languageFlag = "-c++"
-
-if args.c:
-    languageFlag = ""
-
 if "swig_hact.i" in inputFile:
     swigCommand = [
         "swig",
         "-I../..",
         "-I../../thirdparty",
-        languageFlag,
+        #"-c++",
         "-lua",
         "-v",
         "-no-old-metatable-bindings",
@@ -76,7 +71,7 @@ else:
         "swig",
         "-I../..",
         "-I../../thirdparty",
-        languageFlag,
+        #"-c++",
         "-lua",
         "-v",
         # TODO: Get this to work...
@@ -86,6 +81,10 @@ else:
         outputFile,
         inputFile
     ]
+
+if not args.c:
+    # Parse the input code as C++
+    swigCommand.insert(3, "-c++")
 
 cacheDir = ".swig-cache/Release_" + inputFile
 
