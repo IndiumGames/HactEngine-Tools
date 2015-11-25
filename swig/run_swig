@@ -26,6 +26,12 @@ parser.add_argument(
     default = False
 )
 parser.add_argument(
+    "--c",
+    help = "Parse the input code as C (not C++)",
+    action = "store_true",
+    default = False
+)
+parser.add_argument(
     "inputFile",
     help = "SWIG input file to use (required)"
 )
@@ -47,12 +53,17 @@ if args.release:
 else:
     outputFile = "../../build/Debug/" + outputFile
 
+languageFlag = "-c++"
+
+if args.c:
+    languageFlag = ""
+
 if "swig_hact.i" in inputFile:
     swigCommand = [
         "swig",
         "-I../..",
         "-I../../thirdparty",
-        "-c++",
+        languageFlag,
         "-lua",
         "-v",
         "-no-old-metatable-bindings",
@@ -65,7 +76,7 @@ else:
         "swig",
         "-I../..",
         "-I../../thirdparty",
-        "-c++",
+        languageFlag,
         "-lua",
         "-v",
         # TODO: Get this to work...
