@@ -677,11 +677,11 @@ GetDependency(
 
 # Get and compile libpng (needed by SDL2_image)
 GetDependency(
-    "libpng-1.6.18",
+    "libpng-1.6.19",
     download = [
         "curl -sLO ftp://ftp.simplesystems.org/pub/libpng/png/src/"
-        + "libpng16/libpng-1.6.18.tar.gz",
-        "tar xf libpng-1.6.18.tar.gz"
+        + "libpng16/libpng-1.6.19.tar.gz",
+        "tar xf libpng-1.6.19.tar.gz"
     ],
     linux = {
         "build": [
