@@ -300,9 +300,14 @@ def GetDependency(directory,
             for command in build:
                 print("        ### Running build command: " + command)
                 
+                workDir = tempDir + "/" + directory
+                
+                if not posixpath.isdir(workDir):
+                    workDir = tempDir
+                
                 subprocess.check_output(
                     command,
-                    cwd = tempDir + "/" + directory,
+                    cwd = workDir,
                     shell = True
                 )
     
@@ -936,13 +941,33 @@ GetDependency(
         "tar xf gcovr-3.2.tar.gz"
     ],
     build = [
-        #"python setup.py build",
         "mkdir -p " + prefixDir + "/bin/",
-        #"cp build/scripts-2.7/gcovr " + prefixDir + "/bin/"
         "cp scripts/gcovr " + prefixDir + "/bin/"
-        #,
-        #"PYTHONPATH=" + prefixDir + "/lib/python2.7/site-packages "
-        #+ "python setup.py install --prefix=" + prefixDir
+    ]
+)
+
+
+# Get GlslangValidator
+# NOTE: No prebuilt binaries available for OS X
+GetDependency(
+    "glslangValidator",
+    linux = {
+        "download": [
+            "curl -sLo glslangValidator "
+            + "https://cvs.khronos.org/svn/repos/ogl/trunk/ecosystem/public/"
+            + "sdk/tools/glslang/Install/Linux/glslangValidator"
+        ]
+    },
+    windows = {
+        "download": [
+            "curl -sLo glslangValidator "
+            + "https://cvs.khronos.org/svn/repos/ogl/trunk/ecosystem/public/"
+            + "sdk/tools/glslang/Install/Windows/glslangValidator.exe"
+        ]
+    },
+    build = [
+        "mkdir -p " + prefixDir + "/bin/",
+        "cp glslangValidator* " + prefixDir + "/bin/"
     ]
 )
 
