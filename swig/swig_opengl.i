@@ -5,7 +5,8 @@
 
 %begin %{
     // Ignore warnings in release builds
-    #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+    // FIXME: Get this to work :(
+    //#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 %}
 
 %{
