@@ -94,15 +94,15 @@
     %template(lua_type) glm_class<glm_type, glm_precision>;
 %enddef
 
-GLM_MATRIX(mat2x2, glm::detail::tmat2x2, float, glm::highp)
-GLM_MATRIX(mat2x3, glm::detail::tmat2x3, float, glm::highp)
-GLM_MATRIX(mat2x4, glm::detail::tmat2x4, float, glm::highp)
-GLM_MATRIX(mat3x2, glm::detail::tmat3x2, float, glm::highp)
-GLM_MATRIX(mat3x3, glm::detail::tmat3x3, float, glm::highp)
-GLM_MATRIX(mat3x4, glm::detail::tmat3x4, float, glm::highp)
-GLM_MATRIX(mat4x2, glm::detail::tmat4x2, float, glm::highp)
-GLM_MATRIX(mat4x3, glm::detail::tmat4x3, float, glm::highp)
-GLM_MATRIX(mat4x4, glm::detail::tmat4x4, float, glm::highp)
+GLM_MATRIX(mat2x2, glm::detail::tmat2x2, float, glm::highp);
+GLM_MATRIX(mat2x3, glm::detail::tmat2x3, float, glm::highp);
+GLM_MATRIX(mat2x4, glm::detail::tmat2x4, float, glm::highp);
+GLM_MATRIX(mat3x2, glm::detail::tmat3x2, float, glm::highp);
+GLM_MATRIX(mat3x3, glm::detail::tmat3x3, float, glm::highp);
+GLM_MATRIX(mat3x4, glm::detail::tmat3x4, float, glm::highp);
+GLM_MATRIX(mat4x2, glm::detail::tmat4x2, float, glm::highp);
+GLM_MATRIX(mat4x3, glm::detail::tmat4x3, float, glm::highp);
+GLM_MATRIX(mat4x4, glm::detail::tmat4x4, float, glm::highp);
 
 
 
@@ -151,25 +151,25 @@ GLM_MATRIX(mat4x4, glm::detail::tmat4x4, float, glm::highp)
     %template(lua_type) glm_class<glm_type, glm_precision>;
 %enddef
 
-GLM_VECTOR(vec2, glm::detail::tvec2, float, glm::highp)
-GLM_VECTOR(vec3, glm::detail::tvec3, float, glm::highp)
-GLM_VECTOR(vec4, glm::detail::tvec4, float, glm::highp)
+GLM_VECTOR(vec2, glm::detail::tvec2, float, glm::highp);
+GLM_VECTOR(vec3, glm::detail::tvec3, float, glm::highp);
+GLM_VECTOR(vec4, glm::detail::tvec4, float, glm::highp);
 
 #if defined DEFINE_INT_VECTORS
-    GLM_VECTOR(ivec2, glm::detail::tvec2, int, glm::highp)
-    GLM_VECTOR(ivec3, glm::detail::tvec3, int, glm::highp)
-    GLM_VECTOR(ivec4, glm::detail::tvec4, int, glm::highp)
+    GLM_VECTOR(ivec2, glm::detail::tvec2, int, glm::highp);
+    GLM_VECTOR(ivec3, glm::detail::tvec3, int, glm::highp);
+    GLM_VECTOR(ivec4, glm::detail::tvec4, int, glm::highp);
 #endif // defined DEFINE_INT_VECTORS
 
 #if defined DEFINE_UINT_VECTORS
-    GLM_VECTOR(uvec2, glm::detail::tvec2, uint32_t, glm::highp)
-    GLM_VECTOR(uvec3, glm::detail::tvec3, uint32_t, glm::highp)
-    GLM_VECTOR(uvec4, glm::detail::tvec4, uint32_t, glm::highp)
+    GLM_VECTOR(uvec2, glm::detail::tvec2, uint32_t, glm::highp);
+    GLM_VECTOR(uvec3, glm::detail::tvec3, uint32_t, glm::highp);
+    GLM_VECTOR(uvec4, glm::detail::tvec4, uint32_t, glm::highp);
 #endif // defined DEFINE_UINT_VECTORS
 
-GLM_VECTOR(bvec2, glm::detail::tvec2, bool, glm::highp)
-GLM_VECTOR(bvec3, glm::detail::tvec3, bool, glm::highp)
-GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
+GLM_VECTOR(bvec2, glm::detail::tvec2, bool, glm::highp);
+GLM_VECTOR(bvec3, glm::detail::tvec3, bool, glm::highp);
+GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp);
 
 
 
@@ -250,26 +250,26 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 
 // <glm/detail/func_common.hpp>
 %define DECLARE_FUNC_COMMON()
-    FLOAT_SCALAR_OR_VECTOR(abs)
-    FLOAT_SCALAR_OR_VECTOR(sign)
-    FLOAT_SCALAR_OR_VECTOR(floor)
-    FLOAT_SCALAR_OR_VECTOR(trunc)
-    FLOAT_SCALAR_OR_VECTOR(round)
-    FLOAT_SCALAR_OR_VECTOR(roundEven)
-    FLOAT_SCALAR_OR_VECTOR(ceil)
-    FLOAT_SCALAR_OR_VECTOR(fract)
-    FLOAT_SCALAR_OR_VECTOR_2_PARAMS(mod)
-    FLOAT_SCALAR_OR_VECTOR_2_PARAMS_VECTOR_VALUE(mod)
+    FLOAT_SCALAR_OR_VECTOR(abs);
+    FLOAT_SCALAR_OR_VECTOR(sign);
+    FLOAT_SCALAR_OR_VECTOR(floor);
+    FLOAT_SCALAR_OR_VECTOR(trunc);
+    FLOAT_SCALAR_OR_VECTOR(round);
+    FLOAT_SCALAR_OR_VECTOR(roundEven);
+    FLOAT_SCALAR_OR_VECTOR(ceil);
+    FLOAT_SCALAR_OR_VECTOR(fract);
+    FLOAT_SCALAR_OR_VECTOR_2_PARAMS(mod);
+    FLOAT_SCALAR_OR_VECTOR_2_PARAMS_VECTOR_VALUE(mod);
     //float modf(const float &, float &);
     //vec2  modf(const vec2  &, vec2  &);
     //vec3  modf(const vec3  &, vec3  &);
     //vec4  modf(const vec4  &, vec4  &);
-    FLOAT_SCALAR_OR_VECTOR_2_PARAMS(min)
-    FLOAT_SCALAR_OR_VECTOR_2_PARAMS_VECTOR_VALUE(min)
-    FLOAT_SCALAR_OR_VECTOR_2_PARAMS(max)
-    FLOAT_SCALAR_OR_VECTOR_2_PARAMS_VECTOR_VALUE(max)
-    FLOAT_SCALAR_OR_VECTOR_3_PARAMS(clamp)
-    FLOAT_SCALAR_OR_VECTOR_3_PARAMS_VECTOR_VALUE_VALUE(clamp)
+    FLOAT_SCALAR_OR_VECTOR_2_PARAMS(min);
+    FLOAT_SCALAR_OR_VECTOR_2_PARAMS_VECTOR_VALUE(min);
+    FLOAT_SCALAR_OR_VECTOR_2_PARAMS(max);
+    FLOAT_SCALAR_OR_VECTOR_2_PARAMS_VECTOR_VALUE(max);
+    FLOAT_SCALAR_OR_VECTOR_3_PARAMS(clamp);
+    FLOAT_SCALAR_OR_VECTOR_3_PARAMS_VECTOR_VALUE_VALUE(clamp);
     float mix(const float &, const float &, const float &);
     float mix(const float &, const float &, const bool  &);
     vec2  mix(const vec2  &, const vec2  &, const vec2  &);
@@ -287,7 +287,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     vec2  step(const float &, const vec2 &);
     vec3  step(const float &, const vec3 &);
     vec4  step(const float &, const vec4 &);
-    FLOAT_SCALAR_OR_VECTOR_3_PARAMS(smoothstep)
+    FLOAT_SCALAR_OR_VECTOR_3_PARAMS(smoothstep);
     vec2  smoothstep(const float &, const float &, const vec2 &);
     vec3  smoothstep(const float &, const float &, const vec3 &);
     vec4  smoothstep(const float &, const float &, const vec4 &);
@@ -315,7 +315,7 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     //!WINDOWSvec2  uintBitsToFloat(const uvec2 &);
     //!WINDOWSvec3  uintBitsToFloat(const uvec3 &);
     //!WINDOWSvec4  uintBitsToFloat(const uvec4 &);
-    FLOAT_SCALAR_OR_VECTOR_3_PARAMS(fma)
+    FLOAT_SCALAR_OR_VECTOR_3_PARAMS(fma);
     //float frexp(const float &, int &);
     //vec2  frexp(const vec2  &, ivec2  &);
     //vec3  frexp(const vec3  &, ivec3  &);
@@ -329,25 +329,25 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 
 // <glm/detail/func_exponential.hpp>
 %define DECLARE_FUNC_EXPONENTIAL()
-    FLOAT_SCALAR_OR_VECTOR_2_PARAMS(pow)
-    FLOAT_SCALAR_OR_VECTOR(exp)
-    FLOAT_SCALAR_OR_VECTOR(log)
-    FLOAT_SCALAR_OR_VECTOR(exp2)
-    FLOAT_SCALAR_OR_VECTOR(log2)
-    FLOAT_VECTOR(sqrt)
-    FLOAT_SCALAR_OR_VECTOR(inversesqrt)
+    FLOAT_SCALAR_OR_VECTOR_2_PARAMS(pow);
+    FLOAT_SCALAR_OR_VECTOR(exp);
+    FLOAT_SCALAR_OR_VECTOR(log);
+    FLOAT_SCALAR_OR_VECTOR(exp2);
+    FLOAT_SCALAR_OR_VECTOR(log2);
+    FLOAT_VECTOR(sqrt);
+    FLOAT_SCALAR_OR_VECTOR(inversesqrt);
 %enddef // DECLARE_FUNC_EXPONENTIAL
 
 
 // <glm/detail/func_geometric.hpp>
 %define DECLARE_FUNC_GEOMETRIC()
-    FLOAT_VECTOR_RETURN_VALUE(length)
-    FLOAT_VECTOR_RETURN_VALUE_2_PARAMS(distance)
-    FLOAT_VECTOR_RETURN_VALUE_2_PARAMS(dot)
+    FLOAT_VECTOR_RETURN_VALUE(length);
+    FLOAT_VECTOR_RETURN_VALUE_2_PARAMS(distance);
+    FLOAT_VECTOR_RETURN_VALUE_2_PARAMS(dot);
     vec3 cross(const vec3 &, const vec3 &);
-    FLOAT_VECTOR(normalize)
-    FLOAT_VECTOR_3_PARAMS(faceforward)
-    FLOAT_VECTOR_2_PARAMS(reflect)
+    FLOAT_VECTOR(normalize);
+    FLOAT_VECTOR_3_PARAMS(faceforward);
+    FLOAT_VECTOR_2_PARAMS(reflect);
     vec2 refract(const vec2 &, const vec2 &, const float &);
     vec3 refract(const vec3 &, const vec3 &, const float &);
     vec4 refract(const vec4 &, const vec4 &, const float &);
@@ -501,21 +501,21 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 
 // <glm/detail/func_trigonometric.hpp>
 %define DECLARE_FUNC_TRIGONOMETRIC()
-    FLOAT_SCALAR_OR_VECTOR(radians)
-    FLOAT_SCALAR_OR_VECTOR(degrees)
-    FLOAT_SCALAR_OR_VECTOR(sin)
-    FLOAT_SCALAR_OR_VECTOR(cos)
-    FLOAT_SCALAR_OR_VECTOR(tan)
-    FLOAT_SCALAR_OR_VECTOR(asin)
-    FLOAT_SCALAR_OR_VECTOR(acos)
-    FLOAT_SCALAR_OR_VECTOR_2_PARAMS(atan)
-    FLOAT_SCALAR_OR_VECTOR(atan)
-    FLOAT_SCALAR_OR_VECTOR(sinh)
-    FLOAT_SCALAR_OR_VECTOR(cosh)
-    FLOAT_SCALAR_OR_VECTOR(tanh)
-    FLOAT_SCALAR_OR_VECTOR(asinh)
-    FLOAT_SCALAR_OR_VECTOR(acosh)
-    FLOAT_SCALAR_OR_VECTOR(atanh)
+    FLOAT_SCALAR_OR_VECTOR(radians);
+    FLOAT_SCALAR_OR_VECTOR(degrees);
+    FLOAT_SCALAR_OR_VECTOR(sin);
+    FLOAT_SCALAR_OR_VECTOR(cos);
+    FLOAT_SCALAR_OR_VECTOR(tan);
+    FLOAT_SCALAR_OR_VECTOR(asin);
+    FLOAT_SCALAR_OR_VECTOR(acos);
+    FLOAT_SCALAR_OR_VECTOR_2_PARAMS(atan);
+    FLOAT_SCALAR_OR_VECTOR(atan);
+    FLOAT_SCALAR_OR_VECTOR(sinh);
+    FLOAT_SCALAR_OR_VECTOR(cosh);
+    FLOAT_SCALAR_OR_VECTOR(tanh);
+    FLOAT_SCALAR_OR_VECTOR(asinh);
+    FLOAT_SCALAR_OR_VECTOR(acosh);
+    FLOAT_SCALAR_OR_VECTOR(atanh);
 %enddef // DECLARE_FUNC_TRIGONOMETRIC
 
 
@@ -533,12 +533,12 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
     bvec2 notEqual(const vec2 &, const vec2 &);
     bvec3 notEqual(const vec3 &, const vec3 &);
     bvec4 notEqual(const vec4 &, const vec4 &);
-    bool  any(const bvec2 &);
-    bool  any(const bvec3 &);
-    bool  any(const bvec4 &);
-    bool  all(const bvec2 &);
-    bool  all(const bvec3 &);
-    bool  all(const bvec4 &);
+    bool any(const bvec2 &);
+    bool any(const bvec3 &);
+    bool any(const bvec4 &);
+    bool all(const bvec2 &);
+    bool all(const bvec3 &);
+    bool all(const bvec4 &);
     bvec2 not_(const bvec2 &);
     bvec3 not_(const bvec3 &);
     bvec4 not_(const bvec4 &);
@@ -548,33 +548,33 @@ GLM_VECTOR(bvec4, glm::detail::tvec4, bool, glm::highp)
 // Declare functions
 namespace glm {
     // <glm/detail/func_common.hpp>
-    DECLARE_FUNC_COMMON()
+    DECLARE_FUNC_COMMON();
     
     // <glm/detail/func_exponential.hpp>
-    DECLARE_FUNC_EXPONENTIAL()
+    DECLARE_FUNC_EXPONENTIAL();
     
     // <glm/detail/func_geometric.hpp>
-    DECLARE_FUNC_GEOMETRIC()
+    DECLARE_FUNC_GEOMETRIC();
     
     #if defined DEFINE_INT_VECTORS
         // <glm/detail/func_integer.hpp>
-        DECLARE_FUNC_INTEGER()
+        DECLARE_FUNC_INTEGER();
     #endif // defined DEFINE_INT_VECTORS
     
     // <glm/detail/func_matrix.hpp>
-    DECLARE_FUNC_MATRIX()
+    DECLARE_FUNC_MATRIX();
     
     // <glm/detail/func_noise.hpp>
-    DECLARE_FUNC_NOISE()
+    DECLARE_FUNC_NOISE();
     
     // <glm/detail/func_packing.hpp>
-    //DECLARE_FUNC_PACKING()
+    //DECLARE_FUNC_PACKING();
     
     // <glm/detail/func_trigonometric.hpp>
-    DECLARE_FUNC_TRIGONOMETRIC()
+    DECLARE_FUNC_TRIGONOMETRIC();
     
     // <glm/detail/func_vector_relational.hpp>
-    DECLARE_FUNC_VECTOR_RELATIONAL()
+    DECLARE_FUNC_VECTOR_RELATIONAL();
 }
 
 
@@ -805,8 +805,8 @@ namespace glm {
         
         
         // <glm/gtc/random.hpp>
-        FLOAT_SCALAR_OR_VECTOR_2_PARAMS(linearRand)
-        FLOAT_SCALAR_OR_VECTOR_2_PARAMS(gaussRand)
+        FLOAT_SCALAR_OR_VECTOR_2_PARAMS(linearRand);
+        FLOAT_SCALAR_OR_VECTOR_2_PARAMS(gaussRand);
         vec2 circularRand(const float &);
         vec3 sphericalRand(const float &);
         vec2 diskRand(const float &);
@@ -814,18 +814,18 @@ namespace glm {
         
         
         // <glm/gtc/reciprocal.hpp>
-        FLOAT_SCALAR_OR_VECTOR(sec)
-        FLOAT_SCALAR_OR_VECTOR(csc)
-        FLOAT_SCALAR_OR_VECTOR(cot)
-        FLOAT_SCALAR_OR_VECTOR(asec)
-        FLOAT_SCALAR_OR_VECTOR(acsc)
-        FLOAT_SCALAR_OR_VECTOR(acot)
-        FLOAT_SCALAR_OR_VECTOR(sech)
-        FLOAT_SCALAR_OR_VECTOR(csch)
-        FLOAT_SCALAR_OR_VECTOR(coth)
-        FLOAT_SCALAR_OR_VECTOR(asech)
-        FLOAT_SCALAR_OR_VECTOR(acsch)
-        FLOAT_SCALAR_OR_VECTOR(acoth)
+        FLOAT_SCALAR_OR_VECTOR(sec);
+        FLOAT_SCALAR_OR_VECTOR(csc);
+        FLOAT_SCALAR_OR_VECTOR(cot);
+        FLOAT_SCALAR_OR_VECTOR(asec);
+        FLOAT_SCALAR_OR_VECTOR(acsc);
+        FLOAT_SCALAR_OR_VECTOR(acot);
+        FLOAT_SCALAR_OR_VECTOR(sech);
+        FLOAT_SCALAR_OR_VECTOR(csch);
+        FLOAT_SCALAR_OR_VECTOR(coth);
+        FLOAT_SCALAR_OR_VECTOR(asech);
+        FLOAT_SCALAR_OR_VECTOR(acsch);
+        FLOAT_SCALAR_OR_VECTOR(acoth);
         
         
         // <glm/gtc/type_precision.hpp>
@@ -918,7 +918,7 @@ namespace glm {
 
 
 // Declare GTC extensions
-DECLARE_EXTENSIONS_GTC()
+DECLARE_EXTENSIONS_GTC();
 
 
 
