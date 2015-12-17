@@ -33,7 +33,6 @@
     #include "src/texture.h"
     #include "src/thread.h"
     #include "src/util.h"
-    #include "src/util_opengl.h"
     #include "src/xmlelement.h"
     #include "src/xmlutils.h"
 %}
@@ -178,7 +177,6 @@ namespace std {
 
 // Util
 %include "src/util.h"
-%include "src/util_opengl.h"
 
 // XmlElement and XmlUtils
 %include "src/xmlelement.h"
