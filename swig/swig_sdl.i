@@ -4,10 +4,12 @@
 %module SDL
 
 %{
-    #if defined __GNUC__ && !defined __clang__
     // Ignore warnings in generated code (some minor bug in SWIG)
+    #if defined __clang__
+    #pragma clang diagnostic ignored "-Wmaybe-uninitialized"
+    #elif defined __GNUC__
     #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
-    #endif // defined __GNUC__ && !defined __clang__
+    #endif // defined __clang__
     
     #include "thirdparty/SDL2/SDL_stdinc.h"
     #include "thirdparty/SDL2/SDL_keyboard.h"
