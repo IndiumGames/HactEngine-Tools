@@ -5,9 +5,8 @@
 
 %{
     // Ignore warnings in generated code (some minor bug in SWIG)
-    #if defined __clang__
-    #pragma clang diagnostic ignored "-Wmaybe-uninitialized"
-    #elif defined __GNUC__
+    // NOTE: -Wmaybe-uninitialized is not recognized by Clang
+    #if defined __GNUC__ && !defined __clang__
     #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
     #endif // defined __clang__
     
