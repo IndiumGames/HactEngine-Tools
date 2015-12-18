@@ -15,6 +15,7 @@
     #include "src/element.h"
     #include "src/entity.h"
     #include "src/event.h"
+    #include "src/gamecontroller.h"
     #include "src/gameengine.h"
     #include "src/gameengineconfig.h"
     #include "src/gamewindow.h"
@@ -94,16 +95,17 @@ namespace std {
 // Container
 %include "src/container.h"
 
-%template(EntityContainer)        Container<Entity>;
-%template(PropertyContainer)      Container<Property>;
-%template(GameWindowContainer)    OrderedContainer<GameWindow>;
-%template(EditorContainer)        OrderedContainer<Editor>;
-%template(EditorWindowContainer)  OrderedContainer<EditorWindow>;
-%template(EventContainer)         OrderedContainer<Event>;
-%template(ShaderObjectContainer)  OrderedContainer<ShaderObject>;
-%template(ThreadContainer)        OrderedContainer<Thread>;
-%template(XmlAttributeContainer)  OrderedContainer<XmlAttribute>;
-%template(XmlElementContainer)    OrderedContainer<XmlElement>;
+%template(EntityContainer)         Container<Entity>;
+%template(PropertyContainer)       Container<Property>;
+%template(GameControllerContainer) OrderedContainer<GameController>;
+%template(GameWindowContainer)     OrderedContainer<GameWindow>;
+%template(EditorContainer)         OrderedContainer<Editor>;
+%template(EditorWindowContainer)   OrderedContainer<EditorWindow>;
+%template(EventContainer)          OrderedContainer<Event>;
+%template(ShaderObjectContainer)   OrderedContainer<ShaderObject>;
+%template(ThreadContainer)         OrderedContainer<Thread>;
+%template(XmlAttributeContainer)   OrderedContainer<XmlAttribute>;
+%template(XmlElementContainer)     OrderedContainer<XmlElement>;
 
 %extend OrderedContainer<GameWindow> {
     GameWindow* Emplace(const std::string &id) {
@@ -119,6 +121,7 @@ namespace std {
     }
 };
 
+
 // Editor, EditorInput and EditorWindow
 %include "src/editor.h"
 %include "src/editorinput.h"
@@ -129,6 +132,9 @@ namespace std {
 
 // Event
 %include "src/event.h"
+
+// GameController
+%include "src/gamecontroller.h"
 
 // GameEngine
 %include "src/gameengine.h"
