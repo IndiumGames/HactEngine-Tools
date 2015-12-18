@@ -7,8 +7,10 @@
     // Ignore warnings in generated code (some minor bug in SWIG)
     #if defined __clang__
     #pragma clang diagnostic ignored "-Wmaybe-uninitialized"
+    #pragma clang diagnostic ignored "-Werror-uninitialized"
     #elif defined __GNUC__
     #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+    #pragma GCC diagnostic ignored "-Werror-uninitialized"
     #endif // defined __clang__
     
     #include "thirdparty/SDL2/SDL_stdinc.h"
