@@ -4,9 +4,11 @@
 %module GL
 
 %begin %{
-    // Ignore warnings in release builds
-    // FIXME: Get this to work :(
-    //#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+    // Ignore warnings in generated code (some minor bug in SWIG)
+    // NOTE: -Wmaybe-uninitialized is not recognized by Clang
+    #if defined __GNUC__ && !defined __clang__
+    #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+    #endif // defined __clang__
 %}
 
 %{

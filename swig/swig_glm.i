@@ -6,11 +6,10 @@
 %module GLM
 
 %{
+    #include <iostream>
     #include <stdexcept>
     #include <string>
     #include <sstream>
-    
-    #include <iostream>
     
     #define GLM_SWIZZLE
     #include <glm/glm.hpp>
