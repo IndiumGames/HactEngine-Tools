@@ -29,7 +29,8 @@ subprocess.call(
         timeoutCommand,
         "--preserve-status",
         "15s",
-        "./run config=debug"
+        "./run",
+        "config=debug"
     ]
 )
 
@@ -44,7 +45,8 @@ subprocess.call(
        timeoutCommand,
         "--preserve-status",
         "15s",
-        "./run config=release"
+        "./run",
+        "config=release"
     ]
 )
 
