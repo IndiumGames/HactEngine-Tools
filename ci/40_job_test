@@ -11,19 +11,15 @@ print("")
 print("[RUNNING TESTS]")
 print("")
 
-try:
-    # Run tests
-    subprocess.check_output(
-        ["./configure", "--run-tests"],
-        cwd = "tests"
-    )
-    subprocess.check_output(
-        ["./compile", "--run-tests"],
-        cwd = "tests"
-    )
-except subprocess.CalledProcessError as e:
-    print e.message
-    raise
+# Run tests
+subprocess.check_call(
+    ["./configure", "--run-tests"],
+    cwd = "tests"
+)
+subprocess.check_call(
+    ["./compile", "--run-tests"],
+    cwd = "tests"
+)
 
 print("")
 print("[DONE RUNNING TESTS]")

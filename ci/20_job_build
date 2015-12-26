@@ -11,40 +11,28 @@ print("")
 print("[CONFIGURE]")
 print("")
 
-try:
-    # Run Premake
-    subprocess.check_output(
-        ["./configure"]
-    )
-except subprocess.CalledProcessError as e:
-    print e.message
-    raise
+# Run Premake
+subprocess.check_call(
+    ["./configure"]
+)
 
 print("")
 print("[BUILDING HACTENGINE (RELEASE)]")
 print("")
 
-try:
-    # Build
-    subprocess.check_output(
-        ["./compile", "config=release"]
-    )
-except subprocess.CalledProcessError as e:
-    print e.message
-    raise
+# Build
+subprocess.check_call(
+    ["./compile", "config=release"]
+)
 
 print("")
 print("[BUILDING HACTENGINE (DEBUG)]")
 print("")
 
-try:
-    # Build
-    subprocess.check_output(
-        ["./compile", "config=debug"]
-    )
-except subprocess.CalledProcessError as e:
-    print e.message
-    raise
+# Build
+subprocess.check_call(
+    ["./compile", "config=debug"]
+)
 
 print("")
 print("[DONE BUILDING]")
