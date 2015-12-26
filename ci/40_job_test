@@ -13,7 +13,11 @@ print("")
 
 # Run tests
 subprocess.check_call(
-    ["./run_tests.sh"],
+    ["./configure --run-tests"],
+    cwd = "tests"
+)
+subprocess.check_call(
+    ["./compile --run-tests"],
     cwd = "tests"
 )
 
