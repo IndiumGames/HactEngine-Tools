@@ -4,7 +4,6 @@
 Run HactEngine.
 """
 
-import atexit
 import os
 import platform
 import subprocess
@@ -30,7 +29,8 @@ subprocess.call(
         timeoutCommand,
         "--preserve-status",
         "15s",
-        "./build/Debug/HactEngine"
+        "./run",
+        "config=debug"
     ]
 )
 
@@ -45,7 +45,8 @@ subprocess.call(
        timeoutCommand,
         "--preserve-status",
         "15s",
-        "./build/Release/HactEngine"
+        "./run",
+        "config=release"
     ]
 )
 
