@@ -14,11 +14,11 @@ print("")
 # Run tests
 subprocess.check_call(
     ["./configure", "--run-tests"],
-    cwd = "tests"
+    cwd = "."
 )
 subprocess.check_call(
     ["./compile", "--run-tests"],
-    cwd = "tests"
+    cwd = "."
 )
 
 print("")

@@ -28,7 +28,7 @@ subprocess.call(
         timeoutCommand,
         "--preserve-status",
         "15s",
-        "./run",
+        "../run",
         "config=debug"
     ],
     cwd = "build"
@@ -45,7 +45,7 @@ subprocess.call(
        timeoutCommand,
         "--preserve-status",
         "15s",
-        "./run",
+        "../run",
         "config=release"
     ],
     cwd = "build"
