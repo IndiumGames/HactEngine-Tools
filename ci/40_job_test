@@ -17,7 +17,7 @@ subprocess.check_call(
     cwd = "."
 )
 subprocess.check_call(
-    ["./compile", "--run-tests"],
+    ["./compile"],
     cwd = "."
 )
 
