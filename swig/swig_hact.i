@@ -75,6 +75,19 @@ namespace std {
 };
 
 
+// Rename functions in namespaces ("_NSFUNC_" prefix and "::" -> "_")
+%rename("%(regex:/^(\\w+)::(\\w+)$/_NSFUNC_\\1_\\2/)s",
+        regextarget=1,
+        fullname=1,
+        %$isfunction,
+        %$not %$ismember) "^\\w+::\\w+$";
+%rename("%(regex:/^(\\w+)::(\\w+)::(\\w+)$/_NSFUNC_\\1_\\2_\\3/)s",
+        regextarget=1,
+        fullname=1,
+        %$isfunction,
+        %$not %$ismember) "^\\w+::\\w+::\\w+$";
+
+
 // Element
 %include "src/element.h"
 
