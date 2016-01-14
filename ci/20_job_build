@@ -8,6 +8,15 @@ import subprocess
 
 
 print("")
+print("[Clean]")
+print("")
+
+# Clean any previous build
+subprocess.check_call(
+    ["./clean"]
+)
+
+print("")
 print("[CONFIGURE]")
 print("")
 
