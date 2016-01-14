@@ -33,6 +33,7 @@
     #include "src/texture.h"
     #include "src/thread.h"
     #include "src/util.h"
+    #include "src/util_openal.h"
     #include "src/util_opengl.h"
     #include "src/util_x3d.h"
     #include "src/util_xml.h"
@@ -194,6 +195,7 @@ namespace std {
 
 // Util
 %include "src/util.h"
+%include "src/util_openal.h"
 %include "src/util_opengl.h"
 %include "src/util_x3d.h"
 %include "src/util_xml.h"
