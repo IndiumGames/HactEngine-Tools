@@ -26,7 +26,6 @@
     #include "src/openglcontext.h"
     #include "src/property.h"
     #include "src/resourcemanager.h"
-    #include "src/resourceutil.h"
     #include "src/scriptingengine.h"
     #include "src/shaderobject.h"
     #include "src/shaderprogram.h"
@@ -35,6 +34,7 @@
     #include "src/thread.h"
     #include "src/util.h"
     #include "src/util_opengl.h"
+    #include "src/util_x3d.h"
     #include "src/util_xml.h"
     #include "src/xmlelement.h"
 %}
@@ -163,9 +163,6 @@ namespace std {
 // ResourceManager
 %include "src/resourcemanager.h"
 
-// ResourceUtil
-%include "src/resourceutil.h"
-
 // ScriptingEngine
 %include "src/scriptingengine.h"
 
@@ -185,6 +182,7 @@ namespace std {
 // Util
 %include "src/util.h"
 %include "src/util_opengl.h"
+%include "src/util_x3d.h"
 %include "src/util_xml.h"
 
 // XmlElement
