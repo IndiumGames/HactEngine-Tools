@@ -35,8 +35,8 @@
     #include "src/thread.h"
     #include "src/util.h"
     #include "src/util_opengl.h"
+    #include "src/util_xml.h"
     #include "src/xmlelement.h"
-    #include "src/xmlutils.h"
 %}
 
 
@@ -185,9 +185,9 @@ namespace std {
 // Util
 %include "src/util.h"
 %include "src/util_opengl.h"
+%include "src/util_xml.h"
 
-// XmlElement and XmlUtils
+// XmlElement
 %include "src/xmlelement.h"
-%include "src/xmlutils.h"
 
 #endif // defined SWIG
