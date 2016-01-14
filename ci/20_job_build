@@ -8,7 +8,7 @@ import subprocess
 
 
 print("")
-print("[Clean]")
+print("[CLEAN]")
 print("")
 
 # Clean any previous build
