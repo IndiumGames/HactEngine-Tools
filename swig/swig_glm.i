@@ -763,9 +763,9 @@ namespace glm {
         
         
         // <glm/gtc/noise.hpp>
-        FLOAT_VECTOR_RETURN_VALUE(perlin)
-        FLOAT_VECTOR_RETURN_VALUE_2_PARAMS(perlin)
-        FLOAT_VECTOR_RETURN_VALUE(simplex)
+        FLOAT_VECTOR_RETURN_VALUE(perlin);
+        FLOAT_VECTOR_RETURN_VALUE_2_PARAMS(perlin);
+        FLOAT_VECTOR_RETURN_VALUE(simplex);
         
         
         // <glm/gtc/packing.hpp>
