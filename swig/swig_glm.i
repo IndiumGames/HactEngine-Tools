@@ -803,6 +803,34 @@ namespace glm {
         */
         
         
+        // <glm/gtc/quaternion.hpp>
+        float angle(const detail::tquat<float, highp> &);
+        detail::tquat<float, highp> angleAxis(const float &, const vec3 &);
+        vec3 axis(const detail::tquat<float, highp> &);
+        detail::tquat<float, highp> conjugate (const detail::tquat<float, highp> &);
+        bvec4 equal(const detail::tquat<float, highp> &, const detail::tquat<float, highp> &);
+        vec3 eulerAngles(const detail::tquat<float, highp> &);
+        bvec4 greaterThan(const detail::tquat<float, highp> &, const detail::tquat<float, highp> &);
+        bvec4 greaterThanEqual(const detail::tquat<float, highp> &, const detail::tquat<float, highp> &);
+        detail::tquat<float, highp> inverse(const detail::tquat<float, highp> &);
+        float length(const detail::tquat<float, highp> &);
+        detail::tquat<float, highp> lerp(const detail::tquat<float, highp> &, const detail::tquat<float, highp> &, float);
+        bvec4 lessThan(const detail::tquat<float, highp> &, const detail::tquat<float, highp> &);
+        bvec4 lessThanEqual(const detail::tquat<float, highp> &, const detail::tquat<float, highp> &);
+        mat3x3 mat3_cast(const detail::tquat<float, highp> &);
+        mat4x4 mat4_cast(const detail::tquat<float, highp> &);
+        detail::tquat<float, highp> mix(const detail::tquat<float, highp> &, const detail::tquat<float, highp> &, float);
+        detail::tquat<float, highp> normalize(const detail::tquat<float, highp> &);
+        bvec4 notEqual(const detail::tquat<float, highp> &, const detail::tquat<float, highp> &);
+        float pitch(const detail::tquat<float, highp> &);
+        detail::tquat<float, highp> quat_cast(const mat3x3 &);
+        detail::tquat<float, highp> quat_cast(const mat4x4 &);
+        float roll(const detail::tquat<float, highp> &);
+        detail::tquat<float, highp> rotate(const detail::tquat<float, highp> &, const float &, const vec3 &);
+        detail::tquat<float, highp> slerp(const detail::tquat<float, highp> &, const detail::tquat<float, highp> &, float);
+        float yaw(const detail::tquat<float, highp> &);
+        
+        
         // <glm/gtc/random.hpp>
         FLOAT_SCALAR_OR_VECTOR_2_PARAMS(linearRand);
         FLOAT_SCALAR_OR_VECTOR_2_PARAMS(gaussRand);
