@@ -33,6 +33,7 @@
     #include "src/texture.h"
     #include "src/thread.h"
     #include "src/util.h"
+    #include "src/util_openal.h"
     #include "src/util_opengl.h"
     #include "src/util_x3d.h"
     #include "src/util_xml.h"
@@ -73,6 +74,19 @@ namespace std {
     %template(DoubleVector)  vector<double>;
     %template(StringVector)  vector<string>;
 };
+
+
+// Rename functions in namespaces ("_NSFUNC_" prefix and "::" -> "_")
+%rename("%(regex:/^(\\w+)::(\\w+)$/_NSFUNC_\\1_\\2/)s",
+        regextarget=1,
+        fullname=1,
+        %$isfunction,
+        %$not %$ismember) "^\\w+::\\w+$";
+%rename("%(regex:/^(\\w+)::(\\w+)::(\\w+)$/_NSFUNC_\\1_\\2_\\3/)s",
+        regextarget=1,
+        fullname=1,
+        %$isfunction,
+        %$not %$ismember) "^\\w+::\\w+::\\w+$";
 
 
 // Element
@@ -181,6 +195,7 @@ namespace std {
 
 // Util
 %include "src/util.h"
+%include "src/util_openal.h"
 %include "src/util_opengl.h"
 %include "src/util_x3d.h"
 %include "src/util_xml.h"
