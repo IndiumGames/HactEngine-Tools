@@ -5,6 +5,7 @@
 
 %{
     // Includes
+    #include "src/assetmanager.h"
     #include "src/audio.h"
     #include "src/audiomanager.h"
     #include "src/chronotime.h"
@@ -25,7 +26,6 @@
     #include "src/mesh.h"
     #include "src/openglcontext.h"
     #include "src/property.h"
-    #include "src/resourcemanager.h"
     #include "src/scriptingengine.h"
     #include "src/shaderobject.h"
     #include "src/shaderprogram.h"
@@ -98,6 +98,9 @@ namespace std {
 %template(EntityHierarchy)      Hierarchy<Entity, Container<Entity>>;
 %template(XmlElementHierarchy)  Hierarchy<XmlElement, OrderedContainer<XmlElement>>;
 
+
+// AssetManager
+%include "src/assetmanager.h"
 
 // Audio and AudioManager
 %include "src/audio.h"
@@ -173,9 +176,6 @@ namespace std {
 
 // Property
 %include "src/property.h"
-
-// ResourceManager
-%include "src/resourcemanager.h"
 
 // ScriptingEngine
 %include "src/scriptingengine.h"
