@@ -830,6 +830,22 @@ GetDependency(
 )
 
 
+# Get and compile Assimp
+GetDependency(
+    "assimp-3.2-git",
+    git = "https://github.com/assimp/assimp.git",
+    build = [
+        "cmake -G 'Unix Makefiles' "
+        + "-DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " "
+        + "-DASSIMP_ENABLE_BOOST_WORKAROUND=ON "
+        + "-DBUILD_SHARED_LIBS=OFF",
+        #+ "-DCMAKE_C_FLAGS=-fPIC -DCMAKE_CXX_FLAGS=-fPIC",
+        "make " + make_jobs,
+        "make install"
+    ]
+)
+
+
 # Get and compile PCRE (needed by SWIG)
 GetDependency(
     "pcre-8.37",
