@@ -30,6 +30,8 @@ remoteBranches = subprocess.check_output(
     shell = True
 )
 
+remoteBranches.decode("utf-8").strip()
+
 print(remoteBranches)
 
 # Track all remote branches
