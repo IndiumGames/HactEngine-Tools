@@ -30,7 +30,7 @@ remoteBranches = subprocess.check_output(
     shell = True
 )
 
-remoteBranches.decode("utf-8").strip()
+remoteBranches = remoteBranches.decode("utf-8").strip()
 
 print("\n\n")
 print(remoteBranches)
