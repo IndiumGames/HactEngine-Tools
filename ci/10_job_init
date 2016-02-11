@@ -103,12 +103,6 @@ if branch == "HEAD":
     for branchWithCommit in branchesWithCommit.splitlines():
         branchWithCommit = branchWithCommit.strip()
         
-        print("branchWithCommit: " + branchWithCommit)
-        print("\"HEAD\" in branchWithCommit: ", ("HEAD" in branchWithCommit))
-        print("\"HEAD\" not in branchWithCommit: ", ("HEAD" not in branchWithCommit))
-        print("not \"HEAD\" in branchWithCommit: ", (not "HEAD" in branchWithCommit))
-        print("not (\"HEAD\" in branchWithCommit): ", (not ("HEAD" in branchWithCommit)))
-        
         if "HEAD" not in branchWithCommit:
             branch = branchWithCommit
             break
@@ -120,10 +114,6 @@ if branch == "HEAD":
         stderr = open(os.devnull, 'w'),
         shell = True
     )
-
-
-import sys
-sys.exit("asd")
 
 
 # Get currect Git commit tag
