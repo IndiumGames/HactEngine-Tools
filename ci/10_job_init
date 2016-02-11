@@ -69,11 +69,11 @@ for remoteBranch in remoteBranches.splitlines():
         )
 
 # Checkout the original commit
-#subprocess.check_output(
-#    "git checkout " + commit,
-#    stderr = open(os.devnull, 'w'),
-#    shell = True
-#)
+subprocess.check_output(
+    "git checkout " + commit,
+    stderr = open(os.devnull, 'w'),
+    shell = True
+)
 
 # Get current Git branch name
 branch = None
