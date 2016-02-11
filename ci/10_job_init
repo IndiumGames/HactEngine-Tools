@@ -41,8 +41,6 @@ print(remoteBranches)
 for remoteBranch in remoteBranches.splitlines():
     remoteBranch = remoteBranch.strip()
     
-    print("remoteBranch: " + remoteBranch)
-    
     if "HEAD" not in remoteBranch and "origin/" in remoteBranch:
         print("Trying to track: " + remoteBranch)
         
@@ -81,6 +79,9 @@ subprocess.check_output(
     stderr = open(os.devnull, 'w'),
     shell = True
 )
+
+print("\n")
+
 
 # Get current Git branch name
 branch = None
@@ -142,8 +143,10 @@ except subprocess.CalledProcessError as e:
         raise
 
 
+print("\n")
 print("Branch: " + branch)
 print("Tag:    " + str(tag))
+print("\n")
 
 
 if branch == "HEAD":
