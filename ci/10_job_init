@@ -30,7 +30,7 @@ except subprocess.CalledProcessError as e:
     raise
 
 if branch == "HEAD":
-    print("DETACHED HEAD!")
+    print("Detached HEAD...")
     print("Looking for branches containing the commit")
     
     branchesWithCommit = subprocess.check_output(
@@ -79,6 +79,8 @@ print("Tag:    " + str(tag))
 
 
 if branch == "HEAD":
+    print("\n\nHEAD IS STILL DETACHED!\n\n")
+    
     try:
         subprocess.check_output(
             "git submodule update --init --remote --recursive",
