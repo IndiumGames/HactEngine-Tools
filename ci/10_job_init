@@ -24,7 +24,7 @@ try:
         stderr = open(os.devnull, 'w'),
         shell = True
     )
-    branch = branch.decode().rstrip()
+    branch = branch.decode().strip()
 except subprocess.CalledProcessError as e:
     print(e.message)
     raise
@@ -39,11 +39,13 @@ if branch == "HEAD":
         shell = True
     )
     
+    branchesWithCommit = branchesWithCommit.decode().strip()
+    
     for branchWithCommit in branchesWithCommit.splitlines():
-        branchWithCommit = str(branchWithCommit)
+        branchWithCommit = branchWithCommit.decode().strip()
         print("branchWithCommit: " + branchWithCommit)
         if "HEAD detached" not in branchWithCommit:
-            branch = branchWithCommit.strip()
+            branch = branchWithCommit
             break
     
     print("Found branch: " + branch)
@@ -62,7 +64,7 @@ try:
         stderr = open(os.devnull, 'w'),
         shell = True
     )
-    tag = tag.decode().rstrip()
+    tag = tag.decode().strip()
 except subprocess.CalledProcessError as e:
     # Return code 128 means that there was no tag, which is fine
     if e.returncode is 128:
