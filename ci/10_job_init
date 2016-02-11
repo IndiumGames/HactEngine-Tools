@@ -26,21 +26,25 @@ commit = subprocess.check_output(
 # Get list of all remote branches
 remoteBranches = subprocess.check_output(
     "git branch --no-color -r",
-    stderr = open(os.devnull, 'w'),
+    #stderr = open(os.devnull, 'w'),
     shell = True
 )
+
+print(remoteBranches)
 
 # Track all remote branches
 for remoteBranch in remoteBranches.splitlines():
     remoteBranch = remoteBranch.decode("utf-8").strip()
     
+    print(remoteBranch)
+    
     if "HEAD" not in remoteBranch and "origin/" in remoteBranch:
-        #print("Trying to track: " + remoteBranch)
+        print("Trying to track: " + remoteBranch)
         
         try:
             subprocess.check_output(
                 "git checkout --track " + remoteBranch,
-                stderr = open(os.devnull, 'w'),
+                #stderr = open(os.devnull, 'w'),
                 shell = True
             )
         except subprocess.CalledProcessError as e:
@@ -88,7 +92,6 @@ except subprocess.CalledProcessError as e:
 
 if branch == "HEAD":
     print("Detached HEAD...")
-    print("Looking for branches containing the commit")
     
     branchesWithCommit = subprocess.check_output(
         "git branch --no-color --contains HEAD",
