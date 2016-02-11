@@ -6,7 +6,6 @@ Initialize and display information about the job and environment.
 
 import os
 import subprocess
-import sys
 
 
 print("")
@@ -54,8 +53,6 @@ if branch == "HEAD":
         stderr = open(os.devnull, 'w'),
         shell = True
     )
-    
-    #sys.exit("DETACHED HEAD!")
 
 # Get currect Git commit tag
 tag = None
