@@ -24,7 +24,7 @@ try:
         stderr = open(os.devnull, 'w'),
         shell = True
     )
-    branch = branch.decode().strip()
+    branch = branch.decode("utf-8").strip()
 except subprocess.CalledProcessError as e:
     print(e.message)
     raise
@@ -39,11 +39,17 @@ if branch == "HEAD":
         shell = True
     )
     
-    branchesWithCommit = branchesWithCommit.decode().strip()
+    branchesWithCommit = branchesWithCommit.decode("utf-8").strip()
     
     for branchWithCommit in branchesWithCommit.splitlines():
         branchWithCommit = branchWithCommit.strip()
+        
         print("branchWithCommit: " + branchWithCommit)
+        print("\"HEAD\" in branchWithCommit: ", ("HEAD" in branchWithCommit))
+        print("\"HEAD\" not in branchWithCommit: ", ("HEAD" not in branchWithCommit))
+        print("not \"HEAD\" in branchWithCommit: ", (not "HEAD" in branchWithCommit))
+        print("not (\"HEAD\" in branchWithCommit): ", (not ("HEAD" in branchWithCommit)))
+        
         if "HEAD" not in branchWithCommit:
             branch = branchWithCommit
             break
