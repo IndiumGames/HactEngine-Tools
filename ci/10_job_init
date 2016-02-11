@@ -32,7 +32,9 @@ remoteBranches = subprocess.check_output(
 
 remoteBranches.decode("utf-8").strip()
 
-print("remoteBranches: " + remoteBranches)
+print("\n\n")
+print(remoteBranches)
+print("\n\n")
 
 # Track all remote branches
 for remoteBranch in remoteBranches.splitlines():
