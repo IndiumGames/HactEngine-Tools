@@ -32,23 +32,21 @@ remoteBranches = subprocess.check_output(
 
 # Track all remote branches
 for remoteBranch in remoteBranches.splitlines():
-    remoteBranch = remoteBranch.strip()
+    remoteBranch = remoteBranch.decode("utf-8").strip()
     
     if "HEAD" not in remoteBranch and "origin/" in remoteBranch:
-        #remoteBranch = remoteBranch[7:]
-        
-        print("Trying to track: " + remoteBranch)
+        #print("Trying to track: " + remoteBranch)
         
         try:
             subprocess.check_output(
                 "git checkout --track " + remoteBranch,
-                #stderr = open(os.devnull, 'w'),
+                stderr = open(os.devnull, 'w'),
                 shell = True
             )
         except subprocess.CalledProcessError as e:
             if e.returncode is 128:
                 # Local branch probably already exists
-                print("Failed to track (does local branch already exist?)")
+                pass
             else:
                 print(e.message)
                 raise
@@ -136,7 +134,7 @@ try:
         stderr = open(os.devnull, 'w'),
         shell = True
     )
-    tag = tag.decode().strip()
+    tag = tag.decode("utf-8").strip()
 except subprocess.CalledProcessError as e:
     if e.returncode is 128:
         # There probably was no tag, which is fine
