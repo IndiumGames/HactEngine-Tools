@@ -71,11 +71,11 @@ for remoteBranch in remoteBranches.splitlines():
         )
         
         # Update the local branch
-        #subprocess.check_output(
-        #    "git pull",
-        #    #stderr = open(os.devnull, 'w'),
-        #    shell = True
-        #)
+        subprocess.check_output(
+            "git pull",
+            #stderr = open(os.devnull, 'w'),
+            shell = True
+        )
 
 # Checkout the original commit
 subprocess.check_output(
