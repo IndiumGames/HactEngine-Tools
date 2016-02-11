@@ -37,6 +37,8 @@ for remoteBranch in remoteBranches.splitlines():
     if "HEAD" not in remoteBranch and "origin/" in remoteBranch:
         #remoteBranch = remoteBranch[7:]
         
+        print("Trying to track: " + remoteBranch)
+        
         try:
             subprocess.check_output(
                 "git checkout --track " + remoteBranch,
