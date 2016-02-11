@@ -35,9 +35,7 @@ remoteBranches = subprocess.check_output(
 
 remoteBranches = remoteBranches.decode("utf-8")
 
-print("\n")
 print(remoteBranches)
-print("\n")
 
 # Track all remote branches
 for remoteBranch in remoteBranches.splitlines():
@@ -51,7 +49,7 @@ for remoteBranch in remoteBranches.splitlines():
         try:
             subprocess.check_output(
                 "git checkout --track " + remoteBranch,
-                #stderr = open(os.devnull, 'w'),
+                stderr = open(os.devnull, 'w'),
                 shell = True
             )
         except subprocess.CalledProcessError as e:
@@ -121,7 +119,7 @@ if branch == "HEAD":
     
     subprocess.check_output(
         "git checkout " + branch,
-        stderr = open(os.devnull, 'w'),
+        #stderr = open(os.devnull, 'w'),
         shell = True
     )
 
@@ -144,28 +142,29 @@ except subprocess.CalledProcessError as e:
         raise
 
 
-print("Branch: " + str(branch))
-print("Tag:    " + str(tag))
+print("Branch: " + branch)
+print("Tag:    " + tag)
 
 
 if branch == "HEAD":
-    print("\n\nHEAD IS STILL DETACHED!\n\n")
+    import sys
+    sys.exit("HEAD IS STILL DETACHED!")
     
-    try:
-        subprocess.check_output(
-            "git submodule update --init --remote --recursive",
-            stderr = open(os.devnull, 'w'),
-            shell = True
-        )
-    except subprocess.CalledProcessError as e:
-        print(e.message)
-        raise
+    #try:
+    #    subprocess.check_output(
+    #        "git submodule update --init --remote --recursive",
+    #        stderr = open(os.devnull, 'w'),
+    #        shell = True
+    #    )
+    #except subprocess.CalledProcessError as e:
+    #    print(e.message)
+    #    raise
 else:
     # Checkout the current branch in submodules
     subprocess.check_output(
         "git submodule foreach --recursive "
         + "'(git checkout " + branch + " || git checkout master); git pull'",
-        stderr = open(os.devnull, 'w'),
+        #stderr = open(os.devnull, 'w'),
         shell = True
     )
 
