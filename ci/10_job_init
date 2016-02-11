@@ -5,6 +5,7 @@ Initialize and display information about the job and environment.
 """
 
 import os
+import re
 import subprocess
 
 
@@ -20,8 +21,9 @@ print("")
 branch = None
 try:
     branch = subprocess.check_output(
-        ["git", "rev-parse", "--abbrev-ref", "HEAD"],
-        stderr = open(os.devnull, 'w')
+        "git rev-parse --abbrev-ref HEAD",
+        stderr = open(os.devnull, 'w'),
+        shell = True
     )
     branch = branch.decode().rstrip()
 except subprocess.CalledProcessError as e:
@@ -30,14 +32,36 @@ except subprocess.CalledProcessError as e:
 
 if branch == "HEAD":
     print("DETACHED HEAD!")
-    #sys.exit("DETACHED HEAD!")
+    print("Looking for branches containing the commit")
+    
+    branchesWithCommit = subprocess.check_output(
+        "git branch --contains HEAD",
+        stderr = open(os.devnull, 'w'),
+        shell = True
+    )
+    
+    for branchWithCommit in branchesWithCommit.splitlines():
+        if "detached HEAD" not in branchWithCommit:
+            branch = branchWithCommit
+            break
+    
+    print("Found branch: " + branch)
+    
+    subprocess.check_output(
+        "git checkout " + branch,
+        stderr = open(os.devnull, 'w'),
+        shell = True
+    )
+    
+    sys.exit("DETACHED HEAD!")
 
 # Get currect Git commit tag
 tag = None
 try:
     tag = subprocess.check_output(
-        ["git", "describe", "--exact-match"],
-        stderr = open(os.devnull, 'w')
+        "git describe --exact-match",
+        stderr = open(os.devnull, 'w'),
+        shell = True
     )
     tag = tag.decode().rstrip()
 except subprocess.CalledProcessError as e:
