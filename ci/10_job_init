@@ -16,33 +16,128 @@ print(os.getcwd())
 print("")
 
 
+# Get current commit hash
+commit = subprocess.check_output(
+    "git rev-parse --verify HEAD",
+    stderr = open(os.devnull, 'w'),
+    shell = True
+)
+
+commit = commit.decode("utf-8")
+
+
+# Get list of all remote branches
+remoteBranches = subprocess.check_output(
+    "git branch --no-color -r",
+    stderr = open(os.devnull, 'w'),
+    shell = True
+)
+
+remoteBranches = remoteBranches.decode("utf-8")
+
+print("\n")
+print(remoteBranches)
+print("\n")
+
+# Track all remote branches
+for remoteBranch in remoteBranches.splitlines():
+    remoteBranch = remoteBranch.strip()
+    
+    print("remoteBranch: " + remoteBranch)
+    
+    if "HEAD" not in remoteBranch and "origin/" in remoteBranch:
+        print("Trying to track: " + remoteBranch)
+        
+        try:
+            subprocess.check_output(
+                "git checkout --track " + remoteBranch,
+                #stderr = open(os.devnull, 'w'),
+                shell = True
+            )
+        except subprocess.CalledProcessError as e:
+            if e.returncode is 128:
+                # Local branch probably already exists
+                pass
+            else:
+                print(e.message)
+                raise
+        
+        # Checkout the local branch
+        localBranch = remoteBranch[7:]
+        subprocess.check_output(
+            "git checkout " + localBranch,
+            #stderr = open(os.devnull, 'w'),
+            shell = True
+        )
+        
+        # Update the local branch
+        subprocess.check_output(
+            "git pull",
+            #stderr = open(os.devnull, 'w'),
+            shell = True
+        )
+
+# Checkout the original commit
+subprocess.check_output(
+    "git checkout " + commit,
+    stderr = open(os.devnull, 'w'),
+    shell = True
+)
+
 # Get current Git branch name
 branch = None
 try:
     branch = subprocess.check_output(
-        ["git", "rev-parse", "--abbrev-ref", "HEAD"],
-        stderr = open(os.devnull, 'w')
+        "git rev-parse --abbrev-ref HEAD",
+        stderr = open(os.devnull, 'w'),
+        shell = True
     )
-    branch = branch.decode().rstrip()
+    branch = branch.decode("utf-8").strip()
 except subprocess.CalledProcessError as e:
     print(e.message)
     raise
 
 if branch == "HEAD":
-    print("DETACHED HEAD!")
-    #sys.exit("DETACHED HEAD!")
+    print("Detached HEAD...")
+    
+    branchesWithCommit = subprocess.check_output(
+        "git branch --no-color --contains HEAD",
+        stderr = open(os.devnull, 'w'),
+        shell = True
+    )
+    
+    branchesWithCommit = branchesWithCommit.decode("utf-8").strip()
+    
+    print(branchesWithCommit)
+    
+    for branchWithCommit in branchesWithCommit.splitlines():
+        branchWithCommit = branchWithCommit.strip()
+        
+        if "HEAD" not in branchWithCommit:
+            branch = branchWithCommit
+            break
+    
+    print("Found branch: " + branch)
+    
+    subprocess.check_output(
+        "git checkout " + branch,
+        stderr = open(os.devnull, 'w'),
+        shell = True
+    )
+
 
 # Get currect Git commit tag
 tag = None
 try:
     tag = subprocess.check_output(
-        ["git", "describe", "--exact-match"],
-        stderr = open(os.devnull, 'w')
+        "git describe --exact-match",
+        stderr = open(os.devnull, 'w'),
+        shell = True
     )
-    tag = tag.decode().rstrip()
+    tag = tag.decode("utf-8").strip()
 except subprocess.CalledProcessError as e:
-    # Return code 128 means that there was no tag, which is fine
     if e.returncode is 128:
+        # There probably was no tag, which is fine
         pass
     else:
         print(e.message)
@@ -54,6 +149,8 @@ print("Tag:    " + str(tag))
 
 
 if branch == "HEAD":
+    print("\n\nHEAD IS STILL DETACHED!\n\n")
+    
     try:
         subprocess.check_output(
             "git submodule update --init --remote --recursive",
@@ -85,21 +182,24 @@ print(
 print("[VERSION INFO]")
 try:
     subprocess.call(
-        ["g++", "--version"]
+        "g++ --version",
+        shell = True
     )
 except OSError:
     pass
 
 try:
     subprocess.call(
-        ["lua", "-v"]
+        "lua -v",
+        shell = True
     )
 except OSError:
     pass
 
 try:
     subprocess.call(
-        ["swig", "-version"]
+        "swig -version",
+        shell = True
     )
 except OSError:
     pass
@@ -108,7 +208,8 @@ print("")
 
 try:
     subprocess.call(
-        ["qmake", "--version"]
+        "qmake --version",
+        shell = True
     )
 except OSError:
     pass
