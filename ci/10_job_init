@@ -50,7 +50,10 @@ if branch == "HEAD":
         print("not \"HEAD\" in branchWithCommit: ", (not "HEAD" in branchWithCommit))
         print("not (\"HEAD\" in branchWithCommit): ", (not ("HEAD" in branchWithCommit)))
         
-        if "HEAD" not in branchWithCommit:
+        if "HEAD" in branchWithCommit:
+            # Detached HEAD is listed as a branch
+            continue
+        else:
             branch = branchWithCommit
             break
     
