@@ -52,13 +52,15 @@ for remoteBranch in remoteBranches.splitlines():
             else:
                 print(e.message)
                 raise
+        
+        # Update the local branch
 
 # Checkout the original commit
-subprocess.check_output(
-    "git checkout " + commit,
-    stderr = open(os.devnull, 'w'),
-    shell = True
-)
+#subprocess.check_output(
+#    "git checkout " + commit,
+#    stderr = open(os.devnull, 'w'),
+#    shell = True
+#)
 
 # Get current Git branch name
 branch = None
@@ -107,10 +109,11 @@ if branch == "HEAD":
         stderr = open(os.devnull, 'w'),
         shell = True
     )
-    
-    import sys
-    
-    sys.exit("asd")
+
+
+import sys
+sys.exit("asd")
+
 
 # Get currect Git commit tag
 tag = None
