@@ -172,11 +172,17 @@ print("")
 print("")
 
 print("[COMMIT MESSAGE]")
-print(
-    subprocess.check_output(
-        ["git", "log", "--format=%B", "-n", "1", "HEAD"]
-    )
+
+commitMessage = subprocess.check_output(
+    "git log --format=%B -n 1 HEAD",
+    #stderr = open(os.devnull, 'w'),
+    shell = True
 )
+
+commitMessage = commitMessage.decode("utf-8")
+
+print(commitMessage)
+
 
 print("[VERSION INFO]")
 try:
