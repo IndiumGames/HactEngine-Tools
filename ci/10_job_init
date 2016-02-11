@@ -41,6 +41,8 @@ if branch == "HEAD":
     
     branchesWithCommit = branchesWithCommit.decode("utf-8").strip()
     
+    print(branchesWithCommit)
+    
     for branchWithCommit in branchesWithCommit.splitlines():
         branchWithCommit = branchWithCommit.strip()
         
@@ -55,15 +57,19 @@ if branch == "HEAD":
             continue
         else:
             branch = branchWithCommit
-            break
+            #break
     
     print("Found branch: " + branch)
     
-    subprocess.check_output(
-        "git checkout " + branch,
-        stderr = open(os.devnull, 'w'),
-        shell = True
-    )
+    #subprocess.check_output(
+    #    "git checkout " + branch,
+    #    stderr = open(os.devnull, 'w'),
+    #    shell = True
+    #)
+    
+    import sys
+    
+    sys.exit("asd")
 
 # Get currect Git commit tag
 tag = None
