@@ -42,7 +42,7 @@ for remoteBranch in remoteBranches.splitlines():
         try:
             subprocess.check_output(
                 "git checkout --track " + remoteBranch,
-                stderr = open(os.devnull, 'w'),
+                #stderr = open(os.devnull, 'w'),
                 shell = True
             )
         except subprocess.CalledProcessError as e:
