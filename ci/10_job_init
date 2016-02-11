@@ -35,14 +35,14 @@ if branch == "HEAD":
     print("Looking for branches containing the commit")
     
     branchesWithCommit = subprocess.check_output(
-        "git branch --contains HEAD",
+        "git branch --no-color --contains HEAD",
         stderr = open(os.devnull, 'w'),
         shell = True
     )
     
     for branchWithCommit in branchesWithCommit.splitlines():
         if "HEAD detached" not in branchWithCommit:
-            branch = branchWithCommit
+            branch = branchWithCommit.strip()
             break
     
     print("Found branch: " + branch)
@@ -53,7 +53,7 @@ if branch == "HEAD":
         shell = True
     )
     
-    sys.exit("DETACHED HEAD!")
+    #sys.exit("DETACHED HEAD!")
 
 # Get currect Git commit tag
 tag = None
