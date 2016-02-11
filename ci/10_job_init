@@ -53,7 +53,20 @@ for remoteBranch in remoteBranches.splitlines():
                 print(e.message)
                 raise
         
+        # Checkout the local branch
+        localBranch = remoteBranch[7:]
+        subprocess.check_output(
+            "git checkout " + localBranch,
+            #stderr = open(os.devnull, 'w'),
+            shell = True
+        )
+        
         # Update the local branch
+        subprocess.check_output(
+            "git pull",
+            #stderr = open(os.devnull, 'w'),
+            shell = True
+        )
 
 # Checkout the original commit
 #subprocess.check_output(
