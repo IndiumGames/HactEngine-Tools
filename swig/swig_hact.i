@@ -6,6 +6,7 @@
 %{
     // Includes
     #include "src/assetmanager.h"
+    #include "src/assetmanager_model.h"
     #include "src/audio.h"
     #include "src/audiomanager.h"
     #include "src/chronotime.h"
@@ -101,6 +102,7 @@ namespace std {
 
 // AssetManager
 %include "src/assetmanager.h"
+%include "src/assetmanager_model.h"
 
 // Audio and AudioManager
 %include "src/audio.h"
