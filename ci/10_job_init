@@ -26,19 +26,19 @@ commit = subprocess.check_output(
 # Get list of all remote branches
 remoteBranches = subprocess.check_output(
     "git branch --no-color -r",
-    #stderr = open(os.devnull, 'w'),
+    stderr = open(os.devnull, 'w'),
     shell = True
 )
 
 remoteBranches.decode("utf-8").strip()
 
-print(remoteBranches)
+print("remoteBranches: " + remoteBranches)
 
 # Track all remote branches
 for remoteBranch in remoteBranches.splitlines():
     remoteBranch = remoteBranch.decode("utf-8").strip()
     
-    print(remoteBranch)
+    print("remoteBranch: ", remoteBranch)
     
     if "HEAD" not in remoteBranch and "origin/" in remoteBranch:
         print("Trying to track: " + remoteBranch)
