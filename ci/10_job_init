@@ -5,8 +5,8 @@ Initialize and display information about the job and environment.
 """
 
 import os
-import re
 import subprocess
+import sys
 
 
 print("")
@@ -41,7 +41,7 @@ if branch == "HEAD":
     )
     
     for branchWithCommit in branchesWithCommit.splitlines():
-        if "detached HEAD" not in branchWithCommit:
+        if "HEAD detached" not in branchWithCommit:
             branch = branchWithCommit
             break
     
