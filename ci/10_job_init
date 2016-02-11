@@ -40,7 +40,7 @@ print("\n")
 for remoteBranch in remoteBranches.splitlines():
     remoteBranch = remoteBranch.strip()
     
-    print("remoteBranch: ", remoteBranch)
+    print("remoteBranch: " + remoteBranch)
     
     if "HEAD" not in remoteBranch and "origin/" in remoteBranch:
         print("Trying to track: " + remoteBranch)
