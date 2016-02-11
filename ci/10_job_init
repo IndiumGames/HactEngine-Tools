@@ -16,6 +16,48 @@ print(os.getcwd())
 print("")
 
 
+# Get current commit hash
+commit = subprocess.check_output(
+    "git rev-parse --verify HEAD",
+    stderr = open(os.devnull, 'w'),
+    shell = True
+)
+
+# Get list of all remote branches
+remoteBranches = subprocess.check_output(
+    "git branch --no-color -r",
+    stderr = open(os.devnull, 'w'),
+    shell = True
+)
+
+# Track all remote branches
+for remoteBranch in remoteBranches.splitlines():
+    remoteBranch = remoteBranch.strip()
+    
+    if "HEAD" not in remoteBranch and "origin/" in remoteBranch:
+        #remoteBranch = remoteBranch[7:]
+        
+        try:
+            subprocess.check_output(
+                "git checkout --track " + remoteBranch,
+                stderr = open(os.devnull, 'w'),
+                shell = True
+            )
+        except subprocess.CalledProcessError as e:
+            if e.returncode is 128:
+                # Local branch probably already exists
+                pass
+            else:
+                print(e.message)
+                raise
+
+# Checkout the original commit
+subprocess.check_output(
+    "git checkout " + commit,
+    stderr = open(os.devnull, 'w'),
+    shell = True
+)
+
 # Get current Git branch name
 branch = None
 try:
@@ -52,20 +94,17 @@ if branch == "HEAD":
         print("not \"HEAD\" in branchWithCommit: ", (not "HEAD" in branchWithCommit))
         print("not (\"HEAD\" in branchWithCommit): ", (not ("HEAD" in branchWithCommit)))
         
-        if "HEAD" in branchWithCommit:
-            # Detached HEAD is listed as a branch
-            continue
-        else:
+        if "HEAD" not in branchWithCommit:
             branch = branchWithCommit
-            #break
+            break
     
     print("Found branch: " + branch)
     
-    #subprocess.check_output(
-    #    "git checkout " + branch,
-    #    stderr = open(os.devnull, 'w'),
-    #    shell = True
-    #)
+    subprocess.check_output(
+        "git checkout " + branch,
+        stderr = open(os.devnull, 'w'),
+        shell = True
+    )
     
     import sys
     
@@ -81,8 +120,8 @@ try:
     )
     tag = tag.decode().strip()
 except subprocess.CalledProcessError as e:
-    # Return code 128 means that there was no tag, which is fine
     if e.returncode is 128:
+        # There probably was no tag, which is fine
         pass
     else:
         print(e.message)
