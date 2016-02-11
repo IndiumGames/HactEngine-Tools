@@ -41,6 +41,7 @@ if branch == "HEAD":
     )
     
     for branchWithCommit in branchesWithCommit.splitlines():
+        branchWithCommit = str(branchWithCommit)
         print("branchWithCommit: " + branchWithCommit)
         if "HEAD detached" not in branchWithCommit:
             branch = branchWithCommit.strip()
