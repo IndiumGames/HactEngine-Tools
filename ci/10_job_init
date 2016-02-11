@@ -23,6 +23,9 @@ commit = subprocess.check_output(
     shell = True
 )
 
+commit = commit.decode("utf-8")
+
+
 # Get list of all remote branches
 remoteBranches = subprocess.check_output(
     "git branch --no-color -r",
