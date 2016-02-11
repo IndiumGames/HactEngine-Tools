@@ -48,7 +48,7 @@ for remoteBranch in remoteBranches.splitlines():
         except subprocess.CalledProcessError as e:
             if e.returncode is 128:
                 # Local branch probably already exists
-                pass
+                print("Failed to track (does local branch already exist?)")
             else:
                 print(e.message)
                 raise
