@@ -41,6 +41,8 @@ for localBranch in localBranches.splitlines():
     
     # Don't delete the current branch (if we are on a branch)
     if "*" not in localBranch:
+        print("Deleting local branch: " + localBranch)
+        
         subprocess.check_output(
             "git branch -D " + localBranch,
             #stderr = open(os.devnull, 'w'),
