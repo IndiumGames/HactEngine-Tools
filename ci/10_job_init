@@ -26,6 +26,30 @@ commit = subprocess.check_output(
 commit = commit.decode("utf-8")
 
 
+# Get list of all local branches
+localBranches = subprocess.check_output(
+    "git branch --no-color",
+    stderr = open(os.devnull, 'w'),
+    shell = True
+)
+
+localBranches = localBranches.decode("utf-8")
+
+# Delete all local branches
+for localBranch in localBranches.splitlines():
+    localBranch = localBranch.strip()
+    
+    # Don't delete the current branch (if we are on a branch)
+    if "*" not in localBranch:
+        print("Deleting local branch: " + localBranch)
+        
+        subprocess.check_output(
+            "git branch -D " + localBranch,
+            #stderr = open(os.devnull, 'w'),
+            shell = True
+        )
+
+
 # Get list of all remote branches
 remoteBranches = subprocess.check_output(
     "git branch --no-color -r",
