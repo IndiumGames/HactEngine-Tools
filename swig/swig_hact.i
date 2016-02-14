@@ -24,6 +24,7 @@
     #include "src/hierarchy.h"
     #include "src/input.h"
     #include "src/log.h"
+    #include "src/material.h"
     #include "src/mesh.h"
     #include "src/openglcontext.h"
     #include "src/property.h"
@@ -169,6 +170,9 @@ namespace std {
 
 // Logging
 %include "src/log.h"
+
+// Material
+%include "src/material.h"
 
 // Mesh
 %include "src/mesh.h"
