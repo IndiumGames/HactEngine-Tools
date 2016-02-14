@@ -37,7 +37,6 @@
     #include "src/util.h"
     #include "src/util_openal.h"
     #include "src/util_opengl.h"
-    #include "src/util_x3d.h"
     #include "src/util_xml.h"
     #include "src/xmlelement.h"
 %}
@@ -203,7 +202,6 @@ namespace std {
 %include "src/util.h"
 %include "src/util_openal.h"
 %include "src/util_opengl.h"
-%include "src/util_x3d.h"
 %include "src/util_xml.h"
 
 // XmlElement
