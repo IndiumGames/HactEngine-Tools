@@ -600,11 +600,11 @@ GetDependency(
 
 # Get OpenAL Soft binaries (Windows)
 GetDependency(
-    "openal-soft-1.16.0-bin",
+    "openal-soft-1.17.2-bin",
     windows = {
         "download": [
-            "curl -sLO http://kcat.strangesoft.net/openal-soft-1.16.0-bin.zip",
-            "unzip -o openal-soft-1.16.0-bin.zip"
+            "curl -sLO http://kcat.strangesoft.net/openal-binaries/openal-soft-1.17.2-bin.zip",
+            "unzip -o openal-soft-1.17.2-bin.zip"
         ]
     }
 )
