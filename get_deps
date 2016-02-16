@@ -680,6 +680,29 @@ GetDependency(
     }
 )
 
+
+# Get and compile Minizip
+# NOTE: Minizip's website hasn't been updated in over 10 years, and the
+#       "official" package doesn't compile on MSYS2. The below package is from:
+#       http://www.gaia-gis.it/gaia-sins/mingw64_how_to.html#minizip
+GetDependency(
+    "minizip-1.2.8",
+    windows = {
+        "download": [
+            "curl -sLO http://www.gaia-gis.it/gaia-sins/dataseltzer-sources/minizip-1.2.8.tar.gz",
+            "tar xf minizip-1.2.8.tar.gz"
+        ],
+        "build": [
+            "CFLAGS=\"-I" + prefixDir + "/include\" "
+            + "LDFLAGS=\"-L" + prefixDir + "/lib\" "
+            + "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
+)
+
+
 # Get and compile libpng (needed by SDL2_image)
 GetDependency(
     "libpng-1.6.21",
@@ -848,12 +871,12 @@ GetDependency(
     windows = {
         "build": [
             #"CC=gcc CXX=g++ "
-            #"CFLAGS=\"-I" + prefixDir + "/include\" "
-            #+ "LDFLAGS=\"-L" + prefixDir + "/bin\" "
-            #+ "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
+            "CFLAGS=\"-I" + prefixDir + "/include\" "
+            + "LDFLAGS=\"-L" + prefixDir + "/bin\" "
+            + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
             "cmake -G 'MSYS Makefiles' "
             + "-DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " "
-            #+ "-DASSIMP_BUILD_TESTS=NO "
+            + "-DASSIMP_BUILD_TESTS=NO "
             #+ "-DASSIMP_BUILD_ASSIMP_TOOLS=NO "
             + "-DASSIMP_ENABLE_BOOST_WORKAROUND=ON "
             + "-DBUILD_SHARED_LIBS=OFF",
