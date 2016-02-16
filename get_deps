@@ -837,12 +837,31 @@ GetDependency(
     build = [
         "cmake -G 'Unix Makefiles' "
         + "-DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " "
+        #+ "-DASSIMP_BUILD_TESTS=NO "
+        #+ "-DASSIMP_BUILD_ASSIMP_TOOLS=NO "
         + "-DASSIMP_ENABLE_BOOST_WORKAROUND=ON "
         + "-DBUILD_SHARED_LIBS=OFF",
         #+ "-DCMAKE_C_FLAGS=-fPIC -DCMAKE_CXX_FLAGS=-fPIC",
         "make " + make_jobs,
         "make install"
-    ]
+    ],
+    windows = {
+        "build": [
+            #"CC=gcc CXX=g++ "
+            #"CFLAGS=\"-I" + prefixDir + "/include\" "
+            #+ "LDFLAGS=\"-L" + prefixDir + "/bin\" "
+            #+ "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
+            "cmake -G 'MSYS Makefiles' "
+            + "-DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " "
+            #+ "-DASSIMP_BUILD_TESTS=NO "
+            #+ "-DASSIMP_BUILD_ASSIMP_TOOLS=NO "
+            + "-DASSIMP_ENABLE_BOOST_WORKAROUND=ON "
+            + "-DBUILD_SHARED_LIBS=OFF",
+            #+ "-DCMAKE_C_FLAGS=-fPIC -DCMAKE_CXX_FLAGS=-fPIC",
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
 )
 
 
