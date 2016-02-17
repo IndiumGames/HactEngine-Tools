@@ -5,6 +5,8 @@
 
 %{
     // Includes
+    #include "src/assetmanager.h"
+    #include "src/assetmanager_model.h"
     #include "src/audio.h"
     #include "src/audiomanager.h"
     #include "src/chronotime.h"
@@ -22,10 +24,10 @@
     #include "src/hierarchy.h"
     #include "src/input.h"
     #include "src/log.h"
+    #include "src/material.h"
     #include "src/mesh.h"
     #include "src/openglcontext.h"
     #include "src/property.h"
-    #include "src/resourcemanager.h"
     #include "src/scriptingengine.h"
     #include "src/shaderobject.h"
     #include "src/shaderprogram.h"
@@ -35,7 +37,6 @@
     #include "src/util.h"
     #include "src/util_openal.h"
     #include "src/util_opengl.h"
-    #include "src/util_x3d.h"
     #include "src/util_xml.h"
     #include "src/xmlelement.h"
 %}
@@ -98,6 +99,10 @@ namespace std {
 %template(EntityHierarchy)      Hierarchy<Entity, Container<Entity>>;
 %template(XmlElementHierarchy)  Hierarchy<XmlElement, OrderedContainer<XmlElement>>;
 
+
+// AssetManager
+%include "src/assetmanager.h"
+%include "src/assetmanager_model.h"
 
 // Audio and AudioManager
 %include "src/audio.h"
@@ -165,6 +170,9 @@ namespace std {
 // Logging
 %include "src/log.h"
 
+// Material
+%include "src/material.h"
+
 // Mesh
 %include "src/mesh.h"
 
@@ -173,9 +181,6 @@ namespace std {
 
 // Property
 %include "src/property.h"
-
-// ResourceManager
-%include "src/resourcemanager.h"
 
 // ScriptingEngine
 %include "src/scriptingengine.h"
@@ -197,7 +202,6 @@ namespace std {
 %include "src/util.h"
 %include "src/util_openal.h"
 %include "src/util_opengl.h"
-%include "src/util_x3d.h"
 %include "src/util_xml.h"
 
 // XmlElement

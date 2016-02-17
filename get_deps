@@ -600,11 +600,11 @@ GetDependency(
 
 # Get OpenAL Soft binaries (Windows)
 GetDependency(
-    "openal-soft-1.16.0-bin",
+    "openal-soft-1.17.2-bin",
     windows = {
         "download": [
-            "curl -sLO http://kcat.strangesoft.net/openal-soft-1.16.0-bin.zip",
-            "unzip -o openal-soft-1.16.0-bin.zip"
+            "curl -sLO http://kcat.strangesoft.net/openal-binaries/openal-soft-1.17.2-bin.zip",
+            "unzip -o openal-soft-1.17.2-bin.zip"
         ]
     }
 )
@@ -680,13 +680,36 @@ GetDependency(
     }
 )
 
+
+# Get and compile Minizip
+# NOTE: Minizip's website hasn't been updated in over 10 years, and the
+#       "official" package doesn't compile on MSYS2. The below package is from:
+#       http://www.gaia-gis.it/gaia-sins/mingw64_how_to.html#minizip
+GetDependency(
+    "minizip-1.2.8",
+    windows = {
+        "download": [
+            "curl -sLO http://www.gaia-gis.it/gaia-sins/dataseltzer-sources/minizip-1.2.8.tar.gz",
+            "tar xf minizip-1.2.8.tar.gz"
+        ],
+        "build": [
+            "CFLAGS=\"-I" + prefixDir + "/include\" "
+            + "LDFLAGS=\"-L" + prefixDir + "/lib\" "
+            + "./configure --prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
+)
+
+
 # Get and compile libpng (needed by SDL2_image)
 GetDependency(
-    "libpng-1.6.19",
+    "libpng-1.6.21",
     download = [
         "curl -sLO ftp://ftp.simplesystems.org/pub/libpng/png/src/"
-        + "libpng16/libpng-1.6.19.tar.gz",
-        "tar xf libpng-1.6.19.tar.gz"
+        + "libpng16/libpng-1.6.21.tar.gz",
+        "tar xf libpng-1.6.21.tar.gz"
     ],
     linux = {
         "build": [
@@ -823,6 +846,41 @@ GetDependency(
             + "./configure "
             + msysFlags
             + "--prefix=" + prefixDir,
+            "make " + make_jobs,
+            "make install"
+        ]
+    }
+)
+
+
+# Get and compile Assimp
+GetDependency(
+    "assimp-3.2-git",
+    git = "https://github.com/assimp/assimp.git",
+    build = [
+        "cmake -G 'Unix Makefiles' "
+        + "-DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " "
+        #+ "-DASSIMP_BUILD_TESTS=NO "
+        #+ "-DASSIMP_BUILD_ASSIMP_TOOLS=NO "
+        + "-DASSIMP_ENABLE_BOOST_WORKAROUND=ON "
+        + "-DBUILD_SHARED_LIBS=OFF",
+        #+ "-DCMAKE_C_FLAGS=-fPIC -DCMAKE_CXX_FLAGS=-fPIC",
+        "make " + make_jobs,
+        "make install"
+    ],
+    windows = {
+        "build": [
+            #"CC=gcc CXX=g++ "
+            "CFLAGS=\"-I" + prefixDir + "/include\" "
+            + "LDFLAGS=\"-L" + prefixDir + "/bin\" "
+            + "C_INCLUDE_PATH=\"" + prefixDir + "/include\" "
+            "cmake -G 'MSYS Makefiles' "
+            + "-DCMAKE_INSTALL_PREFIX:PATH=" + prefixDir + " "
+            + "-DASSIMP_BUILD_TESTS=NO "
+            #+ "-DASSIMP_BUILD_ASSIMP_TOOLS=NO "
+            + "-DASSIMP_ENABLE_BOOST_WORKAROUND=ON "
+            + "-DBUILD_SHARED_LIBS=OFF",
+            #+ "-DCMAKE_C_FLAGS=-fPIC -DCMAKE_CXX_FLAGS=-fPIC",
             "make " + make_jobs,
             "make install"
         ]
