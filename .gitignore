@@ -9,9 +9,6 @@
 # Ignore makefiles
 Makefile
 
-# Ignore automatically generated files from SWIG
-*wrap.cxx
-
 # Ignore core dumps
 core
 
@@ -24,7 +21,4 @@ temp*
 # Ignore logs
 logs/
 *.log
-
-# Ignore SWIG cache
-swig/.swig-cache/
 
